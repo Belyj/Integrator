@@ -1,5 +1,7 @@
 package ru.handbook.model.storage;
 
+import ru.handbook.model.objects.Contact;
+import ru.handbook.model.objects.Group;
 import ru.handbook.view.contactview.Observer;
 
 import java.util.ArrayList;
@@ -10,7 +12,8 @@ public class DataStorage implements Observable {
     private static final long serialVersionUID = -8322155900638738350L;
     private static volatile DataStorage instance;
     private List<Observer> observers = new ArrayList();
-    private List<String> contacts = new ArrayList();
+    private List<Contact> contacts = new ArrayList();
+    private List<Group> groups = new ArrayList();
 
     private DataStorage() {
     }
@@ -40,6 +43,22 @@ public class DataStorage implements Observable {
 
     public void deleteGroup() {
         System.out.println("Удалена группа");
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     public void addObserver(Observer observer) {

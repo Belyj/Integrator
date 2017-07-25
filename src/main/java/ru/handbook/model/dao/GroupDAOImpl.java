@@ -1,33 +1,35 @@
 package ru.handbook.model.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import ru.handbook.model.objects.Group;
+import ru.handbook.model.storage.DataStorage;
 
 public class GroupDAOImpl implements ObjectDAO {
 
-    private String name;
-    private List<String> groupContacts;
+    DataStorage source = DataStorage.getInstance();
 
-    public GroupDAOImpl() {
-        setName();
-        groupContacts = new ArrayList();
+    public Group search(String name) {
+        for (Group group : source.getGroups()) {
+            if (group.getName().equals(name)) {
+                System.out.println(group.getName());
+                return group;
+            }
+        }
+        System.out.println("Группы не существует");
+        return null;
     }
 
-    public void setName() {
-        Scanner scanner = new Scanner(System.in);
-        name = scanner.next();
+    public void update(String name, String newName) {
+        search(name).setName(newName);
     }
 
-    public String getName() {
-        return name;
+    public void delete(String name) {
+        Group deletedGroup = search(name);
+        source.getGroups().remove(deletedGroup);
     }
 
-    public void setIn(ContactDAOImpl object) {
-        groupContacts.add(object.getName());
-    }
-
-    public List<String> getOut() {
-        return groupContacts;
+    public void check() {
+        for (Group group : source.getGroups()) {
+            System.out.println(group.getName());
+        }
     }
 }

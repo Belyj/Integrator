@@ -4,11 +4,31 @@ import java.util.List;
 
 public interface ObjectDAO {
 
-    void setName();
+    /**
+     * <p>Поиск сущности</p>
+     *
+     * @param name поиск по имени
+     *
+     * @return T возвращает объект
+     */
+    Object search(String name);
 
-    String getName();
+    /**
+     * <p>Обновить поля сущности, используется клонирование при поиске</p>
+     *
+     * @param name поиск по имени
+     */
+    void update(String name, String newName);
 
-    //void setIn(ObjectDAO object);
+    /**
+     * <p>Удаление сущности, используется клонирование при поиске</p>
+     *
+     * @param name поиск по имени
+     */
+    void delete(String name) throws CloneNotSupportedException;
 
-    List<String> getOut();
+    /**
+     * <p>Просмотр всех сущностей данного типа</p>
+     */
+    void check();
 }
