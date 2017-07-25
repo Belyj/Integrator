@@ -2,7 +2,7 @@ package ru.handbook.controller;
 
 import ru.handbook.model.storage.DataStorage;
 
-public class MenuControllerDAOImpl implements ContactControllerDAO, GroupControllerDAO {
+public class MenuController implements ContactController, GroupController {
 
     DataStorage source = DataStorage.getInstance();
     public void createContact() {

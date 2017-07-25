@@ -1,6 +1,6 @@
 package ru.handbook.controller;
 
-public interface GroupControllerDAO {
+public interface GroupController {
 
     void createGroup();
 

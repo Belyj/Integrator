@@ -1,12 +1,12 @@
 package ru.handbook.view;
 
-import ru.handbook.controller.MenuControllerDAOImpl;
+import ru.handbook.controller.MenuController;
 
 import java.util.Scanner;
 
 public class Menu {
 
-    MenuControllerDAOImpl controller = new MenuControllerDAOImpl();
+    MenuController controller = new MenuController();
     boolean flag = true;
 
     public Menu() {

@@ -1,6 +1,6 @@
 package ru.handbook.controller;
 
-public interface ContactControllerDAO {
+public interface ContactController {
 
     void createContact();
 
