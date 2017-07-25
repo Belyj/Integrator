@@ -2,33 +2,36 @@ package ru.handbook.model.dao;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
 
-public class ContactDAOImpl implements ObjectDAO {
+import java.util.List;
+
+public class ContactDAOImpl implements ObjectDAO<Contact> {
 
     DataStorage source = DataStorage.getInstance();
+    List<Contact> contactsBase = source.getContacts();
 
-    public Contact search(String name) {
-        for (Contact contact : source.getContacts()) {
-            if (contact.getName().equals(name)) {
+    public Contact search(Contact c) {
+        for (Contact contact : contactsBase) {
+            if (contact.equals(c)) {
                 System.out.println(contact.getName());
                 return contact;
             }
         }
-        System.out.println("Контакта не существует");
         return null;
     }
 
-    public void update(String name, String newName) {
-        search(name).setName(newName);
+    public void update(Contact c, String newName) {
+        c.setName(newName);
     }
 
-    public void delete(String name) throws CloneNotSupportedException {
-        Contact deletedContact = search(name);
-        source.getGroups().remove(deletedContact);
+    public void delete(Contact c) {
+        contactsBase.remove(c);
     }
 
-    public void check() {
-        for (Contact contact : source.getContacts()) {
-            System.out.println(contact.getName());
-        }
+    public List<Contact> check() {
+        return contactsBase;
+    }
+
+    public void create() {
+        source.setContact( new Contact());
     }
 }

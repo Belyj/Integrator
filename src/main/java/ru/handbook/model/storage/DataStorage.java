@@ -29,36 +29,45 @@ public class DataStorage implements Observable {
         return instance;
     }
 
-    public void createContact() {
-        System.out.println("Созан контакт");
-    }
+    public void setContact(Contact contact) {
 
-    public void createGroup() {
-        System.out.println("Созана группа");
-    }
-
-    public void deleteContact() {
-        System.out.println("Удален контакт");
-    }
-
-    public void deleteGroup() {
-        System.out.println("Удалена группа");
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
+        contacts.add(contact);
     }
 
     public List<Contact> getContacts() {
         return contacts;
     }
 
+    public Contact getContactByName(String name) {
+        Contact searcheble;
+        for (Contact contact: contacts) {
+            if (contact.getName().equals(name)) {
+                searcheble = contact;
+                return searcheble;
+            }
+        }
+        System.out.println("Контак с таким именем не существует");
+        return null;
+    }
+
     public List<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public Group getGroupByName(String name) {
+        Group searcheble;
+        for (Group group: groups) {
+            if (group.getName().equals(name)) {
+                searcheble = group;
+                return searcheble;
+            }
+        }
+        System.out.println("Контак с таким именем не существует");
+        return null;
+    }
+
+    public void setGroup(Group group) {
+        groups.add(group);
     }
 
     public void addObserver(Observer observer) {

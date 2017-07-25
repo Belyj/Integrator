@@ -3,13 +3,16 @@ package ru.handbook.model.dao;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
 
-public class GroupDAOImpl implements ObjectDAO {
+import java.util.List;
+
+public class GroupDAOImpl implements ObjectDAO<Group> {
 
     DataStorage source = DataStorage.getInstance();
+    List<Group> groupsBase = source.getGroups();
 
-    public Group search(String name) {
-        for (Group group : source.getGroups()) {
-            if (group.getName().equals(name)) {
+    public Group search(Group g) {
+        for (Group group : groupsBase) {
+            if (group.equals(g)) {
                 System.out.println(group.getName());
                 return group;
             }
@@ -18,18 +21,24 @@ public class GroupDAOImpl implements ObjectDAO {
         return null;
     }
 
-    public void update(String name, String newName) {
-        search(name).setName(newName);
+    public void update(Group g, String newName) {
+        Group updateGroup = search(g);
+        updateGroup.setName(newName);
     }
 
-    public void delete(String name) {
-        Group deletedGroup = search(name);
-        source.getGroups().remove(deletedGroup);
+    public void delete(Group g) {
+        Group deletedGroup = search(g);
+        groupsBase.remove(deletedGroup);
     }
 
-    public void check() {
-        for (Group group : source.getGroups()) {
+    public List<Group> check() {
+        for (Group group : groupsBase) {
             System.out.println(group.getName());
         }
+        return source.getGroups();
+    }
+
+    public void create() {
+        source.setGroup( new Group());
     }
 }

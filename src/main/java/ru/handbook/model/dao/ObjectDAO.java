@@ -1,34 +1,43 @@
 package ru.handbook.model.dao;
 
+import sun.net.www.content.text.Generic;
+
 import java.util.List;
 
-public interface ObjectDAO {
+public interface ObjectDAO<T> {
+
+    /**
+     * <p>Создание новго объекта</p>
+     */
+    void create();
 
     /**
      * <p>Поиск сущности</p>
      *
-     * @param name поиск по имени
-     *
+     * @param t поиск по объекту
      * @return T возвращает объект
      */
-    Object search(String name);
+    T search(T t);
 
     /**
      * <p>Обновить поля сущности, используется клонирование при поиске</p>
      *
-     * @param name поиск по имени
+     * @param t поиск по объекту
+     * @param newName новое имя
      */
-    void update(String name, String newName);
+    void update(T t, String newName);
 
     /**
-     * <p>Удаление сущности, используется клонирование при поиске</p>
+     * <p>Удаление сущности</p>
      *
-     * @param name поиск по имени
+     * @param t поиск по объекту
      */
-    void delete(String name) throws CloneNotSupportedException;
+    void delete(T t);
 
     /**
      * <p>Просмотр всех сущностей данного типа</p>
+     *
+     * @return T возвращает список всех сущностей
      */
-    void check();
+    List<T> check();
 }

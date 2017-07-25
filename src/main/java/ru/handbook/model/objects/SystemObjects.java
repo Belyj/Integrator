@@ -2,7 +2,7 @@ package ru.handbook.model.objects;
 
 import java.util.List;
 
-public interface Objects {
+public interface SystemObjects {
 
     /**
      * <p>Поменять имя</p>
@@ -23,12 +23,12 @@ public interface Objects {
      *
      * @return String список
      */
-    public List<String> getInner();
+    List<String> getInner();
 
     /**
      * <p>Обновить список контактов</p>
      *
      * @param list список
      */
-    public void setInner(List<String> list);
+    void setInner(List<String> list);
 }
