@@ -3,6 +3,8 @@ package ru.handbook.view;
 import ru.handbook.controller.MenuController;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
+import ru.handbook.model.storage.DataStorage;
+import ru.handbook.view.contactview.ContactView;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +14,12 @@ public class Menu {
     MenuController controller = new MenuController();
     boolean flag = true;
     Scanner scanner = new Scanner(System.in);
+    ContactView contactView = new ContactView();
 
     public Menu() {
         while (flag) {
+//            contactView.repaint();
+            contactView.handleEvent(DataStorage.getInstance().getContacts());
             menuList();
             menuCommand(keepCommand());
         }

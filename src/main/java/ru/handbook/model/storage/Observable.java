@@ -2,7 +2,9 @@ package ru.handbook.model.storage;
 
 import ru.handbook.view.contactview.Observer;
 
-public interface Observable {
+import java.io.Serializable;
+
+public interface Observable extends Serializable {
 
     /**
      *<p>Добавление нового подписчика</p>

@@ -1,4 +1,4 @@
-package ru.handbook.dao.daoimpl;
+package ru.handbook.dao.daoimpl.productdao;
 import ru.handbook.dao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;

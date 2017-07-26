@@ -1,6 +1,7 @@
 package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.daoimpl.ContactDAOImpl;
+import ru.handbook.dao.daoimpl.factorydao.ContactFactoryDAOImpl;
+import ru.handbook.dao.daoimpl.productdao.ContactDAOImpl;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.services.ContactService;
 
@@ -8,7 +9,8 @@ import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
 
-    ContactDAOImpl contactDAO = new ContactDAOImpl();
+    ContactFactoryDAOImpl contactFactoryDAO = new ContactFactoryDAOImpl();
+    ContactDAOImpl contactDAO = contactFactoryDAO.factoryMethod();
 
     public Contact createContact(Contact contact) {
         return contactDAO.create(contact);

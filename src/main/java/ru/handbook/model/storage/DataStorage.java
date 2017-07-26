@@ -2,8 +2,12 @@ package ru.handbook.model.storage;
 
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
+import ru.handbook.model.utilites.serialization.standart.StandartDeserializer;
 import ru.handbook.view.contactview.Observer;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +18,7 @@ public class DataStorage implements Observable {
     private List<Observer> observers = new ArrayList();
     private List<Contact> contacts = new ArrayList();
     private List<Group> groups = new ArrayList();
+    static StandartDeserializer deserializer = new StandartDeserializer();
 
     private DataStorage() {
     }
@@ -22,7 +27,16 @@ public class DataStorage implements Observable {
         if (instance == null) {
             synchronized (DataStorage.class) {
                 if (instance == null) {
-                    instance = new DataStorage();
+//                    instance = new DataStorage();
+                    if (new File("temp.out").exists()) {
+                        try {
+                            instance = (DataStorage) deserializer.createOIS().readObject();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } else instance = new DataStorage();
                 }
             }
         }

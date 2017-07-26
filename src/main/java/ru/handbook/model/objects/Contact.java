@@ -1,10 +1,12 @@
 package ru.handbook.model.objects;
 
 import ru.handbook.model.utilites.IdGenerator;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Contact {
+public class Contact implements Serializable {
 
     private String name;
     private int id;
