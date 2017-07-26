@@ -7,13 +7,25 @@ import java.util.Scanner;
 public class Contact implements SystemObjects {
 
     private String name;
+    private int id;
     private List<String> contactGroups;
     Scanner scanner = new Scanner(System.in);
 
     void Contact() {
-        System.out.println("Введите имя");
-        setName(scanner.next());
+    }
+
+    void Contact(int id, String name) {
+        this.id = id;
+        this.name = name;
         contactGroups = new ArrayList();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {

@@ -8,8 +8,10 @@ public interface ObjectDAO<T> {
 
     /**
      * <p>Создание новго объекта</p>
+     *
+     * @param t поиск по объекту
      */
-    void create();
+    void create(T t);
 
     /**
      * <p>Поиск сущности</p>
