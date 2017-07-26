@@ -40,7 +40,7 @@ public class DataStorage implements Observable {
 
     public Contact getContactByName(String name) {
         Contact searcheble;
-        for (Contact contact: contacts) {
+        for (Contact contact : contacts) {
             if (contact.getName().equals(name)) {
                 searcheble = contact;
                 return searcheble;
@@ -48,11 +48,6 @@ public class DataStorage implements Observable {
         }
         System.out.println("Контак с таким именем не существует");
         return null;
-    }
-
-    public Contact deleteByName(Contact contact) {
-
-        return contact;
     }
 
     public List<Group> getGroups() {

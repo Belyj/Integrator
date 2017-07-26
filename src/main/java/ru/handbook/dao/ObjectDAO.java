@@ -1,7 +1,4 @@
 package ru.handbook.dao;
-
-import sun.net.www.content.text.Generic;
-
 import java.util.List;
 
 public interface ObjectDAO<T> {

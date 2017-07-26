@@ -1,24 +1,38 @@
 package ru.handbook.controller;
 
+import ru.handbook.model.objects.Group;
+import java.util.List;
+
 public interface GroupController {
 
     /**
      * <p>Создание новогой группы</p>
+     *
+     * @param group принемает группу
+     * @return Group возвращает группу
      */
-    void createGroup();
+    Group createGroup(Group group);
 
     /**
      * <p>удаление контакта</p>
+     *
+     * @param group принемает группу
+     * @return Group возвращает группу
      */
-    void deleteGroup();
+    Group deleteGroup(Group group);
 
     /**
      * <p>Обновление контакта</p>
+     *
+     * @param group принемает группу
+     * @return Group возвращает группу
      */
-    void updateGroup();
+    Group updateGroup(Group group);
 
     /**
      * <p>Просмотр всех контактов</p>
+     *
+     * @return Group возвращает список групп
      */
-    void checkGroups();
+    List<Group> checkGroups();
 }

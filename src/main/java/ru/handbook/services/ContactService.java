@@ -1,7 +1,6 @@
 package ru.handbook.services;
 
 import ru.handbook.model.objects.Contact;
-
 import java.util.List;
 
 public interface ContactService {

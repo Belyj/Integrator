@@ -2,10 +2,8 @@ package ru.handbook.services;
 
 import ru.handbook.dao.ContactDAOImpl;
 import ru.handbook.model.objects.Contact;
-import ru.handbook.model.objects.Group;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class ContactServiceImpl implements ContactService {
 

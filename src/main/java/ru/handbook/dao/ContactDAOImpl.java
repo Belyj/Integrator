@@ -10,8 +10,8 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
     DataStorage source = DataStorage.getInstance();
     List<Contact> contactsBase = source.getContacts();
 
-    public void delete(Contact c) {
-        Contact deleteContact = getByName(c);
+    public void delete(Contact contact) {
+        Contact deleteContact = getByName(contact);
         contactsBase.remove(deleteContact);
     }
 
@@ -28,9 +28,6 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     public Contact update(Contact contact) {
-        Contact c = getByName(contact);
-        System.out.println("Введите новое имя");
-        c.setName(new Scanner(System.in).nextLine());
-        return c;
+        return contact;
     }
 }

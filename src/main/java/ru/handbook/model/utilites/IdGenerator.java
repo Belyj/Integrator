@@ -15,8 +15,8 @@ public class IdGenerator {
         int max = 1;
         for (Contact contact : source.getContacts()) {
             if (contact != null) {
-                if (max < contact.getId() % 10) {
-                    max = contact.getId() % 10;
+                if (max <= contact.getId() % 10) {
+                    max = contact.getId() % 10 + 1;
                 }
             }
         }
@@ -27,8 +27,8 @@ public class IdGenerator {
         int max = 1;
         for (Group group : source.getGroups()) {
             if (group != null) {
-                if (max < group.getId() % 10) {
-                    max = group.getId() % 10;
+                if (max <= group.getId() % 10) {
+                    max = group.getId() % 10 + 1;
                 }
             }
         }

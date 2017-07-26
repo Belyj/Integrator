@@ -10,7 +10,7 @@ public class GroupServiceImpl implements GroupService {
     GroupDAOImpl groupDAO = new GroupDAOImpl();
 
     public List<Group> getAllGroups() {
-        return null;
+        return groupDAO.getAll();
     }
 
     public Group createGroup(Group group) {
@@ -22,11 +22,14 @@ public class GroupServiceImpl implements GroupService {
         return groupDAO.getByName(group);
     }
 
-    public Group deleteGroup(Group group) {
-        return null;
+    public Group updateGroup(Group group) {
+        System.out.println(groupDAO.update(group).getName());
+        return group;
     }
 
-    public Group updateGroup(Group group) {
-        return null;
+    public Group deleteGroup(Group group) {
+        groupDAO.delete(group);
+        System.out.println("группа удалена");
+        return group;
     }
 }

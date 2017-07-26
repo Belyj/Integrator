@@ -1,7 +1,6 @@
 package ru.handbook.model.objects;
 
 import ru.handbook.model.utilites.IdGenerator;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class Group {
     private int id;
     private List<String> groupContacts;
 
-    void Group() {
+    public Group() {
         id = Integer.parseInt(new IdGenerator().generateGroupId());
         groupContacts = new ArrayList();
     }

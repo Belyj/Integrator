@@ -1,7 +1,6 @@
 package ru.handbook.model.objects;
 
 import ru.handbook.model.utilites.IdGenerator;
-
 import java.util.ArrayList;
 import java.util.List;
 
