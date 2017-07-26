@@ -29,9 +29,9 @@ public class DataStorage implements Observable {
         return instance;
     }
 
-    public void setContact(Contact contact) {
-
+    public Contact setContact(Contact contact) {
         contacts.add(contact);
+        return getContactByName(contact.getName());
     }
 
     public List<Contact> getContacts() {
@@ -66,8 +66,9 @@ public class DataStorage implements Observable {
         return null;
     }
 
-    public void setGroup(Group group) {
+    public Group setGroup(Group group) {
         groups.add(group);
+        return getGroupByName(group.getName());
     }
 
     public void addObserver(Observer observer) {

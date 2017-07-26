@@ -22,77 +22,106 @@ public class Menu {
 
     private void menuList() {
         System.out.println("Введите команду");
-        System.out.println("1: Создать контакт\n" +
-                            "2: Создать группу\n" +
-                            "3: Найти контакт\n" +
-                            "4: Найти группу\n" +
-                            "5: Удалить контакт\n" +
-                            "6: Удалить группу\n" +
-                            "7: Обновить контакт\n" +
-                            "8: Обновить группу\n" +
-                            "9: просмотреть все контакты\n" +
-                            "10: просмотреть все группы\n" +
-                            "11: Выход");
+        System.out.println("0: Создать контакт\n" +
+                            "1: Создать группу\n" +
+                            "2: Найти контакт\n" +
+                            "3: Найти группу\n" +
+                            "4: Удалить контакт\n" +
+                            "5: Удалить группу\n" +
+                            "6: Обновить контакт\n" +
+                            "7: Обновить группу\n" +
+                            "8: Добавить в группу\n" +
+                            "9: Удалить из группы\n" +
+                            "10: просмотреть все контакты\n" +
+                            "11: просмотреть все группы\n" +
+                            "12: Выход");
     }
 
     private int keepCommand() {
         int command;
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
-            command = Integer.parseInt(scanner.nextLine());
-        } else command = 0;
+            command = scanner.nextInt();
+        } else command = -1;
         return command;
     }
 
     private void menuCommand(int command) {
         Contact contact;
         Group group;
+        List<Contact> contacts;
         switch (command) {
-            case 1:
+            case 0:
                 contact = controller.createContact(initializeConract());
                 System.out.println(contact.getName() + " создан");
                 break;
-            case 2:
+            case 1:
                 group = controller.createGroup(initializeGroup());
                 System.out.println(group.getName() + " создана");
                 break;
+            case 2:
+                contact = controller.searchContact(initializeConract());
+                if (contact != null) {
+                    System.out.println(contact.getName() + " " +  contact.getId());
+                } else System.out.println("Контакт не существует");
+                break;
             case 3:
-                 contact = controller.searchContact(initializeConract());
-                System.out.println(contact.getName() + " " +  contact.getId());
+                group = controller.searchGroup(initializeGroup());
+                if (group != null) {
+                    System.out.println(group.getName() + " " + group.getId());
+                    for (Contact innerContact : group.getInner()) {
+                        System.out.println(innerContact.getName());
+                    }
+                } else System.out.println("Группа не существует");
                 break;
             case 4:
-                group = controller.searchGroup(initializeGroup());
-                System.out.println(group.getName() + " " + group.getId());
-                break;
-            case 5:
                 contact = controller.deleteContact(initializeConract());
                 System.out.println(contact.getName() + " удален");
                 break;
-            case 6:
+            case 5:
                 group = controller.deleteGroup(initializeGroup());
                 System.out.println(group.getName() + " удалена");
                 break;
-            case 7:
+            case 6:
                 contact = controller.updateContact(initializeConract());
                 System.out.println(contact.getName() + " обновлен");
                 break;
-            case 8:
+            case 7:
                 group = controller.updateGroup(initializeGroup());
                 System.out.println(group.getName() + " обновлена");
                 break;
+            case 8:
+                contact = controller.searchContact(initializeConract());
+                group = controller.searchGroup(initializeGroup());
+                contacts = group.getInner();
+                contacts.add(contact);
+                group.setInner(contacts);
+                System.out.println(contact.getName() + " добавлен в группу " + group.getName());
+                break;
             case 9:
-                List<Contact> contacts = controller.checkContacts();
+                contact = controller.searchContact(initializeConract());
+                group = controller.searchGroup(initializeGroup());
+                contacts = group.getInner();
+                contacts.remove(contact);
+                group.setInner(contacts);
+                System.out.println(contact.getName() + " удален из группы " + group.getName());
+                break;
+            case 10:
+                contacts = controller.checkContacts();
                 for (Contact gettingContact : contacts) {
                     System.out.println(gettingContact.getName() + " " + gettingContact.getId());
                 }
                 break;
-            case 10:
+            case 11:
                 List<Group> groups = controller.checkGroups();
                 for (Group gettingGroup : groups) {
                     System.out.println(gettingGroup.getName() + " " + gettingGroup.getId());
+                    for (Contact innerContact : gettingGroup.getInner()) {
+                        System.out.println(innerContact.getName());
+                    }
                 }
                 break;
-            case 11:
+            case 12:
                 flag = false;
                 break;
             default:
@@ -102,14 +131,14 @@ public class Menu {
 
     Contact initializeConract() {
         Contact contact = new Contact();
-        System.out.println("Введите имя");
+        System.out.println("Введите имя контакта");
         contact.setName(scanner.nextLine());
         return contact;
     }
 
     Group initializeGroup() {
         Group group = new Group();
-        System.out.println("Введите имя");
+        System.out.println("Введите имя группы");
         group.setName(scanner.nextLine());
         return group;
     }

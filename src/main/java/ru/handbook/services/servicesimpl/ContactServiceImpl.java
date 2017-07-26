@@ -1,7 +1,8 @@
-package ru.handbook.services;
+package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.ContactDAOImpl;
+import ru.handbook.dao.daoimpl.ContactDAOImpl;
 import ru.handbook.model.objects.Contact;
+import ru.handbook.services.ContactService;
 
 import java.util.List;
 
@@ -10,8 +11,7 @@ public class ContactServiceImpl implements ContactService {
     ContactDAOImpl contactDAO = new ContactDAOImpl();
 
     public Contact createContact(Contact contact) {
-        contactDAO.create(contact);
-        return contact;
+        return contactDAO.create(contact);
     }
 
     public Contact getContact(Contact contact) {
@@ -19,14 +19,11 @@ public class ContactServiceImpl implements ContactService {
     }
 
     public Contact deleteContact(Contact contact) {
-        contactDAO.delete(contact);
-        System.out.println("контакт удален");
-        return contact;
+        return contactDAO.delete(contact);
     }
 
     public Contact updateContact(Contact contact) {
-        System.out.println(contactDAO.update(contact).getName());
-        return contact;
+        return contactDAO.update(contact);
     }
 
     public List<Contact> getAllContacts() {

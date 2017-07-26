@@ -2,8 +2,8 @@ package ru.handbook.controller;
 
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
-import ru.handbook.services.ContactServiceImpl;
-import ru.handbook.services.GroupServiceImpl;
+import ru.handbook.services.servicesimpl.ContactServiceImpl;
+import ru.handbook.services.servicesimpl.GroupServiceImpl;
 
 import java.util.List;
 

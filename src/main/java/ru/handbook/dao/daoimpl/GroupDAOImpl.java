@@ -1,4 +1,5 @@
-package ru.handbook.dao;
+package ru.handbook.dao.daoimpl;
+import ru.handbook.dao.ObjectDAO;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
 
@@ -15,19 +16,26 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
     }
 
     public Group update(Group group) {
-        return group;
+        int id = source.getGroupByName(group.getName()).getId();
+        source.getGroups().remove(source.getGroupByName(group.getName()));
+        System.out.println("Введите новое имя");
+        group.setName(new Scanner(System.in).nextLine());
+        group.setId(id);
+        source.getGroups().add(group);
+        return source.getGroupByName(group.getName());
     }
 
-    public void delete(Group group) {
+    public Group delete(Group group) {
         Group deletedGroup = getByName(group);
         groupsBase.remove(deletedGroup);
+        return deletedGroup;
     }
 
     public List<Group> getAll() {
         return groupsBase;
     }
 
-    public void create(Group group) {
-        source.setGroup(group);
+    public Group create(Group group) {
+        return source.setGroup(group);
     }
 }

@@ -1,7 +1,8 @@
-package ru.handbook.services;
+package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.GroupDAOImpl;
+import ru.handbook.dao.daoimpl.GroupDAOImpl;
 import ru.handbook.model.objects.Group;
+import ru.handbook.services.GroupService;
 
 import java.util.List;
 
@@ -14,8 +15,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public Group createGroup(Group group) {
-        groupDAO.create(group);
-        return group;
+        return groupDAO.create(group);
     }
 
     public Group getGroup(Group group) {
@@ -23,13 +23,10 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public Group updateGroup(Group group) {
-        System.out.println(groupDAO.update(group).getName());
-        return group;
+        return groupDAO.update(group);
     }
 
     public Group deleteGroup(Group group) {
-        groupDAO.delete(group);
-        System.out.println("группа удалена");
-        return group;
+        return groupDAO.delete(group);
     }
 }

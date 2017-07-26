@@ -7,8 +7,9 @@ public interface ObjectDAO<T> {
      * <p>Создание новго объекта</p>
      *
      * @param t поиск по объекту
+     * @return T возвращает созданный объект
      */
-    void create(T t);
+    T create(T t);
 
     /**
      * <p>Поиск сущности</p>
@@ -30,8 +31,9 @@ public interface ObjectDAO<T> {
      * <p>Удаление сущности</p>
      *
      * @param t поиск по объекту
+     * @return T возвращает удаленный объект
      */
-    void delete(T t);
+    T delete(T t);
 
     /**
      * <p>Просмотр всех сущностей данного типа</p>
