@@ -1,38 +1,37 @@
 package ru.handbook.services;
 
-import ru.handbook.model.dao.ObjectDAO;
+import ru.handbook.dao.ContactDAOImpl;
 import ru.handbook.model.objects.Contact;
+import ru.handbook.model.objects.Group;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ContactServiceImpl implements ContactService {
 
-    ObjectDAO<Contact> contactDAO;
-
-    public List<Contact> getAllContacts() {
-        return contactDAO.check();
-    }
+    ContactDAOImpl contactDAO = new ContactDAOImpl();
 
     public Contact createContact(Contact contact) {
-        return  contactDAO.create();
+        contactDAO.create(contact);
+        return contact;
     }
 
-    public Contact searchContact(Contact contact) {
-        if (contactDAO.search(contact) != null) {
-            return contactDAO.search(contact);
-        } else {
-            System.out.println("Контакта не существует");
-            return null;
-        }
+    public Contact getContact(Contact contact) {
+        return contactDAO.getByName(contact);
     }
 
     public Contact deleteContact(Contact contact) {
-        Contact deletedContact = searchContact(contact);
-        contactDAO.delete(deletedContact);
+        contactDAO.delete(contact);
+        System.out.println("контакт удален");
+        return contact;
     }
 
     public Contact updateContact(Contact contact) {
-        Contact updateContact = searchContact(contact);
-        return contactDAO.update(updateContact);
+        System.out.println(contactDAO.update(contact).getName());
+        return contact;
+    }
+
+    public List<Contact> getAllContacts() {
+        return contactDAO.getAll();
     }
 }

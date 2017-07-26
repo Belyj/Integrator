@@ -4,19 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Contact implements SystemObjects {
+public class Contact {
 
     private String name;
     private int id;
     private List<String> contactGroups;
-    Scanner scanner = new Scanner(System.in);
 
-    void Contact() {
-    }
-
-    void Contact(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Contact() {
         contactGroups = new ArrayList();
     }
 

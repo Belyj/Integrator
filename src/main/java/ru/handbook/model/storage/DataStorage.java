@@ -50,6 +50,11 @@ public class DataStorage implements Observable {
         return null;
     }
 
+    public Contact deleteByName(Contact contact) {
+
+        return contact;
+    }
+
     public List<Group> getGroups() {
         return groups;
     }

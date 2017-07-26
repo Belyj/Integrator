@@ -8,7 +8,7 @@ public class ContactView implements Observer {
 
     public void handleEvent(List<Contact> contacts) {
         for (Contact contact : contacts) {
-            System.out.println(contact.getName());
+            System.out.println("");
         }
     }
 }

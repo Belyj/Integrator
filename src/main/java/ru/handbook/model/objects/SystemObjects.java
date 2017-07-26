@@ -10,7 +10,6 @@ public interface SystemObjects {
      * @param name с именем
      */
     void setName(String name);
-
     /**
      * <p>Взять имя</p>
      *

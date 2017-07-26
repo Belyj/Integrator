@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Group implements SystemObjects {
+public class Group {
 
     private String name;
     private int id;
     private List<String> groupContacts;
-    Scanner scanner = new Scanner(System.in);
 
     void Group() {
-        System.out.println("Введите имя");
-        setName(scanner.next());
         groupContacts = new ArrayList();
     }
 

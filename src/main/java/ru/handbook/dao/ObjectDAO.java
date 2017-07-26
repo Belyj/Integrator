@@ -1,4 +1,4 @@
-package ru.handbook.model.dao;
+package ru.handbook.dao;
 
 import sun.net.www.content.text.Generic;
 
@@ -19,15 +19,15 @@ public interface ObjectDAO<T> {
      * @param t поиск по объекту
      * @return T возвращает объект
      */
-    T search(T t);
+    T getByName(T t);
 
     /**
      * <p>Обновить поля сущности, используется клонирование при поиске</p>
      *
      * @param t поиск по объекту
-     * @param newName новое имя
+     * @return T возвращает объект
      */
-    void update(T t, String newName);
+    T update(T t);
 
     /**
      * <p>Удаление сущности</p>
@@ -41,5 +41,5 @@ public interface ObjectDAO<T> {
      *
      * @return T возвращает список всех сущностей
      */
-    List<T> check();
+    List<T> getAll();
 }
