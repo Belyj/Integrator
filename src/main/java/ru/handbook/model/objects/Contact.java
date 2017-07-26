@@ -1,8 +1,9 @@
 package ru.handbook.model.objects;
 
+import ru.handbook.model.utilites.IdGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Contact {
 
@@ -11,15 +12,12 @@ public class Contact {
     private List<String> contactGroups;
 
     public Contact() {
+        id = Integer.parseInt(new IdGenerator().generateContactId());
         contactGroups = new ArrayList();
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {
