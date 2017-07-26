@@ -8,7 +8,7 @@ public class Group {
 
     private String name;
     private int id;
-    private List<String> groupContacts;
+    private List<Contact> groupContacts;
 
     public Group() {
         id = Integer.parseInt(new IdGenerator().generateGroupId());
@@ -27,11 +27,11 @@ public class Group {
         return name;
     }
 
-    public List<String> getInner() {
+    public List<Contact> getInner() {
         return groupContacts;
     }
 
-    public void setInner(List<String> contacts) {
+    public void setInner(List<Contact> contacts) {
         groupContacts = contacts;
     }
 }

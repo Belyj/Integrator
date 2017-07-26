@@ -8,11 +8,9 @@ public class Contact {
 
     private String name;
     private int id;
-    private List<String> contactGroups;
 
     public Contact() {
         id = Integer.parseInt(new IdGenerator().generateContactId());
-        contactGroups = new ArrayList();
     }
 
     public int getId() {
@@ -25,13 +23,5 @@ public class Contact {
 
     public String getName() {
         return name;
-    }
-
-    public List<String> getInner() {
-        return contactGroups;
-    }
-
-    public void setInner(List<String> groups) {
-        contactGroups = groups;
     }
 }
