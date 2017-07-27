@@ -18,7 +18,7 @@ public class JacksonSerializer {
 
     private void writeValue() {
         DataStorage dataStorage = DataStorage.getInstance();
-        ObjectMapper mapper = new ObjectMapper();
+        XmlMapper mapper = new ObjectMapper();
         try {
             for (Contact contact : dataStorage.getContacts()) {
                 mapper.writeValue(new FileOutputStream(System.getProperty("user.dir") + File.separator + "temp.json"), contact);

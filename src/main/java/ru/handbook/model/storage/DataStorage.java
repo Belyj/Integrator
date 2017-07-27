@@ -6,8 +6,6 @@ import ru.handbook.model.utilites.serialization.standart.StandartDeserializer;
 import ru.handbook.view.contactview.Observer;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,7 @@ public class DataStorage implements Observable {
     static StandartDeserializer deserializer = new StandartDeserializer();
 
     private DataStorage() {
+
     }
 
     public static DataStorage getInstance() {
@@ -29,14 +28,16 @@ public class DataStorage implements Observable {
                 if (instance == null) {
 //                    instance = new DataStorage();
                     if (new File("temp.out").exists()) {
-                        try {
-                            instance = (DataStorage) deserializer.createOIS().readObject();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    } else instance = new DataStorage();
+//                        try {
+//                            instance = (DataStorage) deserializer.createOIS().readObject();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        } catch (ClassNotFoundException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else
+                        instance = new DataStorage();
+                    }
                 }
             }
         }
