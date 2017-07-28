@@ -1,6 +1,6 @@
 package ru.handbook.model.utilites.serialization.jackson;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
 
@@ -18,7 +18,7 @@ public class JacksonDeserializer {
     private static void readValue() {
         DataStorage dataStorage = DataStorage.getInstance();
         String filepath = System.getProperty("user.dir") + File.separator + "temp.json";
-        ObjectMapper mapper = new ObjectMapper();
+        XmlMapper mapper = new XmlMapper();
         try {
             for (Contact contact : dataStorage.getContacts()) {
                 contact = (Contact) mapper.readValue(new FileInputStream(filepath), Contact.class);
