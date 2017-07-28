@@ -49,7 +49,7 @@ public class StandartDeserializer {
             System.out.println("Creating FileInputStream...");
             return new FileInputStream("temp.out");
         } catch (FileNotFoundException e) {
-            System.out.println("Creating FileInputStream filed");
+            System.out.println("Creating FileInputStream failed");
         }
         System.out.println("File not found");
         return null;

@@ -2,11 +2,10 @@ package ru.handbook.model.utilites.serialization.jackson;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ru.handbook.model.objects.Contact;
+import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
 
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class JacksonSerializer {
 
@@ -17,12 +16,16 @@ public class JacksonSerializer {
     private void writeValue() {
         DataStorage dataStorage = DataStorage.getInstance();
         XmlMapper mapper = new XmlMapper();
+        FileOutputStream fileInputStream = createFOS();
         try {
             for (Contact contact : dataStorage.getContacts()) {
-                mapper.writeValue(new FileOutputStream(System.getProperty(new File("").getAbsolutePath()) + File.separator + "jackson.xml"), contact);
-                mapper.writeValue(createFOS(), contact);
+                mapper.writeValue(fileInputStream, contact);
                 System.out.println(mapper.writeValueAsString(contact));
             }
+//            for (Group group : dataStorage.getGroups()) {
+//                mapper.writeValue(fileInputStream, group);
+//                System.out.println(mapper.writeValueAsString(group));
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }

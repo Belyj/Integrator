@@ -61,7 +61,6 @@ public class DataStorage implements Observable {
                 return searcheble;
             }
         }
-        System.out.println("Контак с таким именем не существует");
         return null;
     }
 

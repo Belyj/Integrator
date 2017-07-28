@@ -1,5 +1,6 @@
 package ru.handbook.model.objects;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import ru.handbook.model.utilites.IdGenerator;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +11,7 @@ import java.util.List;
 @XmlRootElement(name = "groups")
 public class Group implements Serializable {
 
+    @JacksonXmlProperty(isAttribute = true)
     private String name;
     private int id;
     private List<Contact> groupContacts;

@@ -25,7 +25,7 @@ public class ContactView extends JFrame implements Observer {
     public void handleEvent(List<Contact> contacts) {
         view.repaint();
         for (Contact contact : contacts) {
-            this.view.setText(this.view.getText() + "\n" + contact.getName());
+            this.view.setText(this.view.getText() + "\n" + contact.getName() + " " + contact.getId());
         }
     }
 }
