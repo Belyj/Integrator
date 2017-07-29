@@ -4,6 +4,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import ru.handbook.model.objects.Contact;
+import ru.handbook.model.objects.Group;
+import ru.handbook.model.storage.DataStorage;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,8 +25,6 @@ public class DOMDeserializer {
     private void readValue() {
         Document document = createDocument();
         Element element = document.getDocumentElement();
-        String titleE1 = element.getNodeName();
-        System.out.println("Title: " + titleE1);
 
         NodeList nodeList = document.getElementsByTagName("Contact");
         int id = 0;
@@ -31,8 +32,10 @@ public class DOMDeserializer {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element el = (Element) nodeList.item(i);
             id = Integer.parseInt(el.getElementsByTagName("id").item(0).getTextContent());
-            System.out.println(el.getAttribute("name"));
-            System.out.println(id);
+            Contact contact = new Contact();
+            contact.setName(el.getAttribute("name"));
+            contact.setId(id);
+            DataStorage.getInstance().setContact(contact);
         }
 
         nodeList = document.getElementsByTagName("Group");
@@ -40,8 +43,19 @@ public class DOMDeserializer {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element el = (Element) nodeList.item(i);
             id = Integer.parseInt(el.getElementsByTagName("id").item(0).getTextContent());
-            System.out.println(el.getAttribute("name"));
-            System.out.println(id);
+            Group group = new Group();
+            group.setName(el.getAttribute("name"));
+            group.setId(id);
+            NodeList contacts = el.getElementsByTagName("GroupContact");
+            for (int j = 0; j < contacts.getLength(); j++) {
+                Element contact = (Element) contacts.item(j);
+                id = Integer.parseInt(contact.getFirstChild().getTextContent());
+                Contact groupContact = new Contact();
+                groupContact.setName(contact.getAttribute("name"));
+                groupContact.setId(id);
+                group.getInner().add(groupContact);
+            }
+            DataStorage.getInstance().setGroup(group);
         }
     }
 
@@ -70,6 +84,6 @@ public class DOMDeserializer {
 
     private File createFile() {
         System.out.println("Creating file...");
-        return new File("jackson.xml");
+        return new File("dom.xml");
     }
 }

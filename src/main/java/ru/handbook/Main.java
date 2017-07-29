@@ -2,7 +2,6 @@ package ru.handbook;
 
 import ru.handbook.model.utilites.datechooser.DataDeserializationChooser;
 import ru.handbook.model.utilites.datechooser.DataSerializationChooser;
-import ru.handbook.model.utilites.serialization.dom.DOMSerializer;
 import ru.handbook.view.ViewStarter;
 
 public class Main {

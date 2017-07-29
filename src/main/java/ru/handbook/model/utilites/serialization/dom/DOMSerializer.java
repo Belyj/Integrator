@@ -3,6 +3,9 @@ package ru.handbook.model.utilites.serialization.dom;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import ru.handbook.model.objects.Contact;
+import ru.handbook.model.objects.Group;
+import ru.handbook.model.storage.DataStorage;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,25 +33,39 @@ public class DOMSerializer {
 
         Element contactsEl = document.createElement("Contacts");
         rootEl.appendChild(contactsEl);
-
         Element groupsEl = document.createElement("Groups");
         rootEl.appendChild(groupsEl);
 
-        Element contactEl = document.createElement("Contact");
-        Attr contactAttribute = document.createAttribute("name");
-        contactAttribute.setValue("A");
-        contactEl.setAttributeNode(contactAttribute);
-        contactsEl.appendChild(contactEl);
+        for (Contact contact : DataStorage.getInstance().getContacts()) {
+            Element contactEl = document.createElement("Contact");
+            Attr contactAttribute = document.createAttribute("name");
+            contactAttribute.setValue(contact.getName());
+            Element contacIdEl = document.createElement("id");
+            contactEl.appendChild(contacIdEl).setTextContent(String.valueOf(contact.getId()));
+            contactEl.setAttributeNode(contactAttribute);
+            contactsEl.appendChild(contactEl);
+        }
 
-        Element groupEl = document.createElement("Group");
-        Attr groupAttribute = document.createAttribute("name");
-        groupAttribute.setValue("G");
-        groupEl.setAttributeNode(groupAttribute);
-        groupsEl.appendChild(groupEl);
-
-        Element idEl = document.createElement("id");
-        contactEl.appendChild(idEl);
-        groupEl.appendChild(idEl).setTextContent("21");
+        for (Group group : DataStorage.getInstance().getGroups()) {
+            Element groupEl = document.createElement("Group");
+            Attr groupAttribute = document.createAttribute("name");
+            groupAttribute.setValue(group.getName());
+            Element groupIdEl = document.createElement("id");
+            groupEl.appendChild(groupIdEl).setTextContent(String.valueOf(group.getId()));
+            groupEl.setAttributeNode(groupAttribute);
+            groupsEl.appendChild(groupEl);
+            Element groupContacts = document.createElement("GroupContacts");
+            groupEl.appendChild(groupContacts);
+            for (Contact contact : group.getInner()) {
+                Element contactEl = document.createElement("GroupContact");
+                Attr contactAttribute = document.createAttribute("name");
+                contactAttribute.setValue(contact.getName());
+                Element contacIdEl = document.createElement("id");
+                contactEl.appendChild(contacIdEl).setTextContent(String.valueOf(contact.getId()));
+                contactEl.setAttributeNode(contactAttribute);
+                groupContacts.appendChild(contactEl);
+            }
+        }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         DOMSource domSource = new DOMSource(document);
