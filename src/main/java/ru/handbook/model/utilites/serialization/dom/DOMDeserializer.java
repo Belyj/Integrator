@@ -4,44 +4,72 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import ru.handbook.model.objects.Contact;
-import ru.handbook.model.storage.DataStorage;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 
 public class DOMDeserializer {
+
+    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
     public DOMDeserializer() {
         readValue();
     }
 
     private void readValue() {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder;
-        Document document;
-        try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            document = documentBuilder.parse("jackson.xml");
-            DataStorage dataStorage = DataStorage.getInstance();
-            Contact contact = new Contact();
-            Element element = document.getDocumentElement();
-            NodeList nodeList = document.getElementsByTagName("Contact");
-            //System.out.println("id");
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                System.out.println(element.getAttribute("name"));
-                System.out.println(element.getElementsByTagName("id").item(0).getChildNodes());
-            }
+        Document document = createDocument();
+        Element element = document.getDocumentElement();
+        String titleE1 = element.getNodeName();
+        System.out.println("Title: " + titleE1);
 
-            dataStorage.getContacts().add(contact);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        NodeList nodeList = document.getElementsByTagName("Contact");
+        int id = 0;
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Element el = (Element) nodeList.item(i);
+            id = Integer.parseInt(el.getElementsByTagName("id").item(0).getTextContent());
+            System.out.println(el.getAttribute("name"));
+            System.out.println(id);
         }
+
+        nodeList = document.getElementsByTagName("Group");
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Element el = (Element) nodeList.item(i);
+            id = Integer.parseInt(el.getElementsByTagName("id").item(0).getTextContent());
+            System.out.println(el.getAttribute("name"));
+            System.out.println(id);
+        }
+    }
+
+    private DocumentBuilder createDocBuilder() {
+        System.out.println("Creating docBuilder...");
+        try {
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            return documentBuilder;
+        } catch (ParserConfigurationException e) {
+            System.out.println("DocumentBuilder ошибка");
+        }
+        return null;
+    }
+
+    private Document createDocument() {
+        System.out.println("Creating document...");
+        try {
+            return createDocBuilder().parse(createFile());
+        } catch (SAXException e) {
+            System.out.println("creating Document SAX error");
+        } catch (IOException e) {
+            System.out.println("creating Document IO error");
+        }
+        return null;
+    }
+
+    private File createFile() {
+        System.out.println("Creating file...");
+        return new File("jackson.xml");
     }
 }
