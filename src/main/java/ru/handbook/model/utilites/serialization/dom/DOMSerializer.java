@@ -48,23 +48,28 @@ public class DOMSerializer {
 
         Element idEl = document.createElement("id");
         contactEl.appendChild(idEl);
-        //contactEl.appendChild(idEl.appendChild(document.createAttribute("11")));
         groupEl.appendChild(idEl).setTextContent("21");
-        //groupEl.appendChild(idEl.appendChild(document.createAttribute("21")));
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        DOMSource domSource = new DOMSource(document);
+        StreamResult streamResult = new StreamResult(new File("dom.xml"));
+        Transformer transformer = createTransformer(transformerFactory);
         try {
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new File("dom.xml"));
             transformer.transform(domSource, streamResult);
-            System.out.println("Saved");
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
         } catch (TransformerException e) {
-            e.printStackTrace();
+            System.out.println("Transforming failed");
         }
+        System.out.println("Saved");
+    }
 
+    private Transformer createTransformer(TransformerFactory transformerFactory) {
+        System.out.println("Creating transformer");
+        try {
+            return transformerFactory.newTransformer();
+        } catch (TransformerConfigurationException e) {
+            System.out.println("Transormer creating error");
+        }
+        return null;
     }
 
     private Document createDocument() {
