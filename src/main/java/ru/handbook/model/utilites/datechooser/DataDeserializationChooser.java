@@ -2,6 +2,7 @@ package ru.handbook.model.utilites.datechooser;
 
 import ru.handbook.model.utilites.serialization.dom.DOMDeserializer;
 import ru.handbook.model.utilites.serialization.jackson.JacksonDeserializer;
+import ru.handbook.model.utilites.serialization.sax.SAXDeserializer;
 
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public class DataDeserializationChooser {
                 new DOMDeserializer();
                 break;
             case 2:
-                System.out.println("Данный вид десериализации в разработке");
+                new SAXDeserializer();
                 break;
             case 3:
                 new JacksonDeserializer();
