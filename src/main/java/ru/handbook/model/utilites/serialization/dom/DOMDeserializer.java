@@ -26,8 +26,6 @@ public class DOMDeserializer {
     XPathFactory xPathFactory = XPathFactory.newInstance();
     XPath xPath = xPathFactory.newXPath();
     NodeList nodeList;
-    ///////////////////
-    int id = 0;
 
     public DOMDeserializer() {
         readValue();

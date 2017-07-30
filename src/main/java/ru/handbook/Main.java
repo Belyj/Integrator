@@ -1,14 +1,12 @@
 package ru.handbook;
 
-import ru.handbook.model.utilites.datechooser.DataDeserializationChooser;
-import ru.handbook.model.utilites.datechooser.DataSerializationChooser;
+import ru.handbook.model.utilites.datechooser.DataChooser;
 import ru.handbook.view.ViewStarter;
 
 public class Main {
 
     public static void main(String[] args) {
-        new DataDeserializationChooser();
+        new DataChooser();
         new ViewStarter();
-        new DataSerializationChooser();
     }
 }
