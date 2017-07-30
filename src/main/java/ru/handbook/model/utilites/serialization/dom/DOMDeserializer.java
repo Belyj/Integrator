@@ -24,7 +24,6 @@ public class DOMDeserializer {
 
     private void readValue() {
         Document document = createDocument();
-        Element element = document.getDocumentElement();
 
         NodeList nodeList = document.getElementsByTagName("Contact");
         int id = 0;

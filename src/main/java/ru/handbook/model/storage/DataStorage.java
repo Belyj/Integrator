@@ -5,11 +5,10 @@ import ru.handbook.model.objects.Group;
 import ru.handbook.model.utilites.serialization.standart.StandartDeserializer;
 import ru.handbook.view.contactview.Observer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataStorage implements Observable {
+public class DataStorage {
 
     private static final long serialVersionUID = -8322155900638738350L;
     private static volatile DataStorage instance;
@@ -26,18 +25,7 @@ public class DataStorage implements Observable {
         if (instance == null) {
             synchronized (DataStorage.class) {
                 if (instance == null) {
-//                    instance = new DataStorage();
-                    if (new File("temp.out").exists()) {
-//                        try {
-//                            instance = (DataStorage) deserializer.createOIS().readObject();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        } catch (ClassNotFoundException e) {
-//                            e.printStackTrace();
-//                        }
-//                    } else
                         instance = new DataStorage();
-                    }
                 }
             }
         }
@@ -95,7 +83,7 @@ public class DataStorage implements Observable {
 
     public void notifyObservers() {
         for (Observer observer : observers) {
-            observer.handleEvent(contacts);
+            observer.handleEvent();
         }
     }
 }

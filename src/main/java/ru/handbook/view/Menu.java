@@ -4,6 +4,7 @@ import ru.handbook.controller.MenuController;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
+import ru.handbook.model.utilites.serialization.dom.DOMSerializer;
 import ru.handbook.view.contactview.ContactView;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public class Menu {
     public Menu() {
         while (flag) {
 //            contactView.repaint();
-            contactView.handleEvent(DataStorage.getInstance().getContacts());
+            DataStorage.getInstance().addObserver(new DOMSerializer());
+            DataStorage.getInstance().notifyObservers();
+//            contactView.handleEvent();
             menuList();
             menuCommand(keepCommand());
         }

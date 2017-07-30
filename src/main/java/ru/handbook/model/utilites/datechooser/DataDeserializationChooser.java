@@ -26,6 +26,7 @@ public class DataDeserializationChooser {
         switch (command) {
             case 1:
                 new DOMDeserializer();
+
                 break;
             case 2:
                 new SAXDeserializer();

@@ -1,8 +1,7 @@
 package ru.handbook.model.utilites.datechooser;
 
-import ru.handbook.model.utilites.serialization.dom.DOMDeserializer;
+import ru.handbook.model.storage.DataStorage;
 import ru.handbook.model.utilites.serialization.dom.DOMSerializer;
-import ru.handbook.model.utilites.serialization.jackson.JacksonDeserializer;
 import ru.handbook.model.utilites.serialization.jackson.JacksonSerializer;
 
 import java.util.Scanner;

@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
+import ru.handbook.view.contactview.Observer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,7 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-public class DOMSerializer {
+public class DOMSerializer implements Observer {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
@@ -102,5 +103,9 @@ public class DOMSerializer {
             System.out.println("DocumentBuilder ошибка");
         }
         return null;
+    }
+
+    public void handleEvent() {
+        writeValue();
     }
 }
