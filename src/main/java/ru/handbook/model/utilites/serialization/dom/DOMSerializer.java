@@ -91,6 +91,7 @@ public class DOMSerializer implements Observer {
     }
 
     private Document createDocument() {
+        System.out.println("Creating document");
         return createDocBuilder().newDocument();
     }
 

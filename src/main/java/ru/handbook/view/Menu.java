@@ -18,11 +18,9 @@ public class Menu {
     ContactView contactView = new ContactView();
 
     public Menu() {
+        DataStorage.getInstance().addObserver(new DOMSerializer());
         while (flag) {
-//            contactView.repaint();
-            DataStorage.getInstance().addObserver(new DOMSerializer());
             DataStorage.getInstance().notifyObservers();
-//            contactView.handleEvent();
             menuList();
             menuCommand(keepCommand());
         }
@@ -130,6 +128,8 @@ public class Menu {
                 }
                 break;
             case 12:
+                System.out.println("Exit");
+                contactView.dispose();
                 flag = false;
                 break;
             default:
