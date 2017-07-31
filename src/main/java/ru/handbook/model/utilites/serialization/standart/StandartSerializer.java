@@ -5,6 +5,7 @@ import ru.handbook.model.storage.DataStorage;
 import java.io.*;
 
 public class StandartSerializer {
+
     public static void serialize() {
         ObjectOutputStream objectOutputStream = createOOS();
         try {
@@ -23,7 +24,6 @@ public class StandartSerializer {
 
     private static ObjectOutputStream createOOS() {
         try {
-            System.out.println("Creating ObjectOutputStream...");
             return new ObjectOutputStream(createFOS());
         } catch (IOException e) {
             createFile();
@@ -33,7 +33,6 @@ public class StandartSerializer {
 
     private static FileOutputStream createFOS() {
         try {
-            System.out.println("Creating FileOutputStream...");
             return new FileOutputStream("temp.out");
         } catch (FileNotFoundException e) {
             createFile();
@@ -45,7 +44,6 @@ public class StandartSerializer {
 
     private static File createFile() {
         String path = new File("").getAbsolutePath();
-        System.out.println("Creating file for serialization...");
         File file = new File(path + "temp.out");
         return file;
     }

@@ -5,6 +5,7 @@ import ru.handbook.model.storage.DataStorage;
 import java.io.*;
 
 public class StandartDeserializer {
+
     public static void deSerialize() {
         ObjectInputStream objectInputStream = createOIS();
         try {
@@ -35,7 +36,6 @@ public class StandartDeserializer {
     public static ObjectInputStream createOIS() {
         try {
             if (new File("temp.out").exists()) {
-                System.out.println("Creating ObjectInputStream...");
                 return new ObjectInputStream(createFIS());
             } else System.out.println("File does not exist");
         } catch (IOException e) {
@@ -46,7 +46,6 @@ public class StandartDeserializer {
 
     public static FileInputStream createFIS() {
         try {
-            System.out.println("Creating FileInputStream...");
             return new FileInputStream("temp.out");
         } catch (FileNotFoundException e) {
             System.out.println("Creating FileInputStream failed");

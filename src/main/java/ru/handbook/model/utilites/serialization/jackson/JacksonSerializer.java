@@ -4,10 +4,11 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
+import ru.handbook.view.contactview.Observer;
 
 import java.io.*;
 
-public class JacksonSerializer {
+public class JacksonSerializer implements Observer {
 
     public JacksonSerializer() {
         writeValue();
@@ -22,23 +23,9 @@ public class JacksonSerializer {
                 mapper.writeValue(fileInputStream, contact);
                 System.out.println(mapper.writeValueAsString(contact));
             }
-//            for (Group group : dataStorage.getGroups()) {
-//                mapper.writeValue(fileInputStream, group);
-//                System.out.println(mapper.writeValueAsString(group));
-//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static ObjectOutputStream createOOS() {
-        try {
-            System.out.println("Creating ObjectOutputStream...");
-            return new ObjectOutputStream(createFOS());
-        } catch (IOException e) {
-            createFile();
-        }
-        return null;
     }
 
     private static FileOutputStream createFOS() {
@@ -58,5 +45,10 @@ public class JacksonSerializer {
         System.out.println("Creating file for serialization...");
         File file = new File(path + "jackson.xml");
         return file;
+    }
+
+    @Override
+    public void handleEvent() {
+        writeValue();
     }
 }

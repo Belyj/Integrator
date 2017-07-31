@@ -4,6 +4,7 @@ import ru.handbook.model.storage.DataStorage;
 import ru.handbook.model.utilites.serialization.dom.DOMDeserializer;
 import ru.handbook.model.utilites.serialization.dom.DOMSerializer;
 import ru.handbook.model.utilites.serialization.jackson.JacksonDeserializer;
+import ru.handbook.model.utilites.serialization.jackson.JacksonSerializer;
 import ru.handbook.model.utilites.serialization.sax.SAXDeserializer;
 
 import java.util.Observer;
@@ -37,11 +38,13 @@ public class DataChooser {
                     break;
                 case 2:
                     new SAXDeserializer();
-                    DataStorage.getInstance().addObserver(new DOMSerializer());
+                    //DataStorage.getInstance().addObserver(new DOMSerializer());
                     break;
                 case 3:
                     new JacksonDeserializer();
-                    DataStorage.getInstance().addObserver(new DOMSerializer());
+                    //DataStorage.getInstance().addObserver(new DOMSerializer());
+                    DataStorage.getInstance().addObserver(new JacksonSerializer());
+
                     break;
                 default:
                     System.out.println("Такой команды нет");

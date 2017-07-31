@@ -81,7 +81,6 @@ public class DOMSerializer implements Observer {
     }
 
     private Transformer createTransformer(TransformerFactory transformerFactory) {
-        //System.out.println("Creating transformer...");
         try {
             return transformerFactory.newTransformer();
         } catch (TransformerConfigurationException e) {
@@ -91,12 +90,10 @@ public class DOMSerializer implements Observer {
     }
 
     private Document createDocument() {
-        //System.out.println("Creating document");
         return createDocBuilder().newDocument();
     }
 
     private DocumentBuilder createDocBuilder() {
-        //System.out.println("Creating docBuilder...");
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             return documentBuilder;

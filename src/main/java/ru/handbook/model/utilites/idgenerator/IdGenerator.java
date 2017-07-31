@@ -1,4 +1,4 @@
-package ru.handbook.model.utilites;
+package ru.handbook.model.utilites.idgenerator;
 
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;

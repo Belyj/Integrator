@@ -1,5 +1,6 @@
 package ru.handbook.model.utilites.serialization.dom;
 
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -78,7 +79,6 @@ public class DOMDeserializer {
     }
 
     private DocumentBuilder createDocBuilder() {
-        System.out.println("Creating docBuilder...");
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             return documentBuilder;
@@ -89,7 +89,6 @@ public class DOMDeserializer {
     }
 
     private Document createDocument() {
-        System.out.println("Creating document...");
         try {
             return createDocBuilder().parse(createFile());
         } catch (SAXException e) {
@@ -101,7 +100,6 @@ public class DOMDeserializer {
     }
 
     private File createFile() {
-        System.out.println("Creating file...");
         return new File("dom.xml");
     }
 }

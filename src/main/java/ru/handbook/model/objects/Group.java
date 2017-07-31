@@ -1,7 +1,7 @@
 package ru.handbook.model.objects;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import ru.handbook.model.utilites.IdGenerator;
+import ru.handbook.model.utilites.idgenerator.IdGenerator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
