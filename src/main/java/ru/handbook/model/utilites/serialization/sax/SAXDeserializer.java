@@ -19,7 +19,6 @@ public class SAXDeserializer {
     SAXParser saxParser = createSAXParser();
     ContactHandler contactHandler = new ContactHandler();
     GroupHandler groupHandler = new GroupHandler();
-    GroupContactHandler groupContactHandler = new GroupContactHandler();
     public SAXDeserializer() {
         readValue();
     }
@@ -28,7 +27,6 @@ public class SAXDeserializer {
         try {
             saxParser.parse(createFile(), contactHandler);
             saxParser.parse(createFile(), groupHandler);
-            saxParser.parse(createFile(), groupContactHandler);
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -44,11 +42,11 @@ public class SAXDeserializer {
             createContact(dMap);
         }
 
-        Map<String, Integer> groupData = groupHandler.getData();
+        //Map<String, Integer> groupData = groupHandler.getData();
 
-        for (Map.Entry<String, Integer> dMap : groupData.entrySet()) {
-            createGroup(dMap);
-        }
+//        for (Map.Entry<String, Integer> dMap : groupData.entrySet()) {
+//            createGroup(dMap);
+//        }
     }
 
     private File createFile() {
@@ -67,19 +65,6 @@ public class SAXDeserializer {
         group.setName(dMap.getKey());
         group.setId(dMap.getValue());
         DataStorage.getInstance().setGroup(group);
-
-        Map<String, Integer> groupContactData = groupContactHandler.getData();
-
-        for (Map.Entry<String, Integer> gCMap : groupContactData.entrySet()) {
-            group.getInner().add(createGroupContact(gCMap));
-        }
-    }
-
-    private Contact createGroupContact(Map.Entry<String, Integer> gcMap) {
-        Contact contact = new Contact();
-        contact.setName(gcMap.getKey());
-        contact.setId(gcMap.getValue());
-        return contact;
     }
 
     private SAXParser createSAXParser() {

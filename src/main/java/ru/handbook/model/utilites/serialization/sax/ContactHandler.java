@@ -14,15 +14,6 @@ public class ContactHandler extends DefaultHandler {
     private Map<String, Integer> data = new HashMap();
 
     @Override
-
-    public void startDocument() throws SAXException {
-    }
-
-    @Override
-    public void endDocument() throws SAXException {
-    }
-
-    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         element = qName;
         if (element.equals("Contact")) {

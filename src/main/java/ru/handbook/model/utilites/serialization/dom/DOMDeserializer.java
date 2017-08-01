@@ -61,7 +61,7 @@ public class DOMDeserializer {
                 group.setName(g.getAttribute("name"));
                 group.setId(Integer.parseInt(xPath.evaluate("Objects/Groups/Group[" + i + "]/id", document)));
 
-                nodeList = document.getElementsByTagName("GroupContact");
+                nodeList = document.getElementsByTagName("GroupContacts");
 
                 for (int j = 1; j <= nodeList.getLength(); j++) {
                     Element c = (Element) xPath.evaluate("Objects/Groups/Group[" + i + "]/GroupContacts/GroupContact[" + j + "]", document, XPathConstants.NODE);
