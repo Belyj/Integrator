@@ -117,7 +117,11 @@ public class Menu {
             case 10:
                 contacts = controller.checkContacts();
                 for (Contact gettingContact : contacts) {
-                    System.out.println(gettingContact.getName() + " " + gettingContact.getId());
+                    System.out.println(gettingContact.getName() + " "
+                            + gettingContact.getId() + " "
+                            + gettingContact.getPhone() + " "
+                            + gettingContact.getSkype() + " "
+                            + gettingContact.getMail());
                 }
                 break;
             case 11:

@@ -1,9 +1,7 @@
 package ru.handbook.model.utilites.serialization.dom;
 
-import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import ru.handbook.model.objects.Contact;
@@ -23,6 +21,8 @@ import java.io.IOException;
 public class DOMDeserializer {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+    Contact contact;
+    DataStorage dataStorage = DataStorage.getInstance();
     Document document = createDocument();
     XPathFactory xPathFactory = XPathFactory.newInstance();
     XPath xPath = xPathFactory.newXPath();
@@ -39,19 +39,18 @@ public class DOMDeserializer {
 
     private void readContacts() {
         if (document != null) {
+            contact = new Contact();
             try {
                 nodeList = document.getElementsByTagName("Contact");
                 for (int i = 1; i <= nodeList.getLength(); i++) {
                     Element c = (Element) xPath.evaluate("Objects/Contacts/Contact[" + i + "]", document, XPathConstants.NODE);
-                    Contact contact = new Contact();
                     contact.setName(c.getAttribute("name"));
 
                     contact.setId(Integer.parseInt(xPath.evaluate("Objects/Contacts/Contact[" + i + "]/id", document)));
                     contact.setPhone(Integer.parseInt(xPath.evaluate("Objects/Contacts/Contact[" + i + "]/phone", document)));
                     contact.setSkype(xPath.evaluate("Objects/Contacts/Contact[" + i + "]/skype", document));
                     contact.setMail(xPath.evaluate("Objects/Contacts/Contact[" + i + "]/mail", document));
-
-                    DataStorage.getInstance().setContact(contact);
+                    dataStorage.setContact(contact);
                 }
             } catch (XPathExpressionException e) {
                 e.printStackTrace();
@@ -77,17 +76,13 @@ public class DOMDeserializer {
                         groupContact.setName(c.getAttribute("name"));
 
                         groupContact.setId(Integer.parseInt(xPath.evaluate("Objects/Groups/Group[" + i + "]/GroupContacts/GroupContact[" + j + "]/id", document)));
-
                         groupContact.setPhone(Integer.parseInt(xPath.evaluate("Objects/Groups/Group[" + i + "]/GroupContacts/GroupContact[" + j + "]/phone", document)));
-
                         groupContact.setSkype(xPath.evaluate("Objects/Groups/Group[" + i + "]/GroupContacts/GroupContact[" + j + "]/skype", document));
-
                         groupContact.setMail(xPath.evaluate("Objects/Groups/Group[" + i + "]/GroupContacts/GroupContact[" + j + "]/mail", document));
-
                         group.getInner().add(groupContact);
                     }
 
-                    DataStorage.getInstance().setGroup(group);
+                    dataStorage.setGroup(group);
                 } catch (XPathExpressionException e) {
                     e.printStackTrace();
                 }

@@ -15,11 +15,13 @@ public class ContactHandler extends DefaultHandler {
     Contact contact;
     private String name;
     private String element;
+    Boolean isContact;
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         element = qName;
         if (element.equals("Contact")) {
+            isContact = true;
             contact = new Contact();
             contact.setName(attributes.getValue(0));
         }
@@ -27,7 +29,10 @@ public class ContactHandler extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        dataStorage.getContacts().add(contact);
+        if (isContact) {
+            dataStorage.getContacts().add(contact);
+            isContact = false;
+        }
     }
 
     @Override
@@ -50,7 +55,7 @@ public class ContactHandler extends DefaultHandler {
                 contact.setSkype(skype);
             }
         }
-        if (element.equals("skype")) {
+        if (element.equals("mail")) {
             if (name != null && !name.isEmpty()) {
                 String mail = new String(ch, start, length);
                 contact.setMail(mail);
