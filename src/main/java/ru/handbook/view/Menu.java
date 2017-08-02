@@ -66,7 +66,11 @@ public class Menu {
             case 2:
                 contact = controller.searchContact(initializeConract());
                 if (contact != null) {
-                    System.out.println(contact.getName() + " " +  contact.getId());
+                    System.out.println(contact.getName() + " "
+                            +  contact.getId() + " "
+                            + contact.getPhone() + " "
+                            + contact.getSkype() + " "
+                            + contact.getMail());
                 } else System.out.println("Контакт не существует");
                 break;
             case 3:

@@ -41,9 +41,23 @@ public class DOMSerializer implements Observer {
             Element contactEl = document.createElement("Contact");
             Attr contactAttribute = document.createAttribute("name");
             contactAttribute.setValue(contact.getName());
+
             Element contacIdEl = document.createElement("id");
             contactEl.appendChild(contacIdEl).setTextContent(String.valueOf(contact.getId()));
             contactEl.setAttributeNode(contactAttribute);
+
+            Element contacPhoneEl = document.createElement("phone");
+            contactEl.appendChild(contacPhoneEl).setTextContent(String.valueOf(contact.getPhone()));
+            contactEl.setAttributeNode(contactAttribute);
+
+            Element contactSkype = document.createElement("skype");
+            contactEl.appendChild(contactSkype).setTextContent(String.valueOf(contact.getSkype()));
+            contactEl.setAttributeNode(contactAttribute);
+
+            Element contactMail = document.createElement("mail");
+            contactEl.appendChild(contactMail).setTextContent(String.valueOf(contact.getMail()));
+            contactEl.setAttributeNode(contactAttribute);
+
             contactsEl.appendChild(contactEl);
         }
 
@@ -61,9 +75,23 @@ public class DOMSerializer implements Observer {
                 Element contactEl = document.createElement("GroupContact");
                 Attr contactAttribute = document.createAttribute("name");
                 contactAttribute.setValue(contact.getName());
+
                 Element contacIdEl = document.createElement("id");
                 contactEl.appendChild(contacIdEl).setTextContent(String.valueOf(contact.getId()));
                 contactEl.setAttributeNode(contactAttribute);
+
+                Element contacPhoneEl = document.createElement("phone");
+                contactEl.appendChild(contacPhoneEl).setTextContent(String.valueOf(contact.getPhone()));
+                contactEl.setAttributeNode(contactAttribute);
+
+                Element contaSkypeEl = document.createElement("skype");
+                contactEl.appendChild(contaSkypeEl).setTextContent(String.valueOf(contact.getSkype()));
+                contactEl.setAttributeNode(contactAttribute);
+
+                Element contaMailEl = document.createElement("mail");
+                contactEl.appendChild(contaMailEl).setTextContent(String.valueOf(contact.getMail()));
+                contactEl.setAttributeNode(contactAttribute);
+
                 groupContacts.appendChild(contactEl);
             }
         }
@@ -77,7 +105,6 @@ public class DOMSerializer implements Observer {
         } catch (TransformerException e) {
             System.out.println("Transforming failed");
         }
-        System.out.println("Saved");
     }
 
     private Transformer createTransformer(TransformerFactory transformerFactory) {

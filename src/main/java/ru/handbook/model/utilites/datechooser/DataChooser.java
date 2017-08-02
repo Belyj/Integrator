@@ -38,7 +38,7 @@ public class DataChooser {
                     break;
                 case 2:
                     new SAXDeserializer();
-                    DataStorage.getInstance().addObserver(new DOMSerializer());
+                    //DataStorage.getInstance().addObserver(new DOMSerializer());
                     break;
                 case 3:
                     new JacksonDeserializer();

@@ -20,6 +20,9 @@ public class GroupHandler extends DefaultHandler {
     private boolean isGroup;
     private boolean isGroupContact;
     private boolean isIdContact;
+    private boolean isPhoneContact;
+    private boolean isSkypeContact;
+    private boolean isMailContact;
     private boolean isGroups;
 
     @Override
@@ -30,7 +33,17 @@ public class GroupHandler extends DefaultHandler {
         } else if (isIdContact) {
             contact.setId(Integer.parseInt(new String(ch, start, length).trim()));
             isIdContact = false;
-        }super.characters(ch, start, length);
+        } else  if(isPhoneContact) {
+            contact.setPhone(Integer.parseInt(new String(ch, start, length).trim()));
+            isPhoneContact = false;
+        } else if (isSkypeContact) {
+            contact.setSkype(new String(ch, start, length).trim());
+            isSkypeContact = false;
+        } else if (isMailContact) {
+            contact.setMail(new String(ch, start, length).trim());
+            isMailContact = false;
+        }
+        super.characters(ch, start, length);
     }
 
     @Override
@@ -41,7 +54,6 @@ public class GroupHandler extends DefaultHandler {
             group = new Group();
             group.setName(attributes.getValue("name"));
             isGroup = true;
-
         } else if("GroupContacts".equalsIgnoreCase(qName)){
             contacts = new ArrayList();
         }
@@ -54,6 +66,12 @@ public class GroupHandler extends DefaultHandler {
             isGroupContact = true;
         } else if ("id".equalsIgnoreCase(qName) && isGroupContact) {
             isIdContact = true;
+        } else if ("phone".equalsIgnoreCase(qName) && isGroupContact) {
+            isPhoneContact = true;
+        } else if ("skype".equalsIgnoreCase(qName) && isGroupContact) {
+            isSkypeContact = true;
+        } else if ("mail".equalsIgnoreCase(qName) && isGroupContact) {
+            isMailContact = true;
         }
     }
 
