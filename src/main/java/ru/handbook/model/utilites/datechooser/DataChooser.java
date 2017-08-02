@@ -1,13 +1,9 @@
 package ru.handbook.model.utilites.datechooser;
 
-import ru.handbook.model.storage.DataStorage;
-import ru.handbook.model.utilites.serialization.dom.DOMDeserializer;
-import ru.handbook.model.utilites.serialization.dom.DOMSerializer;
-import ru.handbook.model.utilites.serialization.jackson.JacksonDeserializer;
-import ru.handbook.model.utilites.serialization.jackson.JacksonSerializer;
-import ru.handbook.model.utilites.serialization.sax.SAXDeserializer;
+import ru.handbook.dao.parsersdao.dom.test.DOMDeserializer;
+import ru.handbook.dao.parsersdao.jackson.JacksonDeserializer;
+import ru.handbook.dao.parsersdao.sax.test.SAXDeserializer;
 
-import java.util.Observer;
 import java.util.Scanner;
 
 public class DataChooser {
@@ -34,11 +30,9 @@ public class DataChooser {
             switch (command) {
                 case 1:
                     new DOMDeserializer();
-                    DataStorage.getInstance().addObserver(new DOMSerializer());
                     break;
                 case 2:
                     new SAXDeserializer();
-                    DataStorage.getInstance().addObserver(new DOMSerializer());
                     break;
                 case 3:
                     new JacksonDeserializer();

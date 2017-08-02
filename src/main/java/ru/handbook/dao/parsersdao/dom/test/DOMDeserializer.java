@@ -1,4 +1,4 @@
-package ru.handbook.model.utilites.serialization.dom;
+package ru.handbook.dao.parsersdao.dom.test;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

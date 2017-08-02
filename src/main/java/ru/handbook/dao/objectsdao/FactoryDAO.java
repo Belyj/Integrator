@@ -1,4 +1,4 @@
-package ru.handbook.dao;
+package ru.handbook.dao.objectsdao;
 
 public interface FactoryDAO<T> {
 

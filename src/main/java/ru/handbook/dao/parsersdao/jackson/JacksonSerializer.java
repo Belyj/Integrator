@@ -1,8 +1,7 @@
-package ru.handbook.model.utilites.serialization.jackson;
+package ru.handbook.dao.parsersdao.jackson;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ru.handbook.model.objects.Contact;
-import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
 import ru.handbook.view.contactview.Observer;
 

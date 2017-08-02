@@ -1,4 +1,4 @@
-package ru.handbook.model.utilites.serialization.dom;
+package ru.handbook.dao.parsersdao.dom.test;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -19,7 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-public class DOMSerializer implements Observer {
+public class DOMSerializer {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 

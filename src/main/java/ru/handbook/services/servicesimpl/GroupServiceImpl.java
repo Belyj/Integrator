@@ -1,7 +1,7 @@
 package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.daoimpl.factorydao.GroupFactoryDAOImpl;
-import ru.handbook.dao.daoimpl.productdao.GroupDAOImpl;
+import ru.handbook.dao.objectsdao.daoimpl.factorydao.GroupFactoryDAOImpl;
+import ru.handbook.dao.parsersdao.dom.DOMGroupDAOImpl;
 import ru.handbook.model.objects.Group;
 import ru.handbook.services.GroupService;
 
@@ -10,7 +10,8 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
     GroupFactoryDAOImpl groupFactoryDAO = new GroupFactoryDAOImpl();
-    GroupDAOImpl groupDAO = groupFactoryDAO.factoryMethod();
+    //GroupDAOImpl groupDAO = groupFactoryDAO.factoryMethod();
+    DOMGroupDAOImpl groupDAO = new DOMGroupDAOImpl();
 
     public List<Group> getAllGroups() {
         return groupDAO.getAll();

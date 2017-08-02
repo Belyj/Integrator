@@ -1,13 +1,10 @@
-package ru.handbook.model.utilites.serialization.sax;
+package ru.handbook.dao.parsersdao.sax;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ContactHandler extends DefaultHandler {
 

@@ -1,5 +1,5 @@
-package ru.handbook.dao.daoimpl.productdao;
-import ru.handbook.dao.ObjectDAO;
+package ru.handbook.dao.objectsdao.daoimpl.productdao;
+import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
 

@@ -1,8 +1,8 @@
-package ru.handbook.dao;
+package ru.handbook.dao.parsersdao;
+
 import java.util.List;
 
-public interface ObjectDAO<T> {
-
+public interface ObjectParserDAO<T> {
     /**
      * <p>Создание новго объекта</p>
      *

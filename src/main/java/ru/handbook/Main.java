@@ -6,7 +6,7 @@ import ru.handbook.view.ViewStarter;
 public class Main {
 
     public static void main(String[] args) {
-        new DataChooser();
+        //new DataChooser();
         new ViewStarter();
     }
 }

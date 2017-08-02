@@ -1,8 +1,7 @@
-package ru.handbook.model.utilites.serialization.jackson;
+package ru.handbook.dao.parsersdao.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
 
 import java.io.File;

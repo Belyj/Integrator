@@ -1,17 +1,14 @@
-package ru.handbook.model.utilites.serialization.sax;
+package ru.handbook.dao.parsersdao.sax.test;
 
 import org.xml.sax.SAXException;
-import ru.handbook.model.objects.Contact;
-import ru.handbook.model.objects.Group;
-import ru.handbook.model.storage.DataStorage;
+import ru.handbook.dao.parsersdao.sax.ContactHandler;
+import ru.handbook.dao.parsersdao.sax.GroupHandler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public class SAXDeserializer {
 

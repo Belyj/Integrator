@@ -1,12 +1,10 @@
-package ru.handbook.model.utilites.serialization.jackson;
+package ru.handbook.dao.parsersdao.jackson;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
-
-import java.util.Arrays;
 
 @JacksonXmlRootElement(localName = "Contacts")
 public class Contacts {

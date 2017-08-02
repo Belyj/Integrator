@@ -1,4 +1,4 @@
-package ru.handbook.model.utilites.serialization.sax;
+package ru.handbook.dao.parsersdao.sax;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
