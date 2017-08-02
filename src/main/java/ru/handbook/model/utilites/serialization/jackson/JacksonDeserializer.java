@@ -1,8 +1,11 @@
 package ru.handbook.model.utilites.serialization.jackson;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,12 +16,15 @@ public class JacksonDeserializer {
 
     private static void readValue() {
         DataStorage dataStorage = DataStorage.getInstance();
-        XmlMapper mapper = new XmlMapper();
+        ObjectMapper mapper = new XmlMapper();
         FileInputStream fileInputStream = createFIS();
+        Contacts contacts;
         if (fileInputStream != null) {
 
             try {
-                dataStorage.getContacts().add(mapper.readValue(fileInputStream, Contact.class));
+                //jacksonContacts.setContacts(mapper.readValues(fileInputStream, JacksonContacts.class));
+                contacts = mapper.readValue(createFile(), Contacts.class);
+                //jacksonContacts.setContacts(mapper.readValues(createFile(), JacksonContacts.class));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -33,5 +39,9 @@ public class JacksonDeserializer {
         }
         System.out.println("File not found");
         return null;
+    }
+
+    public static File createFile() {
+        return new File("dom.xml");
     }
 }

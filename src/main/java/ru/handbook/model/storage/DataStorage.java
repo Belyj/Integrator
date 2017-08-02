@@ -18,8 +18,9 @@ public class DataStorage {
     static StandartDeserializer deserializer = new StandartDeserializer();
 
     private DataStorage() {
-
     }
+
+
 
     public static DataStorage getInstance() {
         if (instance == null) {
@@ -39,6 +40,10 @@ public class DataStorage {
 
     public List<Contact> getContacts() {
         return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 
     public Contact getContactByName(String name) {

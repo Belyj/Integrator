@@ -57,7 +57,6 @@ public class DOMSerializer implements Observer {
             Element contactMail = document.createElement("mail");
             contactEl.appendChild(contactMail).setTextContent(String.valueOf(contact.getMail()));
             contactEl.setAttributeNode(contactAttribute);
-
             contactsEl.appendChild(contactEl);
         }
 
