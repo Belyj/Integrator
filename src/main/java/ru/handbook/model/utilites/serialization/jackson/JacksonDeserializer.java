@@ -42,6 +42,6 @@ public class JacksonDeserializer {
     }
 
     public static File createFile() {
-        return new File("dom.xml");
+        return new File("jackson.xml");
     }
 }
