@@ -45,10 +45,10 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         contact.setMail(new Scanner(System.in).nextLine());
         source.getContacts().add(contact);
         for (Group g : source.getGroups()) {
-            for (Contact c : g.getInner()) {
-                if (c.getName().equals(name)) {
+            for (Integer c : g.getInner()) {
+                if (c == id) {
                     g.getInner().remove(c);
-                    g.getInner().add(contact);
+                    g.getInner().add(id);
                 }
             }
         }

@@ -1,4 +1,4 @@
-package ru.handbook.dao.parsersdao.sax;
+package ru.handbook.dao.parsersdao.sax.objecthandlers;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -8,7 +8,7 @@ import ru.handbook.model.storage.DataStorage;
 
 public class ContactHandler extends DefaultHandler {
 
-    DataStorage dataStorage = DataStorage.getInstance();
+    //DataStorage dataStorage = DataStorage.getInstance();
     Contact contact;
     private String name;
     private String element;
@@ -27,7 +27,7 @@ public class ContactHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (isContact) {
-            dataStorage.getContacts().add(contact);
+            //dataStorage.getContacts().add(contact);
             isContact = false;
         }
     }

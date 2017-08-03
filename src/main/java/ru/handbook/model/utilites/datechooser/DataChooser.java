@@ -1,8 +1,6 @@
 package ru.handbook.model.utilites.datechooser;
 
-import ru.handbook.dao.parsersdao.dom.test.DOMDeserializer;
-import ru.handbook.dao.parsersdao.jackson.JacksonDeserializer;
-import ru.handbook.dao.parsersdao.sax.test.SAXDeserializer;
+import ru.handbook.dao.parsersdao.jackson.test.JacksonDeserializer;
 
 import java.util.Scanner;
 
@@ -29,10 +27,10 @@ public class DataChooser {
             command = scanner.nextInt();
             switch (command) {
                 case 1:
-                    new DOMDeserializer();
+                    //new DOMDeserializer();
                     break;
                 case 2:
-                    new SAXDeserializer();
+                    //new SAXDeserializer();
                     break;
                 case 3:
                     new JacksonDeserializer();

@@ -1,7 +1,8 @@
-package ru.handbook.dao.parsersdao.jackson;
+package ru.handbook.dao.parsersdao.jackson.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import ru.handbook.dao.parsersdao.jackson.objects.Contacts;
 import ru.handbook.model.storage.DataStorage;
 
 import java.io.File;

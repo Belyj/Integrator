@@ -1,4 +1,4 @@
-package ru.handbook.dao.parsersdao.jackson;
+package ru.handbook.dao.parsersdao.jackson.objects;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;

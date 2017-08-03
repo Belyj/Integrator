@@ -17,14 +17,14 @@ public class Group implements Serializable {
     private int id;
     @JacksonXmlElementWrapper(localName = "GroupContacts")
     @JacksonXmlProperty(localName = "GroupContact")
-    private List<Contact> groupContacts;
+    private List<Integer> groupContacts;
 
     public Group() {
         id = Integer.parseInt(new IdGenerator().generateGroupId());
         groupContacts = new ArrayList();
     }
 
-    public Group(String name, int id, List<Contact> groupContacts) {
+    public Group(String name, int id, List<Integer> groupContacts) {
         this.name = name;
         this.id = id;
         this.groupContacts = groupContacts;
@@ -46,11 +46,11 @@ public class Group implements Serializable {
         return name;
     }
 
-    public List<Contact> getInner() {
+    public List<Integer> getInner() {
         return groupContacts;
     }
 
-    public void setInner(List<Contact> contacts) {
+    public void setInner(List<Integer> contacts) {
         groupContacts = contacts;
     }
 }

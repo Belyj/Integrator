@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GroupServiceImpl implements GroupService {
 
-    GroupFactoryDAOImpl groupFactoryDAO = new GroupFactoryDAOImpl();
+    //GroupFactoryDAOImpl groupFactoryDAO = new GroupFactoryDAOImpl();
     //GroupDAOImpl groupDAO = groupFactoryDAO.factoryMethod();
     DOMGroupDAOImpl groupDAO = new DOMGroupDAOImpl();
 

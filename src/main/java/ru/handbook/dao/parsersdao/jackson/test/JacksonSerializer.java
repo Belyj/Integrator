@@ -1,4 +1,4 @@
-package ru.handbook.dao.parsersdao.jackson;
+package ru.handbook.dao.parsersdao.jackson.test;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ru.handbook.model.objects.Contact;

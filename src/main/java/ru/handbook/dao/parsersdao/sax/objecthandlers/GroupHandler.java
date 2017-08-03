@@ -1,4 +1,4 @@
-package ru.handbook.dao.parsersdao.sax;
+package ru.handbook.dao.parsersdao.sax.objecthandlers;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -13,7 +13,7 @@ import java.util.List;
 public class GroupHandler extends DefaultHandler {
 
     DataStorage dataStorage = DataStorage.getInstance();
-    private List<Contact> contacts;
+    private List<Integer> contacts;
     private Contact contact;
     private Group group;
     private boolean isIdGroup;
@@ -80,7 +80,7 @@ public class GroupHandler extends DefaultHandler {
         if ("GroupContacts".equalsIgnoreCase(qName)) {
             group.setInner(contacts);
         } else if ("GroupContact".equalsIgnoreCase(qName)) {
-            contacts.add(contact);
+            contacts.add(contact.getId());
         } else if ("Group".equalsIgnoreCase(qName)) {
             dataStorage.getGroups().add(group);
             isGroup = false;

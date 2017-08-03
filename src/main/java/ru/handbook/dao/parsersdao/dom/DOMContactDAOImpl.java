@@ -2,7 +2,7 @@ package ru.handbook.dao.parsersdao.dom;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import ru.handbook.dao.parsersdao.ObjectParserDAO;
+import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -24,24 +24,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DOMContactDAOImpl implements ObjectParserDAO<Contact> {
+public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
-    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory documentBuilderFactory;
     Document document = createDocument();
     Scanner scanner = new Scanner(System.in);
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     DOMSource domSource = new DOMSource(document);
-    StreamResult streamResult = new StreamResult(new File("dom.xml"));
+    StreamResult streamResult = new StreamResult(new File("contact.xml"));
     Transformer transformer = createTransformer(transformerFactory);
 
     XPathFactory xPathFactory = XPathFactory.newInstance();
     XPath xPath = xPathFactory.newXPath();
     NodeList nodeList;
 
+    public DOMContactDAOImpl() {
+    }
+
     private Document createDoc() {
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
             try {
-                document = createDocBuilder().parse("dom.xml");
+                document = createDocBuilder().parse("contact.xml");
             } catch (SAXException e) {
                 e.printStackTrace();
             } catch (IOException e) {

@@ -2,8 +2,7 @@ package ru.handbook.dao.parsersdao.dom;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import ru.handbook.dao.parsersdao.ObjectParserDAO;
-import ru.handbook.model.objects.Contact;
+import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Group;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -25,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DOMGroupDAOImpl implements ObjectParserDAO<Group> {
+public class DOMGroupDAOImpl implements ObjectDAO<Group> {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     Document document = createDocument();
     Scanner scanner = new Scanner(System.in);
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     DOMSource domSource = new DOMSource(document);
-    StreamResult streamResult = new StreamResult(new File("dom.xml"));
+    StreamResult streamResult = new StreamResult(new File("group.xml"));
     Transformer transformer = createTransformer(transformerFactory);
 
     XPathFactory xPathFactory = XPathFactory.newInstance();
@@ -113,7 +112,7 @@ public class DOMGroupDAOImpl implements ObjectParserDAO<Group> {
     private Document createDoc() {
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
         try {
-            document = createDocBuilder().parse("dom.xml");
+            document = createDocBuilder().parse("group.xml");
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -124,7 +123,6 @@ public class DOMGroupDAOImpl implements ObjectParserDAO<Group> {
 
     @Override
     public Group getByName(Group group) {
-        createDoc();
         nodeList = document.getElementsByTagName("Group");
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element g = null;
@@ -147,7 +145,6 @@ public class DOMGroupDAOImpl implements ObjectParserDAO<Group> {
 
     @Override
     public Group update(Group group) {
-        createDoc();
         String name = group.getName();
         nodeList = document.getElementsByTagName("Group");
 
@@ -191,7 +188,6 @@ public class DOMGroupDAOImpl implements ObjectParserDAO<Group> {
 
     @Override
     public Group delete(Group group) {
-        createDoc();
         nodeList = document.getElementsByTagName("Group");
         Group deletedGroup;
         Element g = null;
@@ -219,7 +215,6 @@ public class DOMGroupDAOImpl implements ObjectParserDAO<Group> {
 
     @Override
     public List<Group> getAll() {
-        createDoc();
         List<Group> groups = new ArrayList();
         nodeList = document.getElementsByTagName("Group");
         Element g = null;

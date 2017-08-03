@@ -54,6 +54,7 @@ public class Menu {
         Contact contact;
         Group group;
         List<Contact> contacts;
+        List<Integer> contactsId;
         switch (command) {
             case 0:
                 contact = controller.createContact(initializeConract());
@@ -77,8 +78,8 @@ public class Menu {
                 group = controller.searchGroup(initializeGroup());
                 if (group != null) {
                     System.out.println(group.getName() + " " + group.getId());
-                    for (Contact innerContact : group.getInner()) {
-                        System.out.println(innerContact.getName());
+                    for (Integer innerContact : group.getInner()) {
+                        System.out.println("Inner contact id: " + innerContact);
                     }
                 } else System.out.println("Группа не существует");
                 break;
@@ -101,17 +102,17 @@ public class Menu {
             case 8:
                 contact = controller.searchContact(initializeConract());
                 group = controller.searchGroup(initializeGroup());
-                contacts = group.getInner();
-                contacts.add(contact);
-                group.setInner(contacts);
+                contactsId = group.getInner();
+                contactsId.add(contact.getId());
+                group.setInner(contactsId);
                 System.out.println(contact.getName() + " добавлен в группу " + group.getName());
                 break;
             case 9:
                 contact = controller.searchContact(initializeConract());
                 group = controller.searchGroup(initializeGroup());
-                contacts = group.getInner();
-                contacts.remove(contact);
-                group.setInner(contacts);
+                contactsId = group.getInner();
+                contactsId.remove(contact);
+                group.setInner(contactsId);
                 System.out.println(contact.getName() + " удален из группы " + group.getName());
                 break;
             case 10:
@@ -128,8 +129,8 @@ public class Menu {
                 List<Group> groups = controller.checkGroups();
                 for (Group gettingGroup : groups) {
                     System.out.println(gettingGroup.getName() + " " + gettingGroup.getId());
-                    for (Contact innerContact : gettingGroup.getInner()) {
-                        System.out.println(innerContact.getName());
+                    for (Integer innerContact : gettingGroup.getInner()) {
+                        System.out.println("Inner contact id " + innerContact);
                     }
                 }
                 break;
