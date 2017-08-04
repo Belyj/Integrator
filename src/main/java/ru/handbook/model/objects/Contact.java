@@ -47,7 +47,7 @@ public class Contact implements Serializable {
     }
 
     public Contact() {
-        id = Integer.parseInt(new IdGenerator().generateContactId());
+        id = 0;
         skype = "";
         mail = "";
     }

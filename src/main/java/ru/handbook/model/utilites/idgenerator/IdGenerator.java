@@ -13,11 +13,9 @@ import java.util.List;
 public class IdGenerator {
 
     DataStorage source = DataStorage.getInstance();
-    List<Contact> contacts = new ContactServiceImpl().getAllContacts();
+    //List<Contact> contacts = new ContactServiceImpl().getAllContacts();
 
-
-
-    public String generateContactId() {
+    public String generateContactId(List<Contact> contacts) {
         int max = 1;
         for (Contact contact : contacts) {
             if (contact != null) {
