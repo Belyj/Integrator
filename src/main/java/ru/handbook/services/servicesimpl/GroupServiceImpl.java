@@ -1,7 +1,13 @@
 package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.objectsdao.daoimpl.factorydao.GroupFactoryDAOImpl;
-import ru.handbook.dao.parsersdao.dom.DOMGroupDAOImpl;
+import ru.handbook.dao.objectsdao.ContactFactoryDAO;
+import ru.handbook.dao.objectsdao.GroupDAO;
+import ru.handbook.dao.objectsdao.GroupFactoryDAO;
+import ru.handbook.dao.objectsdao.ObjectDAO;
+import ru.handbook.dao.parsersdao.dom.domfactorydao.DOMGroupFactoryDAOImpl;
+import ru.handbook.dao.parsersdao.jackson.jacksonfactorydao.JacksonGroupFactoryDAOImpl;
+import ru.handbook.dao.parsersdao.sax.saxfactorydao.SAXGroupFactoryDAOImpl;
+import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.services.GroupService;
 
@@ -9,9 +15,9 @@ import java.util.List;
 
 public class GroupServiceImpl implements GroupService {
 
-    //GroupFactoryDAOImpl groupFactoryDAO = new GroupFactoryDAOImpl();
-    //GroupDAOImpl groupDAO = groupFactoryDAO.factoryMethod();
-    DOMGroupDAOImpl groupDAO = new DOMGroupDAOImpl();
+    GroupFactoryDAO groupFactoryDAO;
+    GroupDAO groupDAO;
+
 
     public List<Group> getAllGroups() {
         return groupDAO.getAll();
@@ -31,5 +37,29 @@ public class GroupServiceImpl implements GroupService {
 
     public Group deleteGroup(Group group) {
         return groupDAO.delete(group);
+    }
+
+    public void deleteFromGroup(Contact contact, Group group) {
+        System.out.println("Не поддерживается");
+    }
+
+    public void addInGroup(Contact contact, Group group) {
+        System.out.println("Не поддерживается");
+    }
+
+    public void setDOM() {
+        groupFactoryDAO = new DOMGroupFactoryDAOImpl();
+        groupDAO = groupFactoryDAO.factoryMethod();
+    }
+
+    public void setSAX() {
+        groupFactoryDAO = new SAXGroupFactoryDAOImpl();
+        groupDAO = groupFactoryDAO.factoryMethod();
+
+    }
+
+    public void setJackson() {
+        groupFactoryDAO = new JacksonGroupFactoryDAOImpl();
+        groupDAO = groupFactoryDAO.factoryMethod();
     }
 }

@@ -2,8 +2,11 @@ package ru.handbook.dao.parsersdao.dom;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+import ru.handbook.dao.objectsdao.GroupDAO;
 import ru.handbook.dao.objectsdao.ObjectDAO;
+import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
+import ru.handbook.model.utilites.idgenerator.IdGenerator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,69 +21,81 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DOMGroupDAOImpl implements ObjectDAO<Group> {
+public class DOMGroupDAOImpl implements GroupDAO {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-    Document document = createDocument();
+    DocumentBuilder documentBuilder = createDocumentBuilder();
+    Document document = null;
+    InputStream inputStream = createInputStream();
     Scanner scanner = new Scanner(System.in);
-    TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    DOMSource domSource = new DOMSource(document);
-    StreamResult streamResult = new StreamResult(new File("group.xml"));
-    Transformer transformer = createTransformer(transformerFactory);
-
     XPathFactory xPathFactory = XPathFactory.newInstance();
     XPath xPath = xPathFactory.newXPath();
     NodeList nodeList;
 
-    private void transform() {
+    private FileInputStream createInputStream() {
         try {
-            transformer.transform(domSource, streamResult);
-        } catch (TransformerException e) {
-            System.out.println("Transform failed");
-        }
-    }
-
-    private Transformer createTransformer(TransformerFactory transformerFactory) {
-        try {
-            return transformerFactory.newTransformer();
-        } catch (TransformerConfigurationException e) {
-            System.out.println("Transormer creating error");
+            return new FileInputStream("group.xml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    private Document createDocument() {
-        return createDocBuilder().newDocument();
-    }
-
-    private DocumentBuilder createDocBuilder() {
+    private DocumentBuilder createDocumentBuilder() {
         try {
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            return documentBuilder;
+            return documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            System.out.println("DocumentBuilder ошибка");
+            e.printStackTrace();
         }
         return null;
+    }
+
+    private void transform() {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+        try {
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(new File("group.xml"));
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readingStream() {
+        try {
+            document =  documentBuilder.parse(inputStream);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Group create(Group group) {
+        readingStream();
         Node rootElement = document.getDocumentElement();
+        Group createdGroup = new Group();
 
         if (rootElement == null) {
             rootElement = document.createElement("Groups");
             document.appendChild(rootElement);
         }
+        group.setId(Integer.parseInt(new IdGenerator().generateGroupId(getAll())));
 
         Element groupEl = document.createElement("Group");
         Attr groupAttribute = document.createAttribute("name");
         groupAttribute.setValue(group.getName());
+
+        Element groupContacts = document.createElement("GroupContacts");
+        groupEl.appendChild(groupContacts);
 
         Element groupIdEl = document.createElement("id");
         groupEl.appendChild(groupIdEl).setTextContent(String.valueOf(group.getId()));
@@ -89,7 +104,6 @@ public class DOMGroupDAOImpl implements ObjectDAO<Group> {
         transform();
 
         nodeList = document.getElementsByTagName("Group");
-        Group createdGroup = new Group();
         createdGroup.setName(group.getName());
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element g = null;
@@ -109,20 +123,9 @@ public class DOMGroupDAOImpl implements ObjectDAO<Group> {
         return createdGroup;
     }
 
-    private Document createDoc() {
-        documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
-            document = createDocBuilder().parse("group.xml");
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return document;
-    }
-
     @Override
     public Group getByName(Group group) {
+        readingStream();
         nodeList = document.getElementsByTagName("Group");
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element g = null;
@@ -145,6 +148,7 @@ public class DOMGroupDAOImpl implements ObjectDAO<Group> {
 
     @Override
     public Group update(Group group) {
+        readingStream();
         String name = group.getName();
         nodeList = document.getElementsByTagName("Group");
 
@@ -161,11 +165,13 @@ public class DOMGroupDAOImpl implements ObjectDAO<Group> {
                 System.out.println("Хотели бы Вы поменять имя? y/n");
                 if (scanner.next().equals("y")) {
                     System.out.println("Введите новое имя");
-                    name = scanner.nextLine();
+                    name = scanner.next();
                     g.setAttribute("name", name);
                 }
             }
+            transform();
         }
+        readingStream();
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element c = null;
             try {
@@ -186,38 +192,107 @@ public class DOMGroupDAOImpl implements ObjectDAO<Group> {
         return null;
     }
 
+    public void addInGroup(Contact contact, Group group) {
+        readingStream();
+        Integer contactId = contact.getId();
+        nodeList = document.getElementsByTagName("Group");
+
+        for (int i = 1; i <= nodeList.getLength(); i++) {
+            Element g = null;
+            Element gc = null;
+
+            try {
+                g = (Element) xPath.evaluate("Groups/Group[" + i + "]", document, XPathConstants.NODE);
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+            if (group.getName().equals(g.getAttribute("name"))) {
+                group.getInner().add(contactId);
+                try {
+                    gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts", document, XPathConstants.NODE);
+                } catch (XPathExpressionException e) {
+                    e.printStackTrace();
+                }
+                Element contactNode = document.createElement("ContactID");
+                contactNode.setTextContent(String.valueOf(contactId));
+                gc.appendChild(contactNode);
+            }
+        }
+        transform();
+    }
+
+    public void deleteFromGroup(Contact contact, Group group) {
+        Element g = null;
+        Element gc = null;
+        Integer id = null;
+        Contact deleted;
+        DOMContactDAOImpl domContactDAO = new DOMContactDAOImpl();
+        deleted = domContactDAO.getByName(contact);
+        id = deleted.getId();
+
+        readingStream();
+        nodeList = document.getElementsByTagName("Group");
+        for (int i = 1; i <= nodeList.getLength(); i++) {
+            try {
+                g = (Element) xPath.evaluate("Groups/Group[" + i + "]", document, XPathConstants.NODE);
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+            NodeList contactsID = document.getElementsByTagName("ContactID");
+
+            if (group.getName().equals(g.getAttribute("name"))) {
+                for (int j = 1; j <= contactsID.getLength(); j++) {
+                    try {
+                        gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts/ContactID[" + j + "]", document, XPathConstants.NODE);
+                    } catch (XPathExpressionException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (id.equals(gc.getTextContent())) {
+                    document.getDocumentElement().removeChild(nodeList.item(i - 1));
+                    transform();
+                }
+            }
+        }
+    }
+
+
     @Override
     public Group delete(Group group) {
+        readingStream();
         nodeList = document.getElementsByTagName("Group");
         Group deletedGroup;
         Element g = null;
-        for (int i = 0; i < nodeList.getLength(); i++) {
+        for (int i = 1; i <= nodeList.getLength(); i++) {
             try {
                 g = (Element) xPath.evaluate("Groups/Group[" + i + "]", document, XPathConstants.NODE);
             } catch (XPathExpressionException e) {
                 e.printStackTrace();
             }
 
-//            if (group.getName().equals(g.getAttribute("name"))) {
-//                deletedGroup = new Group();
-//                try {
-//                    deletedGroup.setId(Integer.parseInt(xPath.evaluate("Groups/Group[" + i + "]/id", document)));
-//                } catch (XPathExpressionException e) {
-//                    System.out.println("XPath Error");
-//                }
-                document.getDocumentElement().removeChild(nodeList.item(0));
+            if (group.getName().equals(g.getAttribute("name"))) {
+                deletedGroup = new Group();
+                try {
+                    deletedGroup.setId(Integer.parseInt(xPath.evaluate("Groups/Group[" + i + "]/id", document)));
+                } catch (XPathExpressionException e) {
+                    System.out.println("XPath Error");
+                }
+                document.getDocumentElement().removeChild(nodeList.item(i - 1));
                 transform();
-                return group;
-//            }
+                return deletedGroup;
+            }
         }
         return null;
     }
 
     @Override
     public List<Group> getAll() {
+        readingStream();
+
         List<Group> groups = new ArrayList();
         nodeList = document.getElementsByTagName("Group");
         Element g = null;
+
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Group group = new Group();
             try {
@@ -228,6 +303,16 @@ public class DOMGroupDAOImpl implements ObjectDAO<Group> {
             try {
                 group.setName(g.getAttribute("name"));
                 group.setId(Integer.parseInt(xPath.evaluate("Groups/Group[" + i + "]/id", document)));
+
+                NodeList contactsID = document.getElementsByTagName("ContactID");
+                Element gc = null;
+
+                for (int j = 1; j <= contactsID.getLength(); j++) {
+                    gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts/ContactID[" + j +"]", document, XPathConstants.NODE);
+                    if (gc != null) {
+                        group.getInner().add(Integer.parseInt(gc.getTextContent()));
+                    }
+                }
             } catch (XPathExpressionException e) {
                 System.out.println("XPath Error");
             }

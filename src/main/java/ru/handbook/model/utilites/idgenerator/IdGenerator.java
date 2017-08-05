@@ -27,7 +27,7 @@ public class IdGenerator {
         return "1" + max;
     }
 
-    public String generateGroupId() {
+    public String generateGroupId(List<Group> Groups) {
         int max = 1;
         for (Group group : source.getGroups()) {
             if (group != null) {

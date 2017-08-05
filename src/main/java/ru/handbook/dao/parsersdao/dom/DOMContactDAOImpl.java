@@ -9,7 +9,6 @@ import ru.handbook.model.utilites.idgenerator.IdGenerator;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -22,13 +21,15 @@ import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder documentBuilder = createDocumentBuilder();
-    Document document;
+    Document document = null;
     InputStream inputStream = createInputStream();
+    Scanner scanner = new Scanner(System.in);
     XPathFactory xPathFactory = XPathFactory.newInstance();
     XPath xPath = xPathFactory.newXPath();
     NodeList nodeList;
@@ -37,6 +38,15 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
         try {
             return new FileInputStream("contact.xml");
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private DocumentBuilder createDocumentBuilder() {
+        try {
+            return documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -55,26 +65,26 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
         }
     }
 
-    private DocumentBuilder createDocumentBuilder() {
+    private void readingStream() {
         try {
-            return documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
+            document = documentBuilder.parse(inputStream);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override
     public Contact create(Contact contact) {
-        if (document != null) {
+        readingStream();
+        Node rootElement = document.getDocumentElement();
+        Contact createdContact = new Contact();
 
-
-            Node rootElement = document.getDocumentElement();
-            if (rootElement == null) {
-                rootElement = document.createElement("Contacts");
-                document.appendChild(rootElement);
-            }
-
+        if (rootElement == null) {
+            rootElement = document.createElement("Contacts");
+            document.appendChild(rootElement);
+        }
             contact.setId(Integer.parseInt(new IdGenerator().generateContactId(getAll())));
 
             Element contactEl = document.createElement("Contact");
@@ -100,15 +110,14 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
             transform();
 
             nodeList = document.getElementsByTagName("Contact");
-            Contact createdContact = new Contact();
             createdContact.setName(contact.getName());
 
-        }
-        return contact;
+        return createdContact;
     }
 
     @Override
     public Contact getByName(Contact contact) {
+        createInputStream();
         nodeList = document.getElementsByTagName("Contact");
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element c = null;
@@ -140,11 +149,86 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact update(Contact contact) {
+        createInputStream();
+        String name = contact.getName();
+        nodeList = document.getElementsByTagName("Contact");
+
+        for (int i = 1; i <= nodeList.getLength(); i++) {
+            Element c = null;
+            try {
+                c = (Element) xPath.evaluate("Contacts/Contact[" + i + "]", document, XPathConstants.NODE);
+            } catch (XPathExpressionException e) {
+                System.out.println("XPath Error");
+            }
+
+            if (name.equals(c.getAttribute("name"))) {
+
+                System.out.println("Хотели бы Вы поменять имя? y/n");
+                if (scanner.next().equals("y")) {
+                    System.out.println("Введите новое имя");
+                    name = scanner.next();
+                    c.setAttribute("name", name);
+
+                }
+
+                System.out.println("Хотели бы Вы обновить Телефон? y/n");
+                if (scanner.next().equals("y")) {
+                    System.out.println("Введите новый телефон");
+                    if (scanner.hasNextInt()) {
+                        int phone = scanner.nextInt();
+                        c.getElementsByTagName("phone").item(0).setTextContent("" + phone);
+                    }
+                }
+
+                System.out.println("Хотели бы Вы обновить Skype? y/n");
+                if (scanner.next().equals("y")) {
+                    System.out.println("Введите skype");
+                    String skype = scanner.next();
+                    c.getElementsByTagName("skype").item(0).setTextContent(skype);
+                }
+
+                System.out.println("Хотели бы Вы обновить mail? y/n");
+                if (scanner.next().equals("y")) {
+                    System.out.println("Введите mail");
+                    String mail = scanner.next();
+                    c.getElementsByTagName("mail").item(0).setTextContent(mail);
+                }
+                transform();
+            }
+        }
+        createInputStream();
+        for (int i = 1; i <= nodeList.getLength(); i++) {
+            Element c = null;
+            try {
+                c = (Element) xPath.evaluate("Contacts/Contact[" + i + "]", document, XPathConstants.NODE);
+            } catch (XPathExpressionException e) {
+                System.out.println("XPath Error");
+            }
+            if (name.equals(c.getAttribute(name))) {
+                try {
+                    contact.setId(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/id", document)));
+                    contact.setPhone(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document)));
+
+                    if (!xPath.evaluate("Contacts/Contact[" + i + "]/skype", document).isEmpty()) {
+                        contact.setSkype(xPath.evaluate("Contacts/Contact[" + i + "]/skype", document));
+                    } else contact.setSkype("");
+
+                    if (!xPath.evaluate("Contacts/Contact[" + i + "]/mail", document).isEmpty()) {
+                        contact.setMail(xPath.evaluate("Contacts/Contact[" + i + "]/mail", document));
+                    } else contact.setMail("");
+                } catch (XPathExpressionException e) {
+                    System.out.println("XPath Error");
+                }
+                transform();
+                return contact;
+            }
+        }
         return null;
     }
 
     @Override
     public Contact delete(Contact contact) {
+        createInputStream();
         nodeList = document.getElementsByTagName("Contact");
         Contact deletedContact;
         Element c = null;
@@ -171,9 +255,9 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
                 } catch (XPathExpressionException e) {
                     System.out.println("XPath Error");
                 }
-                document.getDocumentElement().removeChild(nodeList.item(i-1));
+                document.getDocumentElement().removeChild(nodeList.item(i - 1));
                 transform();
-                return contact;
+                return deletedContact;
             }
         }
         return null;
@@ -181,13 +265,8 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public List<Contact> getAll() {
-        try {
-            document = documentBuilder.parse(inputStream);
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        createInputStream();
+
         List<Contact> contacts = new ArrayList();
         if (document != null) {
             nodeList = document.getElementsByTagName("Contact");

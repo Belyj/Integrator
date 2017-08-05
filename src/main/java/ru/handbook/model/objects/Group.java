@@ -20,7 +20,7 @@ public class Group implements Serializable {
     private List<Integer> groupContacts;
 
     public Group() {
-        id = Integer.parseInt(new IdGenerator().generateGroupId());
+        id = 0;
         groupContacts = new ArrayList();
     }
 

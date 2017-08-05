@@ -6,9 +6,13 @@ import org.xml.sax.helpers.DefaultHandler;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.storage.DataStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHandler extends DefaultHandler {
 
     //DataStorage dataStorage = DataStorage.getInstance();
+    List<Contact> contacts = new ArrayList();
     Contact contact;
     private String name;
     private String element;
@@ -20,7 +24,8 @@ public class ContactHandler extends DefaultHandler {
         if (element.equals("Contact")) {
             isContact = true;
             contact = new Contact();
-            contact.setName(attributes.getValue(0));
+            name = attributes.getValue(0);
+            contact.setName(name);
         }
     }
 
@@ -28,6 +33,7 @@ public class ContactHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (isContact) {
             //dataStorage.getContacts().add(contact);
+            contacts.add(contact);
             isContact = false;
         }
     }
@@ -58,5 +64,9 @@ public class ContactHandler extends DefaultHandler {
                 contact.setMail(mail);
             }
         }
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
     }
 }

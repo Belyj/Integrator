@@ -8,8 +8,8 @@ import ru.handbook.model.objects.Contact;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SAXContactDAOImpl implements ObjectDAO<Contact> {
@@ -30,7 +30,7 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     private File createFile() {
-        return new File("dom.xml");
+        return new File("contact.xml");
     }
 
     @Override
@@ -40,6 +40,25 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact getByName(Contact contact) {
+        List<Contact> contacts;
+        try {
+            InputStream inputStream = new FileInputStream("contact.xml");
+            try {
+                saxParser.parse(inputStream, contactHandler);
+                contacts = contactHandler.getContacts();
+                for (Contact c : contacts) {
+                    if (c.getName().equals(contact.getName())) {
+                        return c;
+                    }
+                }
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -55,14 +74,6 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public List<Contact> getAll() {
-        try {
-            saxParser.parse(createFile(), contactHandler);
-            return null;
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return contactHandler.getContacts();
     }
 }

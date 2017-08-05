@@ -1,9 +1,10 @@
 package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.objectsdao.FactoryDAO;
-import ru.handbook.dao.objectsdao.daoimpl.factorydao.ContactFactoryDAOImpl;
-import ru.handbook.dao.parsersdao.dom.DOMContactDAOImpl;
-import ru.handbook.dao.parsersdao.sax.SAXContactDAOImpl;
+import ru.handbook.dao.objectsdao.ContactFactoryDAO;
+import ru.handbook.dao.objectsdao.ObjectDAO;
+import ru.handbook.dao.parsersdao.dom.domfactorydao.DOMContactFactoryDAOImpl;
+import ru.handbook.dao.parsersdao.jackson.jacksonfactorydao.JacksonContactFactoryDAOImpl;
+import ru.handbook.dao.parsersdao.sax.saxfactorydao.SAXContactFactoryDAOImpl;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.services.ContactService;
 
@@ -11,11 +12,8 @@ import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
 
-    //FactoryDAO<Contact> contactFactoryDAO;
-    //ContactDAOImpl contactDAO = contactFactoryDAO.factoryMethod();
-    DOMContactDAOImpl contactDAO = new DOMContactDAOImpl();
-
-    //SAXContactDAOImpl contactDAO = new SAXContactDAOImpl();
+    ContactFactoryDAO contactFactoryDAO;
+    ObjectDAO<Contact> contactDAO;
 
     public Contact createContact(Contact contact) {
         return contactDAO.create(contact);
@@ -35,5 +33,20 @@ public class ContactServiceImpl implements ContactService {
 
     public List<Contact> getAllContacts() {
         return contactDAO.getAll();
+    }
+
+    public void setDOM() {
+        contactFactoryDAO = new DOMContactFactoryDAOImpl();
+        contactDAO = contactFactoryDAO.factoryMethod();
+    }
+
+    public void setSAX() {
+        contactFactoryDAO = new SAXContactFactoryDAOImpl();
+        contactDAO = contactFactoryDAO.factoryMethod();
+    }
+
+    public void setJackson() {
+        contactFactoryDAO = new JacksonContactFactoryDAOImpl();
+        contactDAO = contactFactoryDAO.factoryMethod();
     }
 }

@@ -1,6 +1,8 @@
 package ru.handbook.model.utilites.datechooser;
 
 import ru.handbook.dao.parsersdao.jackson.test.JacksonDeserializer;
+import ru.handbook.services.servicesimpl.ContactServiceImpl;
+import ru.handbook.services.servicesimpl.GroupServiceImpl;
 
 import java.util.Scanner;
 
@@ -27,15 +29,15 @@ public class DataChooser {
             command = scanner.nextInt();
             switch (command) {
                 case 1:
-                    //new DOMDeserializer();
+                    new ContactServiceImpl().setDOM();
+                    new GroupServiceImpl().setDOM();
                     break;
                 case 2:
-                    //new SAXDeserializer();
+                    new ContactServiceImpl().setSAX();
+                    new GroupServiceImpl().setSAX();
                     break;
                 case 3:
-                    new JacksonDeserializer();
-                    //DataStorage.getInstance().addObserver(new DOMSerializer());
-                    //DataStorage.getInstance().addObserver(new JacksonSerializer());
+                    System.out.println("Пока не поддерживается");
                     break;
                 default:
                     System.out.println("Такой команды нет");

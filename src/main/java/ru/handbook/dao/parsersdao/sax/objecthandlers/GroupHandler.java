@@ -12,66 +12,42 @@ import java.util.List;
 
 public class GroupHandler extends DefaultHandler {
 
-    DataStorage dataStorage = DataStorage.getInstance();
     private List<Integer> contacts;
+    private List<Group> groups = new ArrayList();
     private Contact contact;
     private Group group;
     private boolean isIdGroup;
     private boolean isGroup;
+    private boolean isConact;
     private boolean isGroupContact;
-    private boolean isIdContact;
-    private boolean isPhoneContact;
-    private boolean isSkypeContact;
-    private boolean isMailContact;
-    private boolean isGroups;
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (isIdGroup) {
             group.setId(Integer.parseInt(new String(ch, start, length).trim()));
             isIdGroup = false;
-        } else if (isIdContact) {
+        } else if (isConact) {
             contact.setId(Integer.parseInt(new String(ch, start, length).trim()));
-            isIdContact = false;
-        } else  if(isPhoneContact) {
-            contact.setPhone(Integer.parseInt(new String(ch, start, length).trim()));
-            isPhoneContact = false;
-        } else if (isSkypeContact) {
-            contact.setSkype(new String(ch, start, length).trim());
-            isSkypeContact = false;
-        } else if (isMailContact) {
-            contact.setMail(new String(ch, start, length).trim());
-            isMailContact = false;
+            contacts.add(contact.getId());
         }
         super.characters(ch, start, length);
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if ("Groups".equalsIgnoreCase(qName)) {
-            isGroups = true;
-        } else if ("Group".equalsIgnoreCase(qName)) {
+        if ("Group".equalsIgnoreCase(qName)) {
             group = new Group();
             group.setName(attributes.getValue("name"));
             isGroup = true;
         } else if("GroupContacts".equalsIgnoreCase(qName)){
             contacts = new ArrayList();
-        }
-        else if ("id".equalsIgnoreCase(qName) && isGroup && isGroups) {
-            isIdGroup = true;
-        } else if ("GroupContact".equalsIgnoreCase(qName)) {
-            isGroup = false;
-            contact = new Contact();
-            contact.setName(attributes.getValue("name"));
             isGroupContact = true;
-        } else if ("id".equalsIgnoreCase(qName) && isGroupContact) {
-            isIdContact = true;
-        } else if ("phone".equalsIgnoreCase(qName) && isGroupContact) {
-            isPhoneContact = true;
-        } else if ("skype".equalsIgnoreCase(qName) && isGroupContact) {
-            isSkypeContact = true;
-        } else if ("mail".equalsIgnoreCase(qName) && isGroupContact) {
-            isMailContact = true;
+        }
+        else if ("id".equalsIgnoreCase(qName) && isGroup) {
+            isIdGroup = true;
+        } else if ("ContactID".equalsIgnoreCase(qName)) {
+            contact = new Contact();
+            isConact = true;
         }
     }
 
@@ -82,8 +58,12 @@ public class GroupHandler extends DefaultHandler {
         } else if ("GroupContact".equalsIgnoreCase(qName)) {
             contacts.add(contact.getId());
         } else if ("Group".equalsIgnoreCase(qName)) {
-            dataStorage.getGroups().add(group);
+            groups.add(group);
             isGroup = false;
         }
+    }
+
+    public List<Group> getGroups() {
+        return groups;
     }
 }

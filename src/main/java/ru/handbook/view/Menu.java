@@ -1,9 +1,11 @@
 package ru.handbook.view;
 
 import ru.handbook.controller.MenuController;
+import ru.handbook.dao.parsersdao.dom.DOMGroupDAOImpl;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
+import ru.handbook.model.utilites.datechooser.DataChooser;
 import ru.handbook.view.contactview.ContactView;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class Menu {
 
     public Menu() {
         while (flag) {
+            new DataChooser();
             DataStorage.getInstance().notifyObservers();
             menuList();
             menuCommand(keepCommand());
@@ -105,11 +108,13 @@ public class Menu {
                 contactsId = group.getInner();
                 contactsId.add(contact.getId());
                 group.setInner(contactsId);
+                controller.addInGroup(contact, group);
                 System.out.println(contact.getName() + " добавлен в группу " + group.getName());
                 break;
             case 9:
                 contact = controller.searchContact(initializeConract());
                 group = controller.searchGroup(initializeGroup());
+                controller.deleteFromGroup(contact, group);
                 contactsId = group.getInner();
                 contactsId.remove(contact);
                 group.setInner(contactsId);

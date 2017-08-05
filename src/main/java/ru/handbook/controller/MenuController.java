@@ -48,6 +48,14 @@ public class MenuController implements ContactController, GroupController {
         return group;
     }
 
+    public void addInGroup(Contact contact, Group group) {
+        groupService.addInGroup(contact, group);
+    }
+
+    public void deleteFromGroup(Contact contact, Group group) {
+        groupService.deleteFromGroup(contact, group);
+    }
+
     public List<Contact> checkContacts() {
         return contactService.getAllContacts();
     }
