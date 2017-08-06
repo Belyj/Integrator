@@ -4,6 +4,7 @@ import org.xml.sax.SAXException;
 import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.dao.parsersdao.sax.objecthandlers.ContactHandler;
 import ru.handbook.model.objects.Contact;
+import ru.handbook.model.utilites.validator.XMLValidator;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -18,6 +19,12 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
     SAXParser saxParser = createSAXParser();
     ContactHandler contactHandler = new ContactHandler();
 
+    public SAXContactDAOImpl() {
+        if (new XMLValidator().validateXMLSchema("src/main/java/ru/handbook/model/utilites/validator/xsd/ContactSchema.xsd", "contact.xml")) {
+            System.out.println("Validate is ok");
+        } else System.out.println("Validate error");
+    }
+
     private SAXParser createSAXParser() {
         try {
             return parserFactory.newSAXParser();
@@ -30,17 +37,25 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     private File createFile() {
+        if (! new File("contact.xml").exists()){
+            String path = new File("").getAbsolutePath();
+        }
         return new File("contact.xml");
     }
 
     @Override
     public Contact create(Contact contact) {
+        System.out.println("Только для чтения");
         return null;
     }
 
     @Override
     public Contact getByName(Contact contact) {
         List<Contact> contacts;
+        if (! new File("contact.xml").exists()){
+            String path = new File("").getAbsolutePath();
+            new File(path, "contact.xml");
+        }
         try {
             InputStream inputStream = new FileInputStream("contact.xml");
             try {
@@ -64,11 +79,13 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact update(Contact contact) {
+        System.out.println("Только для чтения");
         return null;
     }
 
     @Override
     public Contact delete(Contact contact) {
+        System.out.println("Только для чтения");
         return null;
     }
 

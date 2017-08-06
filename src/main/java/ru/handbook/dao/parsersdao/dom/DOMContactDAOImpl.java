@@ -5,6 +5,7 @@ import org.xml.sax.SAXException;
 import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.utilites.idgenerator.IdGenerator;
+import ru.handbook.model.utilites.validator.XMLValidator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,7 +35,17 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
     XPath xPath = xPathFactory.newXPath();
     NodeList nodeList;
 
+    public DOMContactDAOImpl() {
+        if (new XMLValidator().validateXMLSchema("src/main/java/ru/handbook/model/utilites/validator/xsd/ContactSchema.xsd", "contact.xml")) {
+            System.out.println("Validate is ok");
+        } else System.out.println("Validate error");
+    }
+
     private FileInputStream createInputStream() {
+        if (!new File("contact.xml").exists()) {
+            String path = new File("").getAbsolutePath();
+            new File(path, "contact.xml");
+        }
         try {
             return new FileInputStream("contact.xml");
         } catch (FileNotFoundException e) {
@@ -54,7 +65,6 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     private void transform() {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
-
         try {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(document);
@@ -65,24 +75,25 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
         }
     }
 
-    private void readingStream() {
+    private Document readingStream() {
         try {
-            document = documentBuilder.parse(inputStream);
+            return documentBuilder.parse(inputStream);
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
     public Contact create(Contact contact) {
-        readingStream();
+        document = readingStream();
         Node rootElement = document.getDocumentElement();
         Contact createdContact = new Contact();
 
         if (rootElement == null) {
-            rootElement = document.createElement("Contacts");
+            rootElement = document.createElement("JacksonContact");
             document.appendChild(rootElement);
         }
             contact.setId(Integer.parseInt(new IdGenerator().generateContactId(getAll())));
@@ -117,7 +128,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact getByName(Contact contact) {
-        createInputStream();
+        document = readingStream();
         nodeList = document.getElementsByTagName("Contact");
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element c = null;
@@ -149,7 +160,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact update(Contact contact) {
-        createInputStream();
+        document = readingStream();
         String name = contact.getName();
         nodeList = document.getElementsByTagName("Contact");
 
@@ -228,7 +239,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact delete(Contact contact) {
-        createInputStream();
+        document = readingStream();
         nodeList = document.getElementsByTagName("Contact");
         Contact deletedContact;
         Element c = null;
@@ -265,8 +276,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public List<Contact> getAll() {
-        createInputStream();
-
+        document = readingStream();
         List<Contact> contacts = new ArrayList();
         if (document != null) {
             nodeList = document.getElementsByTagName("Contact");

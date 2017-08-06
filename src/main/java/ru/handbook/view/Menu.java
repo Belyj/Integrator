@@ -20,8 +20,7 @@ public class Menu {
 
     public Menu() {
         while (flag) {
-            new DataChooser();
-            DataStorage.getInstance().notifyObservers();
+            //new DataChooser();
             menuList();
             menuCommand(keepCommand());
         }

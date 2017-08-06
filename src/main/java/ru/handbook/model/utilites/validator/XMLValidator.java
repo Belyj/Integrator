@@ -14,10 +14,10 @@ public class XMLValidator {
 
     SchemaFactory schemaFactory;
     File file;
-    public boolean validateXMLSchema(String xsdPath, String xmlPath) {
-        file = new File(xsdPath);
+    public boolean validateXMLSchema(String xsd, String xml) {
+        file = new File(xsd);
         try {
-            createValidator().validate(new StreamSource(new File(xmlPath)));
+            createValidator().validate(new StreamSource(new File(xml)));
             return true;
         } catch (SAXException e) {
             e.printStackTrace();

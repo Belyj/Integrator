@@ -30,11 +30,11 @@ public class DataChooser {
             switch (command) {
                 case 1:
                     new ContactServiceImpl().setDOM();
-                    new GroupServiceImpl().setDOM();
+                    //new GroupServiceImpl().setDOM();
                     break;
                 case 2:
                     new ContactServiceImpl().setSAX();
-                    new GroupServiceImpl().setSAX();
+                    //new GroupServiceImpl().setSAX();
                     break;
                 case 3:
                     System.out.println("Пока не поддерживается");

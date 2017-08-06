@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Contacts><Contact name="A"><id>11</id><phone>0</phone><skype/><mail/></Contact><Contact name="B"><id>12</id><phone>0</phone><skype/><mail/></Contact><Contact name="C"><id>13</id><phone>0</phone><skype/><mail/></Contact></Contacts>

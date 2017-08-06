@@ -1,16 +1,13 @@
 package ru.handbook.model.objects;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import ru.handbook.model.utilites.idgenerator.IdGenerator;
-
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@JacksonXmlRootElement(localName = "Contact")
 public class Contact implements Serializable {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty(localName = "name", isAttribute = true)
     private String name;
     @JacksonXmlProperty(localName = "id")
     private int id;
@@ -20,6 +17,7 @@ public class Contact implements Serializable {
     private String skype;
     @JacksonXmlProperty(localName = "mail")
     private String mail;
+
 
     public void setPhone(int telephone) {
         this.phone = telephone;

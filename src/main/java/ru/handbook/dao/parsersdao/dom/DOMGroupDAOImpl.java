@@ -7,7 +7,9 @@ import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.utilites.idgenerator.IdGenerator;
+import ru.handbook.model.utilites.validator.XMLValidator;
 
+import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,7 +39,17 @@ public class DOMGroupDAOImpl implements GroupDAO {
     XPath xPath = xPathFactory.newXPath();
     NodeList nodeList;
 
+    public DOMGroupDAOImpl() {
+        if (new XMLValidator().validateXMLSchema("src/main/java/ru/handbook/model/utilites/validator/xsd/GroupSchema.xsd", "group.xml")) {
+            System.out.println("Validate is ok");
+        } else System.out.println("Validate error");
+    }
+
     private FileInputStream createInputStream() {
+        if (!new File("group.xml").exists()) {
+            String path = new File("").getAbsolutePath();
+            new File(path, "group.xml");
+        }
         try {
             return new FileInputStream("group.xml");
         } catch (FileNotFoundException e) {
@@ -68,19 +80,20 @@ public class DOMGroupDAOImpl implements GroupDAO {
         }
     }
 
-    private void readingStream() {
+    private Document readingStream() {
         try {
-            document =  documentBuilder.parse(inputStream);
+            return documentBuilder.parse(inputStream);
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
     public Group create(Group group) {
-        readingStream();
+        document = readingStream();
         Node rootElement = document.getDocumentElement();
         Group createdGroup = new Group();
 
@@ -125,7 +138,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
 
     @Override
     public Group getByName(Group group) {
-        readingStream();
+        document = readingStream();
         nodeList = document.getElementsByTagName("Group");
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element g = null;
@@ -148,7 +161,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
 
     @Override
     public Group update(Group group) {
-        readingStream();
+        document = readingStream();
         String name = group.getName();
         nodeList = document.getElementsByTagName("Group");
 
@@ -171,7 +184,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
             }
             transform();
         }
-        readingStream();
+        document = readingStream();
         for (int i = 1; i <= nodeList.getLength(); i++) {
             Element c = null;
             try {
@@ -193,7 +206,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
     }
 
     public void addInGroup(Contact contact, Group group) {
-        readingStream();
+        document = readingStream();
         Integer contactId = contact.getId();
         nodeList = document.getElementsByTagName("Group");
 
@@ -230,7 +243,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
         deleted = domContactDAO.getByName(contact);
         id = deleted.getId();
 
-        readingStream();
+        document = readingStream();
         nodeList = document.getElementsByTagName("Group");
         for (int i = 1; i <= nodeList.getLength(); i++) {
             try {
@@ -259,7 +272,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
 
     @Override
     public Group delete(Group group) {
-        readingStream();
+        document = readingStream();
         nodeList = document.getElementsByTagName("Group");
         Group deletedGroup;
         Element g = null;
@@ -287,7 +300,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
 
     @Override
     public List<Group> getAll() {
-        readingStream();
+        document = readingStream();
 
         List<Group> groups = new ArrayList();
         nodeList = document.getElementsByTagName("Group");
