@@ -3,7 +3,7 @@ CREATE PROCEDURE `getContactByName` (IN contactName VARCHAR(255), userName VARCH
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'searching contact info
-		@param contact name'
+		@param contact name, user name'
 BEGIN 
     SELECT contact_name, phone, skype, mail, group_name
 	FROM handbook_schema.contact_table c

@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT group_id), group_id FROM handbook_schema.link_table GROUP BY group_id;

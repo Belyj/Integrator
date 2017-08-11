@@ -3,7 +3,7 @@ CREATE PROCEDURE `removeFromGroup` (IN contactID INT, groupID INT, userName VARC
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'remove contact from group
-		@param contact id, group id'
+		@param contact id, group id, userName'
 BEGIN 
     DELETE FROM handbook_schema.link_table WHERE 
 		group_id = (SELECT group_id FROM handbook_schema.group_table WHERE group_id = contactID) AND
