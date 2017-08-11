@@ -1,6 +1,7 @@
 CREATE TABLE `handbook_schema`.`contact_table` (
   `contact_id` INT NOT NULL AUTO_INCREMENT,
-  `contact_name` VARCHAR(256) NOT NULL,
+  `contact_name` VARCHAR(255) NOT NULL,
+  INDEX (contact_name),
   `phone` INT NOT NULL DEFAULT 0,
   `skype` VARCHAR(256) NOT NULL DEFAULT '',
   `mail` VARCHAR(256) NOT NULL DEFAULT '',

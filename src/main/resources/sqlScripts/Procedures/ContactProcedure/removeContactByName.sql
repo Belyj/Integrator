@@ -1,9 +1,9 @@
 DELIMITER // 
-CREATE PROCEDURE `removeContactByName` (IN contactName varchar(256)) 
+CREATE PROCEDURE `removeContactByName` (IN contactID int) 
 LANGUAGE SQL 
 DETERMINISTIC 
-COMMENT '	seek and remove contact
-			@param contact name'
+COMMENT 'seek and remove contact
+		@param contact id'
 BEGIN 
-    DELETE FROM handbook_schema.contact_table WHERE contact_name = contactName; 
+    DELETE FROM handbook_schema.contact_table WHERE contact_id = contactID; 
 END// 

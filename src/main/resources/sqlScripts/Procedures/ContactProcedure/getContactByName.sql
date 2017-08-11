@@ -1,9 +1,14 @@
 DELIMITER // 
-CREATE PROCEDURE `getContactByName` (IN contactName VARCHAR(256)) 
+CREATE PROCEDURE `getContactByName` (IN contactName VARCHAR(255), userName VARCHAR(256)) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'searching contact info
 		@param contact name'
 BEGIN 
-    SELECT * FROM handbook_schema.contact_table WHERE contact_name = contactName; 
+    SELECT contact_name, phone, skype, mail, group_name
+	FROM handbook_schema.contact_table c
+	JOIN handbook_schema.link_table l ON c.contact_id = l.contact_id
+	JOIN handbook_schema.group_table g ON g.group_id = l.group_id
+	JOIN handbook_schema.user_table u ON u.user_id = l.user_id
+	WHERE c.contact_name LIKE contactName AND u.user_name = userName;
 END// 
