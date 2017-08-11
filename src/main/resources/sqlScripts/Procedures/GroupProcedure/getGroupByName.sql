@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `getGroupByName` (IN groupName varchar(255), userName VARCHAR(256)) 
+CREATE PROCEDURE `getGroupByName` (IN groupName varchar(255), userName VARCHAR(255)) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT '	searching groupName info

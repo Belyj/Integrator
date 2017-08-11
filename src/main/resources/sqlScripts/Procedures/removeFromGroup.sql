@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `removeFromGroup` (IN contactID INT, groupID INT, userName VARCHAR(256)) 
+CREATE PROCEDURE `removeFromGroup` (IN contactID INT, groupID INT, userName VARCHAR(255)) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'remove contact from group

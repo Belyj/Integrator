@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `getContactList` (userName VARCHAR(256)) 
+CREATE PROCEDURE `getContactList` (IN userName VARCHAR(255)) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'searching all contacts info

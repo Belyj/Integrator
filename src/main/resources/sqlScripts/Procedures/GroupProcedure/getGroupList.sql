@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `getGroupList` (userName VARCHAR(256)) 
+CREATE PROCEDURE `getGroupList` (IN userName VARCHAR(255)) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'searching all groups info

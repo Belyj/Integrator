@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `removeContactByName` (IN contactID int) 
+CREATE PROCEDURE `removeContactByID` (IN contactID int) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'seek and remove contact

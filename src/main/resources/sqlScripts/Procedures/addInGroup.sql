@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `addInGroup` (IN contactID INT, groupID INT, userName VARCHAR(256)) 
+CREATE PROCEDURE `addInGroup` (IN contactID INT, groupID INT, userName VARCHAR(255)) 
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'add contact in group

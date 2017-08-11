@@ -1,8 +1,8 @@
 CREATE TABLE `handbook_schema`.`link_table` (
-  `group_id` INT NOT NULL DEFAULT 0,
   `contact_id` INT NOT NULL,
+  `group_id` INT NOT NULL DEFAULT 0,
   `user_id` INT NOT NULL,
-  PRIMARY KEY (`group_id`, `contact_id`, `user_id`),
+  PRIMARY KEY (`contact_id`, `group_id`, `user_id`),
   CONSTRAINT FK1 FOREIGN KEY (contact_id) 
         REFERENCES contact_table(contact_id) on delete cascade,
   CONSTRAINT FK2 FOREIGN KEY (group_id) 
