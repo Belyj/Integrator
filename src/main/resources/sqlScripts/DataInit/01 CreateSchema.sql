@@ -1,1 +1,2 @@
 CREATE SCHEMA `handbook_schema` DEFAULT CHARACTER SET utf8 ;
+

@@ -17,6 +17,89 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.9</version>
+                    </dependency>
+                </dependencies>
+                <!-- common configuration shared by all executions -->
+                <configuration>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost:3306/</url>
+                    <username>root</username>
+                    <password>1Q2q3q4q</password>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>drop-schema</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/00 DropSchema.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-schema</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/01 CreateSchema.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/02 CreateContactTable.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/03 CreateGroupTable.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/04 CreateUserTable.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/05 CreateLinkTable.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/DataInit/06 CreateTestData.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-procedure</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <delimiter>|</delimiter>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/createContact.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/getContactByName.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/getContactList.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/removeContactByID.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/UpdateContact.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/createGroup.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/getGroupByName.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/getGroupList.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/removeGroupByID.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/updateGroup.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/averageContactsInGroups.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/avgCountOfContacts.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/unactiveList.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/userContactsCount.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/userCount.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/userGroupsCount.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/addInGroup.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/removeFromGroup.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -33,5 +116,4 @@
             <version>3.4</version>
         </dependency>
     </dependencies>
-
 </project>
