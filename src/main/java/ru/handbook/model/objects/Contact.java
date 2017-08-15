@@ -18,7 +18,6 @@ public class Contact implements Serializable {
     @JacksonXmlProperty(localName = "mail")
     private String mail;
 
-
     public void setPhone(int telephone) {
         this.phone = telephone;
     }
@@ -72,5 +71,14 @@ public class Contact implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + "\t" + id +
+                "name: " + "\t" + name +
+                "phone: " + "\t" + phone +
+                "skype: " + "\t" + skype +
+                "mai: " + "\t" + mail;
     }
 }

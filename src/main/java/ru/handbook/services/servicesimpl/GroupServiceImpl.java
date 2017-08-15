@@ -1,5 +1,6 @@
 package ru.handbook.services.servicesimpl;
 
+import ru.handbook.dao.dbdao.mysql.mysqlfactorydao.MySQLGroupFactoryDAO;
 import ru.handbook.dao.objectsdao.ContactFactoryDAO;
 import ru.handbook.dao.objectsdao.GroupDAO;
 import ru.handbook.dao.objectsdao.GroupFactoryDAO;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class GroupServiceImpl implements GroupService {
 
-    GroupFactoryDAO groupFactoryDAO;
-    GroupDAO groupDAO;
+    GroupFactoryDAO groupFactoryDAO = new MySQLGroupFactoryDAO();
+    GroupDAO groupDAO = groupFactoryDAO.factoryMethod();
 
 
     public List<Group> getAllGroups() {

@@ -1,6 +1,5 @@
 package ru.handbook.model.utilites.datechooser;
 
-import ru.handbook.dao.parsersdao.jackson.test.JacksonDeserializer;
 import ru.handbook.services.servicesimpl.ContactServiceImpl;
 import ru.handbook.services.servicesimpl.GroupServiceImpl;
 

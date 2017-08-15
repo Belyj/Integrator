@@ -1,5 +1,6 @@
 package ru.handbook.services.servicesimpl;
 
+import ru.handbook.dao.dbdao.mysql.mysqlfactorydao.MySQLContactFactoryDAO;
 import ru.handbook.dao.objectsdao.ContactFactoryDAO;
 import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.dao.parsersdao.dom.domfactorydao.DOMContactFactoryDAOImpl;
@@ -14,7 +15,7 @@ public class ContactServiceImpl implements ContactService {
 
     //ContactFactoryDAO contactFactoryDAO = new JacksonContactFactoryDAOImpl();
     //ContactFactoryDAO contactFactoryDAO = new SAXContactFactoryDAOImpl();
-    ContactFactoryDAO contactFactoryDAO = new DOMContactFactoryDAOImpl();
+    ContactFactoryDAO contactFactoryDAO = new MySQLContactFactoryDAO();
     ObjectDAO<Contact> contactDAO = contactFactoryDAO.factoryMethod();
 
     public Contact createContact(Contact contact) {
