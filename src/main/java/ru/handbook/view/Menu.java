@@ -69,11 +69,10 @@ public class Menu {
             case 2:
                 contact = controller.searchContact(initializeConract());
                 if (contact != null) {
-                    System.out.println(contact.getName() + " "
-                            +  contact.getId() + " "
-                            + contact.getPhone() + " "
-                            + contact.getSkype() + " "
-                            + contact.getMail());
+                    System.out.println("name: " + contact.getName() + ";" + "\t" +
+                            "phone: " + contact.getPhone() + ";" + "\t" +
+                            "skype: "+ contact.getSkype() + ";" + "\t" +
+                            "mail: "+ contact.getMail() + ";");
                 } else System.out.println("Контакт не существует");
                 break;
             case 3:
@@ -122,11 +121,10 @@ public class Menu {
             case 10:
                 contacts = controller.checkContacts();
                 for (Contact gettingContact : contacts) {
-                    System.out.println(gettingContact.getName() + " "
-                            + gettingContact.getId() + " "
-                            + gettingContact.getPhone() + " "
-                            + gettingContact.getSkype() + " "
-                            + gettingContact.getMail());
+                    System.out.println("name: " + gettingContact.getName() + ";" + "\t" +
+                            "phone: " + gettingContact.getPhone() + ";" + "\t" +
+                            "skype: "+ gettingContact.getSkype() + ";" + "\t" +
+                            "mail: "+ gettingContact.getMail() + ";");
                 }
                 break;
             case 11:

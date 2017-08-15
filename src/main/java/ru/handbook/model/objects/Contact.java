@@ -49,9 +49,16 @@ public class Contact implements Serializable {
         mail = "";
     }
 
-    public Contact(String name, int id, int phone, String skype, String mail) {
+    public Contact( int id, String name, int phone, String skype, String mail) {
         this.name = name;
         this.id = id;
+        this.phone = phone;
+        this.skype = skype;
+        this.mail = mail;
+    }
+
+    public Contact(String name, int phone, String skype, String mail) {
+        this.name = name;
         this.phone = phone;
         this.skype = skype;
         this.mail = mail;
@@ -75,10 +82,11 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "id: " + "\t" + id +
-                "name: " + "\t" + name +
-                "phone: " + "\t" + phone +
-                "skype: " + "\t" + skype +
-                "mai: " + "\t" + mail;
+        return  "name: " + name + "\t" +
+                "phone: " + phone + "\t" +
+                "skype: " + skype + "\t" +
+                "mail: " + mail;
     }
+
+
 }

@@ -5,7 +5,7 @@ DETERMINISTIC
 COMMENT 'searching contact info
 		@param contact name, user name'
 BEGIN 
-    SELECT contact_name, phone, skype, mail, group_name
+    SELECT distinct contact_name, phone, skype, mail
 	FROM handbook_schema.contact_table c
 	JOIN handbook_schema.link_table l ON c.contact_id = l.contact_id
 	JOIN handbook_schema.group_table g ON g.group_id = l.group_id
