@@ -132,10 +132,7 @@ public class Menu {
             case 11:
                 List<Group> groups = controller.checkGroups();
                 for (Group gettingGroup : groups) {
-                    System.out.println(gettingGroup.getName() + " " + gettingGroup.getId());
-                    for (Contact innerContact : gettingGroup.getInner()) {
-                        System.out.println("Inner contact id " + innerContact);
-                    }
+                    System.out.println("Group id: " + gettingGroup.getId() + " " + "group name: " + gettingGroup.getName());
                 }
                 break;
             case 12:

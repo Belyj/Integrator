@@ -36,6 +36,11 @@ public class Group implements Serializable {
         this.groupContacts = groupContacts;
     }
 
+    public Group(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

@@ -25,7 +25,7 @@ public class MySQLGroupDAOImpl implements GroupDAO{
     private String USERNAME = "root";
     private String PASS = "";
     private String URL = "jdbc:mysql://localhost:3306/handbook_schema";
-    ObjectMapper mapper = new GroupMapperImpl();
+    GroupMapperImpl mapper = new GroupMapperImpl();
 
     public MySQLGroupDAOImpl() {
         try {
@@ -42,17 +42,59 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     @Override
     public void deleteFromGroup(Contact contact, Group group) {
-
+        query = "{call removeFromGroup(\"" + contact.getId() + "\", " +  "\"" + group.getId() + "\", " + "\"RU\"" +" )}";
+        try {
+            statement = connection.createStatement();
+            statement.execute(query);
+            System.out.println("done");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void addInGroup(Contact contact, Group group) {
-
+        query = "{call addInGroup(\"" + contact.getId() + "\", " +  "\"" + group.getId() + "\", " + "\"RU\"" +" )}";
+        try {
+            statement = connection.createStatement();
+            statement.execute(query);
+            getByName(group);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public Group create(Group group) {
-        return null;
+        query = "{call createGroup(\"" + group.getName() + "\")}";
+        Group g = new Group();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            g = (Group) mapper.mapEasy(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return g;
     }
 
     @Override

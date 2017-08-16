@@ -12,78 +12,47 @@ import java.util.List;
 
 public class GroupMapperImpl implements ObjectMapper<Group> {
 
-    String query;
-    private Driver driver;
-    private Connection connection;
-    ResultSet resultSet;
-    Statement statement;
-    private String USERNAME = "root";
-    private String PASS = "";
-    private String URL = "jdbc:mysql://localhost:3306/handbook_schema";
-    ObjectMapper mapper = new GroupMapperImpl();
-
-    public Connection createConnetction() {
+    public Group mapEasy(ResultSet resultSet) {
+        Group group;
         try {
-            System.out.println("Creating driver...");
-            driver = new Driver();
-            System.out.println("Register Driver..");
-            DriverManager.registerDriver(driver);
-            System.out.println("Create connection...");
-            return connection = (Connection) DriverManager.getConnection(URL, USERNAME, PASS);
-        } catch (SQLException e) {
-            System.out.println("SQL ERROR");
-        }
-        return null;
-    }
-
-    private Integer count() {
-        query = "{call gorupContactsCount(\"" + "G" + "\", " + "\"RU\"" + ")}";
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            int groupID = 0;
+            String groupName = "";
             while (resultSet.next()) {
-                return resultSet.getInt("count");
+                groupID = resultSet.getInt("gid");
+                groupName = resultSet.getString("gname");
             }
+            group = new Group(groupID, groupName);
+            return group;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
-
     @Override
     public Group map(ResultSet resultSet) {
         Group group;
-        List<Contact> contacts;
-        int size = count();
-        Contact[] c = new Contact[size];
         Contact contact;
-//        List<Integer> contactID;
-        Array contactID;
-//        List<String> contactName;
-        Array contactName;
+        List<Contact> contacts;
         try {
-            //contacts = new ArrayList();
-//            contactID = new ArrayList();
-//            contactName = new ArrayList();
+            int groupID = 0;
+            String groupName = "";
+            contacts = new ArrayList();
             while (resultSet.next()) {
-                int groupID = resultSet.getInt("group_id");
-                String groupName = resultSet.getString("gname");
-//                contactID.add(resultSet.getInt("cid"));
-//                contactName.add(resultSet.getString("cname"));
-                contactID = resultSet.getArray("cid");
-                contactName = resultSet.getArray("cname");
-                contacts = new ArrayList();
-                for (int i = 0; i < size; i++) {
-                    contacts.add(new Contact(contactID[i], contactName[i]));
-                }
-                for (int i = 0; i < size; i++) {
-
-                }
-
-
-                group = new Group(groupID, groupName, contacts);
-                return group;
+                groupID = resultSet.getInt("group_id");
+                groupName = resultSet.getString("gname");
+                int contactID = resultSet.getInt("cid");
+                String contactName = resultSet.getString("cname");
+                contact = new Contact(contactID, contactName);
+                contacts.add(contact);
             }
+            group = new Group(groupID, groupName, contacts);
+            return group;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -100,20 +69,13 @@ public class GroupMapperImpl implements ObjectMapper<Group> {
     public List<Group> listMap(ResultSet resultSet) {
         List<Group> groups;
         Group group;
-        List<Contact> contacts;
-        Contact contact;
         try {
             groups = new ArrayList();
-            contacts = new ArrayList();
             while (resultSet.next()) {
                 int groupID = resultSet.getInt("group_id");
-                String groupName = resultSet.getString("group_name");
-                int contactID = resultSet.getInt("cid");
-                String contactName = resultSet.getString("cname");
-                contact = new Contact(contactID, contactName);
-                contacts.add(contact);
-                group = new Group(groupID, groupName, contacts);
-                groups.add(groupID, group);
+                String groupName = resultSet.getString("gname");
+                group = new Group(groupID, groupName);
+                groups.add(group);
             }
             return groups;
         } catch (SQLException e) {

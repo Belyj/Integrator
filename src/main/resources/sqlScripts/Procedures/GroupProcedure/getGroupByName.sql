@@ -12,7 +12,3 @@ BEGIN
 	JOIN handbook_schema.user_table u ON u.uid = l.user_id
 	WHERE g.gname LIKE groupName AND u.uname = userName;
 END// 
-
-drop PROCEDURE getGroupByName;
-
-call getGroupByName("G", "RU");

@@ -10,4 +10,4 @@ BEGIN
 	JOIN handbook_schema.link_table l ON c.cid = l.contact_id
 	JOIN handbook_schema.user_table u ON u.uid = l.user_id
 	WHERE c.cname LIKE contactName AND u.uname = userName;
-END// 
+END//
