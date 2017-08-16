@@ -24,6 +24,12 @@ public class Group implements Serializable {
         groupContacts = new ArrayList();
     }
 
+    public Group(String name) {
+        id = 0;
+        groupContacts = new ArrayList();
+        this.name = name;
+    }
+
     public Group(String name, int id, List<Integer> groupContacts) {
         this.name = name;
         this.id = id;

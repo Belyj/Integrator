@@ -11,3 +11,6 @@ BEGIN
 	JOIN handbook_schema.user_table u ON u.user_id = l.user_id
 	WHERE u.user_name = userName;
 END//
+
+drop PROCEDURE getGroupList;
+call getGroupList("RU");

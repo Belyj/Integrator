@@ -2,13 +2,14 @@ package ru.handbook.dao.dbdao.mysql;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
+import ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl.ContactMapperImpl;
+import ru.handbook.dao.dbdao.mysql.mappers.ObjectMapper;
 import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.CallableStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,12 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     private Driver driver;
     private Connection connection;
     ResultSet resultSet;
-    //CallableStatement statement;
     Statement statement;
     private String USERNAME = "root";
     private String PASS = "";
     private String URL = "jdbc:mysql://localhost:3306/handbook_schema";
     String query;
+    ObjectMapper mapper = new ContactMapperImpl();
 
     public MySQLContactDAOImpl() {
         try {
@@ -40,7 +41,23 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact create(Contact contact) {
-        return null;
+        query = "{call createContact(\"" + contact.getName() + "\")}";
+        Contact c = new Contact();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            c = (Contact) mapper.map(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return c;
     }
 
     @Override
@@ -50,17 +67,11 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         try {
             statement = connection.createStatement();
             resultSet =  statement.executeQuery(query);
-            while (resultSet.next()) {
-                String name = resultSet.getString("contact_name");
-                int phone = resultSet.getInt("phone");
-                String skype = resultSet.getString("skype");
-                String mail = resultSet.getString("mail");
-                c = new Contact(name, phone, skype, mail);
-            }
+            c = (Contact) mapper.map(resultSet);
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 statement.close();
             } catch (SQLException e) {
@@ -84,15 +95,20 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     public List<Contact> getAll() {
         query = "{call getContactList(\"" + "RU" + "\")}";
         List<Contact> contacts = new ArrayList();
-        Contact contact = new Contact();
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
-            
+            contacts = mapper.listMap(resultSet);
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-
         return contacts;
     }
 }

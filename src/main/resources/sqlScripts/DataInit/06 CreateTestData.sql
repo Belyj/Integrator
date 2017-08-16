@@ -28,10 +28,10 @@ INSERT INTO `handbook_schema`.`contact_table` (`contact_name`) VALUES ('Some8');
 INSERT INTO `handbook_schema`.`contact_table` (`contact_name`) VALUES ('Some9');
 INSERT INTO `handbook_schema`.`contact_table` (`contact_name`) VALUES ('Some0');
 
-INSERT INTO `handbook_schema`.`user_table` (`user_name`) VALUES ('RU');
-INSERT INTO `handbook_schema`.`user_table` (`user_name`) VALUES ('US');
-INSERT INTO `handbook_schema`.`user_table` (`user_name`) VALUES ('JP');
-INSERT INTO `handbook_schema`.`user_table` (`user_name`) VALUES ('CA');
+INSERT INTO `handbook_schema`.`user_table` (`user_name`, `user_pass`) VALUES ('RU', 'RU');
+INSERT INTO `handbook_schema`.`user_table` (`user_name`, `user_pass`) VALUES ('US', 'US');
+INSERT INTO `handbook_schema`.`user_table` (`user_name`, `user_pass`) VALUES ('JP', 'JP');
+INSERT INTO `handbook_schema`.`user_table` (`user_name`, `user_pass`) VALUES ('CA', 'CA');
 
 INSERT INTO `handbook_schema`.`link_table` (`contact_id`, `group_id`, `user_id`) VALUES ('1', '3', '1');
 INSERT INTO `handbook_schema`.`link_table` (`contact_id`, `group_id`, `user_id`) VALUES ('2', '4', '1');
