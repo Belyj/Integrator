@@ -20,7 +20,6 @@ public class Menu {
 
     public Menu() {
         while (flag) {
-            //new DataChooser();
             menuList();
             menuCommand(keepCommand());
         }
@@ -149,6 +148,10 @@ public class Menu {
         Contact contact = new Contact();
         System.out.println("Введите имя контакта");
         contact.setName(scanner.nextLine());
+        System.out.println("Введите ID контакта");
+        if (scanner.hasNextInt()) {
+            contact.setId(scanner.nextInt());
+        }
         return contact;
     }
 
@@ -156,6 +159,10 @@ public class Menu {
         Group group = new Group();
         System.out.println("Введите имя группы");
         group.setName(scanner.nextLine());
+        System.out.println("Введите ID группы");
+        if (scanner.hasNextInt()) {
+            group.setId(scanner.nextInt());
+        }
         return group;
     }
 }

@@ -2,11 +2,11 @@ package ru.handbook.dao.dbdao.mysql;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
-import ru.handbook.dao.dbdao.mysql.mappers.ObjectMapper;
 import ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl.GroupMapperImpl;
 import ru.handbook.dao.objectsdao.GroupDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
+import static ru.handbook.Main.userInit;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLGroupDAOImpl implements GroupDAO{
+public class MySQLGroupDAOImpl implements GroupDAO {
 
     String query;
     private Driver driver;
@@ -29,11 +29,11 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     public MySQLGroupDAOImpl() {
         try {
-            System.out.println("Creating driver...");
+            //System.out.println("Creating driver...");
             driver = new Driver();
-            System.out.println("Register Driver..");
+            //System.out.println("Register Driver..");
             DriverManager.registerDriver(driver);
-            System.out.println("Create connection...");
+            //System.out.println("Create connection...");
             connection = (Connection) DriverManager.getConnection(URL, USERNAME, PASS);
         } catch (SQLException e) {
             System.out.println("SQL ERROR");
@@ -42,7 +42,7 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     @Override
     public void deleteFromGroup(Contact contact, Group group) {
-        query = "{call removeFromGroup(\"" + contact.getId() + "\", " +  "\"" + group.getId() + "\", " + "\"RU\"" +" )}";
+        query = "{call removeFromGroup(\"" + contact.getId() + "\", " +  "\"" + group.getId() + "\", " + "\"" + userInit.getUser().getName() + "\"" +" )}";
         try {
             statement = connection.createStatement();
             statement.execute(query);
@@ -60,7 +60,7 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     @Override
     public void addInGroup(Contact contact, Group group) {
-        query = "{call addInGroup(\"" + contact.getId() + "\", " +  "\"" + group.getId() + "\", " + "\"RU\"" +" )}";
+        query = "{call addInGroup(\"" + contact.getId() + "\", " +  "\"" + group.getId() + "\", " + "\"" + userInit.getUser().getName() + "\"" +" )}";
         try {
             statement = connection.createStatement();
             statement.execute(query);
@@ -99,7 +99,7 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     @Override
     public Group getByName(Group group) {
-        query = "{call getGroupByName(\"" + group.getName() + "\", " + "\"RU\"" + ")}";
+        query = "{call getGroupByName(\"" + group.getName() + "\", " + "\"" + userInit.getUser().getName() + "\"" + ")}";
         Group g = new Group();
         try {
             statement = connection.createStatement();
@@ -130,7 +130,7 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     @Override
     public List<Group> getAll() {
-        query = "{call getGroupList(\"" + "RU" + "\")}";
+        query = "{call getGroupList(\"" + userInit.getUser().getName() + "\")}";
         List<Group> groups = new ArrayList();
         try {
             statement = connection.createStatement();

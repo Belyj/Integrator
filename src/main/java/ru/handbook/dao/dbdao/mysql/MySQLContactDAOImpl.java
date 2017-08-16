@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import static ru.handbook.Main.userInit;
 
 public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
@@ -28,11 +29,11 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     public MySQLContactDAOImpl() {
         try {
-            System.out.println("Creating driver...");
+            //System.out.println("Creating driver...");
             driver = new Driver();
-            System.out.println("Register Driver..");
+            //System.out.println("Register Driver..");
             DriverManager.registerDriver(driver);
-            System.out.println("Create connection...");
+            //System.out.println("Create connection...");
             connection = (Connection) DriverManager.getConnection(URL, USERNAME, PASS);
         } catch (SQLException e) {
             System.out.println("SQL ERROR");
@@ -62,7 +63,7 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact getByName(Contact contact) {
-        query = "{call getContactByName(\"" + contact.getName() + "\", " + "\"RU\"" + ")}";
+        query = "{call getContactByName(\"" + contact.getName() + "\", " + "\"" + userInit.getUser().getName() + "\"" + ")}";
         Contact c = new Contact();
         try {
             statement = connection.createStatement();
@@ -93,7 +94,7 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public List<Contact> getAll() {
-        query = "{call getContactList(\"" + "RU" + "\")}";
+        query = "{call getContactList(\"" + userInit.getUser().getName() + "\")}";
         List<Contact> contacts = new ArrayList();
         try {
             statement = connection.createStatement();
