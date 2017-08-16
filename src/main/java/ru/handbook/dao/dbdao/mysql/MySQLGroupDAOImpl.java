@@ -57,7 +57,23 @@ public class MySQLGroupDAOImpl implements GroupDAO{
 
     @Override
     public Group getByName(Group group) {
-        return null;
+        query = "{call getGroupByName(\"" + group.getName() + "\", " + "\"RU\"" + ")}";
+        Group g = new Group();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            g = (Group) mapper.map(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return g;
     }
 
     @Override

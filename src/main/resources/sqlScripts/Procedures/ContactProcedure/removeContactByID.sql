@@ -5,5 +5,5 @@ DETERMINISTIC
 COMMENT 'seek and remove contact
 		@param contact id'
 BEGIN 
-    DELETE FROM handbook_schema.contact_table WHERE contact_id = contactID; 
+    DELETE FROM handbook_schema.contact_table WHERE cid = contactID; 
 END// 

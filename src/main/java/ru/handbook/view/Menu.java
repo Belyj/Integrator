@@ -69,7 +69,8 @@ public class Menu {
             case 2:
                 contact = controller.searchContact(initializeConract());
                 if (contact != null) {
-                    System.out.println("name: " + contact.getName() + ";" + "\t" +
+                    System.out.println("id: " + contact.getId() + ";" + "\t" +
+                            "name: " + contact.getName() + ";" + "\t" +
                             "phone: " + contact.getPhone() + ";" + "\t" +
                             "skype: "+ contact.getSkype() + ";" + "\t" +
                             "mail: "+ contact.getMail() + ";");
@@ -79,8 +80,8 @@ public class Menu {
                 group = controller.searchGroup(initializeGroup());
                 if (group != null) {
                     System.out.println(group.getName() + " " + group.getId());
-                    for (Integer innerContact : group.getInner()) {
-                        System.out.println("Inner contact id: " + innerContact);
+                    for (Contact innerContact : group.getInner()) {
+                        System.out.println(innerContact);
                     }
                 } else System.out.println("Группа не существует");
                 break;
@@ -103,9 +104,9 @@ public class Menu {
             case 8:
                 contact = controller.searchContact(initializeConract());
                 group = controller.searchGroup(initializeGroup());
-                contactsId = group.getInner();
-                contactsId.add(contact.getId());
-                group.setInner(contactsId);
+                contacts = group.getInner();
+                contacts.add(contact);
+                group.setInner(contacts);
                 controller.addInGroup(contact, group);
                 System.out.println(contact.getName() + " добавлен в группу " + group.getName());
                 break;
@@ -113,15 +114,16 @@ public class Menu {
                 contact = controller.searchContact(initializeConract());
                 group = controller.searchGroup(initializeGroup());
                 controller.deleteFromGroup(contact, group);
-                contactsId = group.getInner();
-                contactsId.remove(contact);
-                group.setInner(contactsId);
+                contacts = group.getInner();
+                contacts.remove(contact);
+                group.setInner(contacts);
                 System.out.println(contact.getName() + " удален из группы " + group.getName());
                 break;
             case 10:
                 contacts = controller.checkContacts();
                 for (Contact gettingContact : contacts) {
-                    System.out.println("name: " + gettingContact.getName() + ";" + "\t" +
+                    System.out.println("id: " + gettingContact.getId() + ";" + "\t" +
+                            "name: " + gettingContact.getName() + ";" + "\t" +
                             "phone: " + gettingContact.getPhone() + ";" + "\t" +
                             "skype: "+ gettingContact.getSkype() + ";" + "\t" +
                             "mail: "+ gettingContact.getMail() + ";");
@@ -131,7 +133,7 @@ public class Menu {
                 List<Group> groups = controller.checkGroups();
                 for (Group gettingGroup : groups) {
                     System.out.println(gettingGroup.getName() + " " + gettingGroup.getId());
-                    for (Integer innerContact : gettingGroup.getInner()) {
+                    for (Contact innerContact : gettingGroup.getInner()) {
                         System.out.println("Inner contact id " + innerContact);
                     }
                 }

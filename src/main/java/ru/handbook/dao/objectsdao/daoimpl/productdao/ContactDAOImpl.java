@@ -38,17 +38,17 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         contact.setName(new Scanner(System.in).nextLine());
         contact.setId(id);
         System.out.println("Введите телефон");
-        contact.setPhone(new Scanner(System.in).nextInt());
+        contact.setPhone(new Scanner(System.in).nextLine());
         System.out.println("Введите skype");
         contact.setSkype(new Scanner(System.in).nextLine());
         System.out.println("Введите mail");
         contact.setMail(new Scanner(System.in).nextLine());
         source.getContacts().add(contact);
         for (Group g : source.getGroups()) {
-            for (Integer c : g.getInner()) {
-                if (c == id) {
+            for (Contact c : g.getInner()) {
+                if (c.equals(contact)) {
                     g.getInner().remove(c);
-                    g.getInner().add(id);
+                    g.getInner().add(contact);
                 }
             }
         }

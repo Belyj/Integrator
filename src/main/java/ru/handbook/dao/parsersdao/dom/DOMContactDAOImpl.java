@@ -140,7 +140,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
             if (contact.getName().equals(c.getAttribute("name"))) {
                 try {
                     contact.setId(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/id", document)));
-                    contact.setPhone(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document)));
+                    contact.setPhone(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document));
 
                     if (!xPath.evaluate("Contacts/Contact[" + i + "]/skype", document).isEmpty()) {
                         contact.setSkype(xPath.evaluate("Contacts/Contact[" + i + "]/skype", document));
@@ -218,7 +218,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
             if (name.equals(c.getAttribute(name))) {
                 try {
                     contact.setId(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/id", document)));
-                    contact.setPhone(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document)));
+                    contact.setPhone(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document));
 
                     if (!xPath.evaluate("Contacts/Contact[" + i + "]/skype", document).isEmpty()) {
                         contact.setSkype(xPath.evaluate("Contacts/Contact[" + i + "]/skype", document));
@@ -254,7 +254,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
                 deletedContact = new Contact();
                 try {
                     deletedContact.setId(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/id", document)));
-                    deletedContact.setPhone(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document)));
+                    deletedContact.setPhone(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document));
 
                     if (!xPath.evaluate("Contacts/Contact[" + i + "]/skype", document).isEmpty()) {
                         deletedContact.setSkype(xPath.evaluate("Contacts/Contact[" + i + "]/skype", document));
@@ -292,7 +292,7 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
                 try {
                     contact.setName(c.getAttribute("name"));
                     contact.setId(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/id", document)));
-                    contact.setPhone(Integer.parseInt(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document)));
+                    contact.setPhone(xPath.evaluate("Contacts/Contact[" + i + "]/phone", document));
 
                     if (!xPath.evaluate("Contacts/Contact[" + i + "]/skype", document).isEmpty()) {
                         contact.setSkype(xPath.evaluate("Contacts/Contact[" + i + "]/skype", document));

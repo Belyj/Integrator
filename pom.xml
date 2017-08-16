@@ -53,7 +53,7 @@
                     <driver>com.mysql.jdbc.Driver</driver>
                     <url>jdbc:mysql://localhost:3306/</url>
                     <username>root</username>
-                    <password>1Q2q3q4q</password>
+                    <password></password>
                 </configuration>
                 <executions>
                     <execution>
@@ -97,22 +97,22 @@
                             <delimiter>|</delimiter>
                             <autocommit>true</autocommit>
                             <srcFiles>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/createContact.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/getContactByName.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/getContactList.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/removeContactByID.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/UpdateContact.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/createGroup.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/getGroupByName.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/getGroupList.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/removeGroupByID.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/updateGroup.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/averageContactsInGroups.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/avgCountOfContacts.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/unactiveList.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/userContactsCount.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/userCount.sql</srcFile>
-                                <srcFile>src/main/resources/sqlScripts/Procedures/userGroupsCount.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/createContact.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/getContactByName.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/getContactList.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/removeContactByID.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/UpdateContact.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/GroupProcedure/createGroup.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/GroupProcedure/getGroupByName.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/GroupProcedure/getGroupList.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/GroupProcedure/removeGroupByID.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/GroupProcedure/updateGroup.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/StatisticProcedure/averageContactsInGroups.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/StatisticProcedure/avgCountOfContacts.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/StatisticProcedure/unactiveList.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/StatisticProcedure/userContactsCount.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/StatisticProcedure/userCount.sql</srcFile>
+                                <srcFile>src/main/resources/sqlScripts/Procedures/StatisticProcedure/userGroupsCount.sql</srcFile>
                                 <srcFile>src/main/resources/sqlScripts/Procedures/addInGroup.sql</srcFile>
                                 <srcFile>src/main/resources/sqlScripts/Procedures/removeFromGroup.sql</srcFile>
                             </srcFiles>
@@ -122,6 +122,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

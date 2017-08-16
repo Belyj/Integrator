@@ -48,7 +48,7 @@ public class ContactHandler extends DefaultHandler {
         }
         if (element.equals("phone")) {
             if (name != null && !name.isEmpty()) {
-                int phone = Integer.parseInt(new String(ch, start, length));
+                String phone = new String(ch, start, length);
                 contact.setPhone(phone);
             }
         }

@@ -207,7 +207,6 @@ public class DOMGroupDAOImpl implements GroupDAO {
 
     public void addInGroup(Contact contact, Group group) {
         document = readingStream();
-        Integer contactId = contact.getId();
         nodeList = document.getElementsByTagName("Group");
 
         for (int i = 1; i <= nodeList.getLength(); i++) {
@@ -220,14 +219,14 @@ public class DOMGroupDAOImpl implements GroupDAO {
                 e.printStackTrace();
             }
             if (group.getName().equals(g.getAttribute("name"))) {
-                group.getInner().add(contactId);
+                group.getInner().add(contact);
                 try {
                     gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts", document, XPathConstants.NODE);
                 } catch (XPathExpressionException e) {
                     e.printStackTrace();
                 }
                 Element contactNode = document.createElement("ContactID");
-                contactNode.setTextContent(String.valueOf(contactId));
+                contactNode.setTextContent(String.valueOf(contact));
                 gc.appendChild(contactNode);
             }
         }
@@ -323,7 +322,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
                 for (int j = 1; j <= contactsID.getLength(); j++) {
                     gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts/ContactID[" + j +"]", document, XPathConstants.NODE);
                     if (gc != null) {
-                        group.getInner().add(Integer.parseInt(gc.getTextContent()));
+                        //group.getInner().add(Integer.parseInt(gc.getTextContent()));
                     }
                 }
             } catch (XPathExpressionException e) {

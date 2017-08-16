@@ -5,11 +5,11 @@ DETERMINISTIC
 COMMENT 'searching all groups info
 		@param user name'
 BEGIN 
-	SELECT DISTINCT group_name
-	FROM handbook_schema.group_table c
-	JOIN handbook_schema.link_table l ON c.group_id = l.group_id
-	JOIN handbook_schema.user_table u ON u.user_id = l.user_id
-	WHERE u.user_name = userName;
+	SELECT DISTINCT group_id, gname
+	FROM handbook_schema.group_table g
+	JOIN handbook_schema.link_table l ON g.gid = l.group_id
+	JOIN handbook_schema.user_table u ON u.uid = l.user_id
+	WHERE u.uname = userName;
 END//
 
 drop PROCEDURE getGroupList;

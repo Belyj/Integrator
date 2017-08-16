@@ -16,11 +16,12 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
         Contact contact;
         try {
             while (resultSet.next()) {
-                String name = resultSet.getString("contact_name");
-                int phone = resultSet.getInt("phone");
+                int id = resultSet.getInt("cid");
+                String name = resultSet.getString("cname");
+                String phone = resultSet.getString("phone");
                 String skype = resultSet.getString("skype");
                 String mail = resultSet.getString("mail");
-                contact = new Contact(name, phone, skype, mail);
+                contact = new Contact(id, name, phone, skype, mail);
                 return contact;
             }
         } catch (SQLException e) {
@@ -43,11 +44,12 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
         try {
             contacs = new ArrayList();
             while (resultSet.next()) {
-                String name = resultSet.getString("contact_name");
-                int phone = resultSet.getInt("phone");
+                int id = resultSet.getInt("cid");
+                String name = resultSet.getString("cname");
+                String phone = resultSet.getString("phone");
                 String skype = resultSet.getString("skype");
                 String mail = resultSet.getString("mail");
-                contact = new Contact(name, phone, skype, mail);
+                contact = new Contact( id, name, phone, skype, mail);
                 contacs.add(contact);
             }
             return contacs;

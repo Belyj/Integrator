@@ -12,14 +12,14 @@ public class Contact implements Serializable {
     @JacksonXmlProperty(localName = "id")
     private int id;
     @JacksonXmlProperty(localName = "phone")
-    private int phone;
+    private String phone;
     @JacksonXmlProperty(localName = "skype")
     private String skype;
     @JacksonXmlProperty(localName = "mail")
     private String mail;
 
-    public void setPhone(int telephone) {
-        this.phone = telephone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setSkype(String skype) {
@@ -30,7 +30,7 @@ public class Contact implements Serializable {
         this.mail = mail;
     }
 
-    public int getPhone() {
+    public String getPhone() {
 
         return phone;
     }
@@ -48,8 +48,11 @@ public class Contact implements Serializable {
         skype = "";
         mail = "";
     }
+    public Contact(int id) {
+        this.id = id;
+    }
 
-    public Contact( int id, String name, int phone, String skype, String mail) {
+    public Contact( int id, String name, String phone, String skype, String mail) {
         this.name = name;
         this.id = id;
         this.phone = phone;
@@ -57,11 +60,9 @@ public class Contact implements Serializable {
         this.mail = mail;
     }
 
-    public Contact(String name, int phone, String skype, String mail) {
+    public Contact(int id, String name) {
         this.name = name;
-        this.phone = phone;
-        this.skype = skype;
-        this.mail = mail;
+        this.id = id;
     }
 
     public int getId() {
@@ -82,11 +83,10 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return  "name: " + name + "\t" +
+        return  "id: " + id + "\t" +
+                "name: " + name + "\t" +
                 "phone: " + phone + "\t" +
                 "skype: " + skype + "\t" +
                 "mail: " + mail;
     }
-
-
 }

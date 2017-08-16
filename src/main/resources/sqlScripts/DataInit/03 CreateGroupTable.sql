@@ -1,7 +1,7 @@
 CREATE TABLE `handbook_schema`.`group_table` (
-  `group_id` INT NOT NULL AUTO_INCREMENT,
-  `group_name` VARCHAR(255) NOT NULL,
-  INDEX (group_name),
-  PRIMARY KEY (`group_id`))
+  `gid` INT NOT NULL AUTO_INCREMENT,
+  `gname` VARCHAR(255) NOT NULL,
+  INDEX (`gname`),
+  PRIMARY KEY (`gid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

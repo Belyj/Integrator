@@ -12,7 +12,7 @@ import java.util.List;
 
 public class GroupHandler extends DefaultHandler {
 
-    private List<Integer> contacts;
+    private List<Contact> contacts;
     private List<Group> groups = new ArrayList();
     private Contact contact;
     private Group group;
@@ -28,7 +28,7 @@ public class GroupHandler extends DefaultHandler {
             isIdGroup = false;
         } else if (isConact) {
             contact.setId(Integer.parseInt(new String(ch, start, length).trim()));
-            contacts.add(contact.getId());
+            contacts.add(contact);
         }
         super.characters(ch, start, length);
     }
@@ -56,7 +56,7 @@ public class GroupHandler extends DefaultHandler {
         if ("GroupContacts".equalsIgnoreCase(qName)) {
             group.setInner(contacts);
         } else if ("GroupContact".equalsIgnoreCase(qName)) {
-            contacts.add(contact.getId());
+            contacts.add(contact);
         } else if ("Group".equalsIgnoreCase(qName)) {
             groups.add(group);
             isGroup = false;

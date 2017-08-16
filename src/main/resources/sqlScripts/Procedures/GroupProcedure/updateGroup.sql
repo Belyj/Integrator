@@ -6,6 +6,6 @@ COMMENT 'seek and update group info
 		@param group id, new Group Name'
 BEGIN 
     UPDATE handbook_schema.group_table 
-		SET group_name = newGroupName
-		WHERE group_id = groupID;
+		SET gname = newGroupName
+		WHERE gid = groupID;
 END// 
