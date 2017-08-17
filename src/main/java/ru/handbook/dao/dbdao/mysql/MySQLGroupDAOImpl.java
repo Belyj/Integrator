@@ -6,6 +6,8 @@ import ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl.GroupMapperImpl;
 import ru.handbook.dao.objectsdao.GroupDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
+import ru.handbook.view.contactview.Observer;
+
 import static ru.handbook.Main.userInit;
 
 import java.sql.DriverManager;
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MySQLGroupDAOImpl implements GroupDAO {
 
@@ -120,11 +123,67 @@ public class MySQLGroupDAOImpl implements GroupDAO {
 
     @Override
     public Group update(Group group) {
+        System.out.println("New Group Name");
+        Group g = new Group(new Scanner(System.in).nextLine());
+        query = "{call updateGroup(\"" + group.getId()+ "\", \"" + g.getName() + "\")}";
+        try {
+            statement = connection.createStatement();
+            for (Observer observer : group.getObservers()) {
+                try {
+                    observer.wait();
+                    if (observer.equals(userInit)) {
+                        observer.notify();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            statement.execute(query);
+            return group;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            for (Observer observer : group.getObservers()) {
+                observer.notify();
+            }
+            try {
+                statement.clearBatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
     @Override
     public Group delete(Group group) {
+        query = "{call removeGroupByID(\"" + group.getId() + "\")}";
+        try {
+            statement = connection.createStatement();
+            for (Observer observer : group.getObservers()) {
+                try {
+                    observer.wait();
+                    if (observer.equals(userInit)) {
+                        observer.notify();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            statement.execute(query);
+            return group;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            for (Observer observer : group.getObservers()) {
+                observer.notify();
+            }
+            try {
+                statement.clearBatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 

@@ -7,11 +7,12 @@ import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
 import ru.handbook.model.utilites.datechooser.DataChooser;
 import ru.handbook.view.contactview.ContactView;
+import ru.handbook.view.contactview.Observer;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
+public class Menu implements Observer {
 
     MenuController controller = new MenuController();
     boolean flag = true;
@@ -164,5 +165,11 @@ public class Menu {
             group.setId(scanner.nextInt());
         }
         return group;
+    }
+
+    @Override
+    public void handleEvent() {
+        menuCommand(10);
+        menuCommand(11);
     }
 }

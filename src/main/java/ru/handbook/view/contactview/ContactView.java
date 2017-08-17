@@ -6,7 +6,7 @@ import ru.handbook.model.storage.DataStorage;
 import javax.swing.*;
 import java.util.List;
 
-public class ContactView extends JFrame implements Observer {
+public class ContactView extends JFrame {
 
     private JTextArea view;
 
@@ -19,7 +19,7 @@ public class ContactView extends JFrame implements Observer {
         view.setLineWrap(true);
         this.add(view);
         this.setVisible(true);
-        DataStorage.getInstance().addObserver(this);
+        //DataStorage.getInstance().addObserver(this);
     }
 
     public void handleEvent() {

@@ -2,15 +2,17 @@ package ru.handbook.model.objects;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import ru.handbook.model.storage.Observable;
 import ru.handbook.model.utilites.idgenerator.IdGenerator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 @XmlRootElement(name = "groups")
-public class Group implements Serializable {
+public class Group implements Serializable, Observable {
 
     @JacksonXmlProperty(isAttribute = true)
     private String name;
@@ -18,6 +20,8 @@ public class Group implements Serializable {
     @JacksonXmlElementWrapper(localName = "GroupContacts")
     @JacksonXmlProperty(localName = "GroupContact")
     private List<Contact> groupContacts;
+    List<ru.handbook.view.contactview.Observer> observers = new ArrayList();
+
 
     public Group() {
         id = 0;
@@ -63,5 +67,26 @@ public class Group implements Serializable {
 
     public void setInner(List<Contact> contacts) {
         groupContacts = contacts;
+    }
+
+    @Override
+    public void addObserver(ru.handbook.view.contactview.Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(ru.handbook.view.contactview.Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (ru.handbook.view.contactview.Observer o : observers) {
+            o.handleEvent();
+        }
+    }
+
+    public List<ru.handbook.view.contactview.Observer> getObservers() {
+        return observers;
     }
 }

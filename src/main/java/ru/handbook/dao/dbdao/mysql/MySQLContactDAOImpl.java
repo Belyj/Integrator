@@ -6,6 +6,7 @@ import ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl.ContactMapperImpl;
 import ru.handbook.dao.dbdao.mysql.mappers.ObjectMapper;
 import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
+import ru.handbook.view.contactview.Observer;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import static ru.handbook.Main.userInit;
 
 public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
@@ -84,11 +87,78 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     @Override
     public Contact update(Contact contact) {
+        System.out.println("New Contact Name");
+        Scanner scanner = new Scanner(System.in);
+        String newName = scanner.nextLine();
+        System.out.println("New Pone Name");
+        String newPhone = scanner.nextLine();
+        System.out.println("New Skype Name");
+        String newSkype = scanner.nextLine();
+        System.out.println("New Mail Name");
+        String newMail = scanner.nextLine();
+        query = "{call updateContact(\"" + contact.getId()+ "\", \"" +
+                                            newName + "\", \"" +
+                                            newPhone + "\", \"" +
+                                            newSkype + "\", \"" +
+                                            newMail + "\")}";
+        try {
+            statement = connection.createStatement();
+            for (Observer observer : contact.getObservers()) {
+                try {
+                    observer.wait();
+                    if (observer.equals(userInit)) {
+                        observer.notify();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            statement.execute(query);
+            return contact;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            for (Observer observer : contact.getObservers()) {
+                observer.notify();
+            }
+            try {
+                statement.clearBatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
     @Override
     public Contact delete(Contact contact) {
+        query = "{call removeContactByID(\"" + contact.getId() + "\")}";
+        try {
+            statement = connection.createStatement();
+            for (Observer observer : contact.getObservers()) {
+                try {
+                    observer.wait();
+                    if (observer.equals(userInit)) {
+                        observer.notify();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            statement.execute(query);
+            return contact;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            for (Observer observer : contact.getObservers()) {
+                observer.notify();
+            }
+            try {
+                statement.clearBatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 

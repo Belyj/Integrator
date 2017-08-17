@@ -2,10 +2,15 @@ package ru.handbook.model.objects;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import ru.handbook.model.storage.Observable;
+import ru.handbook.view.contactview.Observer;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @JacksonXmlRootElement(localName = "Contact")
-public class Contact implements Serializable {
+public class Contact implements Serializable, Observable {
 
     @JacksonXmlProperty(localName = "name", isAttribute = true)
     private String name;
@@ -17,6 +22,7 @@ public class Contact implements Serializable {
     private String skype;
     @JacksonXmlProperty(localName = "mail")
     private String mail;
+    List<Observer> observers = new ArrayList();
 
     public void setPhone(String phone) {
         this.phone = phone;
@@ -50,6 +56,10 @@ public class Contact implements Serializable {
     }
     public Contact(int id) {
         this.id = id;
+    }
+
+    public Contact(String name) {
+        this.name = name;
     }
 
     public Contact( int id, String name, String phone, String skype, String mail) {
@@ -88,5 +98,26 @@ public class Contact implements Serializable {
                 "phone: " + phone + "\t" +
                 "skype: " + skype + "\t" +
                 "mail: " + mail;
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers) {
+            o.handleEvent();
+        }
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
     }
 }
