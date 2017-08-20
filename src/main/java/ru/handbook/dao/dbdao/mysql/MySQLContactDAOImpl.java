@@ -24,26 +24,20 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     private Connection connection;
     ResultSet resultSet;
     Statement statement;
-    private String USERNAME = "root";
-    private String PASS = "";
-    private String URL = "jdbc:mysql://localhost:3306/handbook_schema";
+    DBProperties dbProperties = new DBProperties();
     String query;
     ObjectMapper mapper = new ContactMapperImpl();
 
     public MySQLContactDAOImpl() {
         try {
-            //System.out.println("Creating driver...");
             driver = new Driver();
-            //System.out.println("Register Driver..");
             DriverManager.registerDriver(driver);
-            //System.out.println("Create connection...");
-            connection = (Connection) DriverManager.getConnection(URL, USERNAME, PASS);
+            connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
         } catch (SQLException e) {
             System.out.println("SQL ERROR");
         }
     }
 
-    @Override
     public Contact create(Contact contact) {
         query = "{call createContact(\"" + contact.getName() + "\")}";
         Contact c = new Contact();
@@ -64,9 +58,9 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         return c;
     }
 
-    @Override
     public Contact getByName(Contact contact) {
-        query = "{call getContactByName(\"" + contact.getName() + "\", " + "\"" + userInit.getUser().getName() + "\"" + ")}";
+        query = "{call getContactByName(\"" + contact.getName() + "\", " +
+                "\"" + userInit.getUser().getName() + "\"" + ")}";
         Contact c = new Contact();
         try {
             statement = connection.createStatement();
@@ -85,7 +79,6 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         return c;
     }
 
-    @Override
     public Contact update(Contact contact) {
         System.out.println("New Contact Name");
         Scanner scanner = new Scanner(System.in);
@@ -130,7 +123,6 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         return null;
     }
 
-    @Override
     public Contact delete(Contact contact) {
         query = "{call removeContactByID(\"" + contact.getId() + "\")}";
         try {
@@ -162,7 +154,6 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         return null;
     }
 
-    @Override
     public List<Contact> getAll() {
         query = "{call getContactList(\"" + userInit.getUser().getName() + "\")}";
         List<Contact> contacts = new ArrayList();
