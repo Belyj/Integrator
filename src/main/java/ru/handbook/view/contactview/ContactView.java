@@ -19,7 +19,6 @@ public class ContactView extends JFrame {
         view.setLineWrap(true);
         this.add(view);
         this.setVisible(true);
-        //DataStorage.getInstance().addObserver(this);
     }
 
     public void handleEvent() {

@@ -7,6 +7,7 @@ import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Group;
 
 public class JacksonGroupFactoryDAOImpl implements GroupFactoryDAO {
+
     @Override
     public GroupDAO factoryMethod() {
         return null;

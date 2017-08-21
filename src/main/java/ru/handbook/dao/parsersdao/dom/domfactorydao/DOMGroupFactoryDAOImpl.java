@@ -8,6 +8,7 @@ import ru.handbook.dao.parsersdao.dom.DOMGroupDAOImpl;
 import ru.handbook.model.objects.Group;
 
 public class DOMGroupFactoryDAOImpl implements GroupFactoryDAO {
+
     public GroupDAO factoryMethod() {
         return new DOMGroupDAOImpl();
     }

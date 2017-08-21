@@ -1,6 +1,7 @@
 package ru.handbook.dao.objectsdao;
 
 public interface GroupFactoryDAO {
+
     /**
      * <p>Создание новго DAO</p>
      *

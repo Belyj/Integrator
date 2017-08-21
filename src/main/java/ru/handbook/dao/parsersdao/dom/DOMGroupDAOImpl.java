@@ -322,7 +322,6 @@ public class DOMGroupDAOImpl implements GroupDAO {
                 for (int j = 1; j <= contactsID.getLength(); j++) {
                     gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts/ContactID[" + j +"]", document, XPathConstants.NODE);
                     if (gc != null) {
-                        //group.getInner().add(Integer.parseInt(gc.getTextContent()));
                     }
                 }
             } catch (XPathExpressionException e) {

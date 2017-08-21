@@ -75,26 +75,11 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
             String newMail = scanner.nextLine();
             query = call.updateContact(contact, newName, newPhone, newSkype, newMail);
             try (Statement statement = connection.createStatement()) {
-//            for (Observer observer : contact.getObservers()) {
-//                try {
-//                    observer.wait();
-//                    if (observer.equals(userInit)) {
-//                        observer.notify();
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
                 statement.execute(query);
                 return contact;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-//        finally {
-//            for (Observer observer : contact.getObservers()) {
-//                observer.notify();
-//            }
-//        }
             return null;
         }
     }
@@ -103,26 +88,11 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         synchronized (contact) {
             query = call.deleteContact(contact);
             try (Statement statement = connection.createStatement()) {
-//            for (Observer observer : contact.getObservers()) {
-//                try {
-//                    observer.wait();
-//                    if (observer.equals(userInit)) {
-//                        observer.notify();
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
                 statement.execute(query);
                 return contact;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-//        finally {
-//            for (Observer observer : contact.getObservers()) {
-//                observer.notify();
-//            }
-//        }
             return null;
         }
     }

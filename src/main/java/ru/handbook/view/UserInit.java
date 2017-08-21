@@ -33,11 +33,8 @@ public class UserInit {
 
     private void connect() {
         try {
-            //System.out.println("Creating driver...");
             driver = new com.mysql.jdbc.Driver();
-            //System.out.println("Register Driver..");
             DriverManager.registerDriver(driver);
-            //System.out.println("Create connection...");
             connection = (Connection) DriverManager.getConnection(URL, USERNAME, PASS);
         } catch (SQLException e) {
             System.out.println("SQL ERROR");

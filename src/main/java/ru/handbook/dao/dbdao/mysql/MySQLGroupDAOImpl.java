@@ -96,26 +96,11 @@ public class MySQLGroupDAOImpl implements GroupDAO {
             String newName = new Scanner(System.in).nextLine();
             query = call.update(group, newName);
             try (Statement statement = connection.createStatement()) {
-//            for (Observer observer : group.getObservers()) {
-//                try {
-//                    observer.wait();
-//                    if (observer.equals(userInit)) {
-//                        observer.notify();
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
                 statement.execute(query);
                 return group;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-//        finally {
-//            for (Observer observer : group.getObservers()) {
-//                observer.notify();
-//            }
-//        }
             return null;
         }
     }
@@ -124,26 +109,11 @@ public class MySQLGroupDAOImpl implements GroupDAO {
         synchronized (group) {
             query = call.delete(group);
             try (Statement statement = connection.createStatement()) {
-//            for (Observer observer : group.getObservers()) {
-//                try {
-//                    observer.wait();
-//                    if (observer.equals(userInit)) {
-//                        observer.notify();
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
                 statement.execute(query);
                 return group;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-//        finally {
-//            for (Observer observer : group.getObservers()) {
-//                observer.notify();
-//            }
-//        }
             return null;
         }
     }

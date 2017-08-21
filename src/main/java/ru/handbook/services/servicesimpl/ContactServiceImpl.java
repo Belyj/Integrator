@@ -13,8 +13,6 @@ import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
 
-    //ContactFactoryDAO contactFactoryDAO = new JacksonContactFactoryDAOImpl();
-    //ContactFactoryDAO contactFactoryDAO = new SAXContactFactoryDAOImpl();
     ContactFactoryDAO contactFactoryDAO = new MySQLContactFactoryDAO();
     ObjectDAO<Contact> contactDAO = contactFactoryDAO.factoryMethod();
 

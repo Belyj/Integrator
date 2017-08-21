@@ -13,7 +13,6 @@ import java.util.List;
 public class IdGenerator {
 
     DataStorage source = DataStorage.getInstance();
-    //List<Contact> contacts = new ContactServiceImpl().getAllContacts();
 
     public String generateContactId(List<Contact> contacts) {
         int max = 1;

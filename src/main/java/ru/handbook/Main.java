@@ -5,6 +5,7 @@ import ru.handbook.view.UserInit;
 import ru.handbook.view.ViewStarter;
 
 public class Main {
+
     public static UserInit userInit;
     public static void main(String[] args) {
         userInit = new UserInit();
