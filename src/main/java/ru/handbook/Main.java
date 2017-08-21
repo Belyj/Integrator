@@ -1,6 +1,5 @@
 package ru.handbook;
 
-import ru.handbook.model.utilites.datechooser.DataChooser;
 import ru.handbook.view.UserInit;
 import ru.handbook.view.ViewStarter;
 

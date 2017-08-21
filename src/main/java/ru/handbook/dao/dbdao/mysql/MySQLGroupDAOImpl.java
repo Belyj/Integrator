@@ -25,6 +25,18 @@ public class MySQLGroupDAOImpl implements GroupDAO {
     DBProperties dbProperties = new DBProperties();
     GroupMapperImpl mapper = new GroupMapperImpl();
     CallGroupQuery call = new CallGroupQuery();
+    private static volatile MySQLGroupDAOImpl instance;
+
+    public static MySQLGroupDAOImpl getInstance() {
+        if (instance == null) {
+            synchronized (MySQLGroupDAOImpl.class) {
+                if (instance == null) {
+                    instance = new MySQLGroupDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
 
     public MySQLGroupDAOImpl() {
         try {
@@ -36,9 +48,7 @@ public class MySQLGroupDAOImpl implements GroupDAO {
         }
     }
 
-    public void deleteFromGroup(Contact contact, Group group) {
-        synchronized (contact) {
-            synchronized (group) {
+    public synchronized void deleteFromGroup(Contact contact, Group group) {
                 query = call.deleteFromGroup(contact, group);
                 try (Statement statement = connection.createStatement()) {
                     statement.execute(query);
@@ -46,13 +56,9 @@ public class MySQLGroupDAOImpl implements GroupDAO {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }
-        }
     }
 
-    public void addInGroup(Contact contact, Group group) {
-        synchronized (contact) {
-            synchronized (group) {
+    public synchronized void addInGroup(Contact contact, Group group) {
                 query = call.addInGroup(contact, group);
                 try (Statement statement = connection.createStatement()) {
                     statement.execute(query);
@@ -60,11 +66,9 @@ public class MySQLGroupDAOImpl implements GroupDAO {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }
-        }
     }
 
-    public Group create(Group group) {
+    public synchronized Group create(Group group) {
         query = call.createGroup(group);
         Group g = new Group();
         try (Statement statement = connection.createStatement()) {
@@ -90,8 +94,7 @@ public class MySQLGroupDAOImpl implements GroupDAO {
         return g;
     }
 
-    public Group update(Group group) {
-        synchronized (group) {
+    public synchronized Group update(Group group) {
             System.out.println("New Group Name");
             String newName = new Scanner(System.in).nextLine();
             query = call.update(group, newName);
@@ -102,11 +105,9 @@ public class MySQLGroupDAOImpl implements GroupDAO {
                 e.printStackTrace();
             }
             return null;
-        }
     }
 
-    public Group delete(Group group) {
-        synchronized (group) {
+    public synchronized Group delete(Group group) {
             query = call.delete(group);
             try (Statement statement = connection.createStatement()) {
                 statement.execute(query);
@@ -115,7 +116,6 @@ public class MySQLGroupDAOImpl implements GroupDAO {
                 e.printStackTrace();
             }
             return null;
-        }
     }
 
     public List<Group> getAll() {

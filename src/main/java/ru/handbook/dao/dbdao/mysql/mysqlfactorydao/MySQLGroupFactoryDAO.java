@@ -7,6 +7,6 @@ import ru.handbook.dao.objectsdao.GroupFactoryDAO;
 public class MySQLGroupFactoryDAO implements GroupFactoryDAO {
     @Override
     public GroupDAO factoryMethod() {
-        return new MySQLGroupDAOImpl();
+        return MySQLGroupDAOImpl.getInstance();
     }
 }

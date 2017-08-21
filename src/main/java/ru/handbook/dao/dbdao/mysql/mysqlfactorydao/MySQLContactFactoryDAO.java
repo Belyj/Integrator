@@ -7,6 +7,6 @@ import ru.handbook.dao.objectsdao.ObjectDAO;
 public class MySQLContactFactoryDAO implements ContactFactoryDAO {
     @Override
     public ObjectDAO factoryMethod() {
-        return new MySQLContactDAOImpl();
+        return MySQLContactDAOImpl.getInstance();
     }
 }

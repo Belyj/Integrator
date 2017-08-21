@@ -18,6 +18,19 @@ import java.util.Scanner;
 
 public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
+    private static volatile MySQLContactDAOImpl instance;
+
+    public static MySQLContactDAOImpl getInstance() {
+        if (instance == null) {
+            synchronized (MySQLContactDAOImpl.class) {
+                if (instance == null) {
+                    instance = new MySQLContactDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     private Driver driver;
     CallContactQuery call = new CallContactQuery();
     private Connection connection;
@@ -36,7 +49,7 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         }
     }
 
-    public Contact create(Contact contact) {
+    public synchronized Contact create(Contact contact) {
         query = call.createContact(contact);
         Contact c = new Contact();
         try (Statement statement = connection.createStatement()){
@@ -62,8 +75,7 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         return c;
     }
 
-    public Contact update(Contact contact) {
-        synchronized (contact) {
+    public synchronized Contact update(Contact contact) {
             System.out.println("New Contact Name");
             Scanner scanner = new Scanner(System.in);
             String newName = scanner.nextLine();
@@ -81,11 +93,9 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
                 e.printStackTrace();
             }
             return null;
-        }
     }
 
-    public Contact delete(Contact contact) {
-        synchronized (contact) {
+    public synchronized Contact delete(Contact contact) {
             query = call.deleteContact(contact);
             try (Statement statement = connection.createStatement()) {
                 statement.execute(query);
@@ -94,7 +104,6 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
                 e.printStackTrace();
             }
             return null;
-        }
     }
 
     public List<Contact> getAll() {
