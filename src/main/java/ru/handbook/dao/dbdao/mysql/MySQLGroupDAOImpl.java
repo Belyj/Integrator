@@ -2,13 +2,11 @@ package ru.handbook.dao.dbdao.mysql;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
+import ru.handbook.dao.dbdao.mysql.callquery.CallGroupQuery;
 import ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl.GroupMapperImpl;
 import ru.handbook.dao.objectsdao.GroupDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
-import ru.handbook.view.contactview.Observer;
-
-import static ru.handbook.Main.userInit;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,9 +22,9 @@ public class MySQLGroupDAOImpl implements GroupDAO {
     private Driver driver;
     private Connection connection;
     ResultSet resultSet;
-    Statement statement;
     DBProperties dbProperties = new DBProperties();
     GroupMapperImpl mapper = new GroupMapperImpl();
+    CallGroupQuery call = new CallGroupQuery();
 
     public MySQLGroupDAOImpl() {
         try {
@@ -39,165 +37,126 @@ public class MySQLGroupDAOImpl implements GroupDAO {
     }
 
     public void deleteFromGroup(Contact contact, Group group) {
-        query = "{call removeFromGroup(\"" + contact.getId() + "\", "
-                +  "\"" + group.getId() + "\", "
-                + "\"" + userInit.getUser().getName() + "\"" +" )}";
-        try {
-            statement = connection.createStatement();
-            statement.execute(query);
-            System.out.println("done");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+        synchronized (contact) {
+            synchronized (group) {
+                query = call.deleteFromGroup(contact, group);
+                try (Statement statement = connection.createStatement()) {
+                    statement.execute(query);
+                    System.out.println("done");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public void addInGroup(Contact contact, Group group) {
-        query = "{call addInGroup(\"" + contact.getId() + "\", " +
-                "\"" + group.getId() + "\", "
-                + "\"" + userInit.getUser().getName() + "\"" +" )}";
-        try {
-            statement = connection.createStatement();
-            statement.execute(query);
-            getByName(group);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+        synchronized (contact) {
+            synchronized (group) {
+                query = call.addInGroup(contact, group);
+                try (Statement statement = connection.createStatement()) {
+                    statement.execute(query);
+                    getByName(group);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public Group create(Group group) {
-        query = "{call createGroup(\"" + group.getName() + "\")}";
+        query = call.createGroup(group);
         Group g = new Group();
-        try {
-            statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             g = (Group) mapper.mapEasy(resultSet);
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return g;
     }
 
     public Group getByName(Group group) {
-        query = "{call getGroupByName(\"" + group.getName() + "\", " +
-                "\"" + userInit.getUser().getName() + "\"" + ")}";
+        query = call.getByName(group);
         Group g = new Group();
-        try {
-            statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             g = (Group) mapper.map(resultSet);
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return g;
     }
 
     public Group update(Group group) {
-        System.out.println("New Group Name");
-        Group g = new Group(new Scanner(System.in).nextLine());
-        query = "{call updateGroup(\"" + group.getId()+ "\", \"" +
-                g.getName() + "\")}";
-        try {
-            statement = connection.createStatement();
-            for (Observer observer : group.getObservers()) {
-                try {
-                    observer.wait();
-                    if (observer.equals(userInit)) {
-                        observer.notify();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            statement.execute(query);
-            return group;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            for (Observer observer : group.getObservers()) {
-                observer.notify();
-            }
-            try {
-                statement.clearBatch();
+        synchronized (group) {
+            System.out.println("New Group Name");
+            String newName = new Scanner(System.in).nextLine();
+            query = call.update(group, newName);
+            try (Statement statement = connection.createStatement()) {
+//            for (Observer observer : group.getObservers()) {
+//                try {
+//                    observer.wait();
+//                    if (observer.equals(userInit)) {
+//                        observer.notify();
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+                statement.execute(query);
+                return group;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+//        finally {
+//            for (Observer observer : group.getObservers()) {
+//                observer.notify();
+//            }
+//        }
+            return null;
         }
-        return null;
     }
 
     public Group delete(Group group) {
-        query = "{call removeGroupByID(\"" + group.getId() + "\")}";
-        try {
-            statement = connection.createStatement();
-            for (Observer observer : group.getObservers()) {
-                try {
-                    observer.wait();
-                    if (observer.equals(userInit)) {
-                        observer.notify();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            statement.execute(query);
-            return group;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            for (Observer observer : group.getObservers()) {
-                observer.notify();
-            }
-            try {
-                statement.clearBatch();
+        synchronized (group) {
+            query = call.delete(group);
+            try (Statement statement = connection.createStatement()) {
+//            for (Observer observer : group.getObservers()) {
+//                try {
+//                    observer.wait();
+//                    if (observer.equals(userInit)) {
+//                        observer.notify();
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+                statement.execute(query);
+                return group;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+//        finally {
+//            for (Observer observer : group.getObservers()) {
+//                observer.notify();
+//            }
+//        }
+            return null;
         }
-        return null;
     }
 
     public List<Group> getAll() {
-        query = "{call getGroupList(\"" + userInit.getUser().getName() + "\")}";
+        query = call.getAll();
         List<Group> groups = new ArrayList();
-        try {
-            statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             groups = mapper.listMap(resultSet);
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return groups;
     }
