@@ -33,7 +33,6 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     private Driver driver;
     CallContactQuery call = new CallContactQuery();
-    private Connection connection;
     ResultSet resultSet;
     DBProperties dbProperties = new DBProperties();
     String query;
@@ -43,7 +42,6 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         try {
             driver = new Driver();
             DriverManager.registerDriver(driver);
-            connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
         } catch (SQLException e) {
             System.out.println("SQL ERROR");
         }
@@ -52,7 +50,8 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     public synchronized Contact create(Contact contact) {
         query = call.createContact(contact);
         Contact c = new Contact();
-        try (Statement statement = connection.createStatement()){
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()){
             resultSet = statement.executeQuery(query);
             c = (Contact) mapper.map(resultSet);
             resultSet.close();
@@ -65,7 +64,8 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     public Contact getByName(Contact contact) {
         query = call.getContactByName(contact);
         Contact c = new Contact();
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
             resultSet =  statement.executeQuery(query);
             c = (Contact) mapper.map(resultSet);
             resultSet.close();
@@ -86,7 +86,8 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
             System.out.println("New Mail Name");
             String newMail = scanner.nextLine();
             query = call.updateContact(contact, newName, newPhone, newSkype, newMail);
-            try (Statement statement = connection.createStatement()) {
+            try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+                 Statement statement = connection.createStatement()) {
                 statement.execute(query);
                 return contact;
             } catch (SQLException e) {
@@ -97,7 +98,8 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
     public synchronized Contact delete(Contact contact) {
             query = call.deleteContact(contact);
-            try (Statement statement = connection.createStatement()) {
+            try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+                 Statement statement = connection.createStatement()) {
                 statement.execute(query);
                 return contact;
             } catch (SQLException e) {
@@ -109,7 +111,8 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     public List<Contact> getAll() {
         query = call.getAll();
         List<Contact> contacts = new ArrayList();
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             contacts = mapper.listMap(resultSet);
             resultSet.close();
