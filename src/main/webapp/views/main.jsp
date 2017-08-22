@@ -1,9 +1,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>MMMMMAIN</title>
 </head>
 <body>
-<% response.sendRedirect("main"); %>
+Main hello world
 </body>
 </html>
