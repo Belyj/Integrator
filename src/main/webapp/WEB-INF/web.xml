@@ -17,10 +17,18 @@
         <servlet-name>FirstServlet</servlet-name>
         <servlet-class>ru.handbook.servlets.FirstServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>ru.handbook.servlets.LoginServlet</servlet-class>
+    </servlet>
 
     <!--Servlet mapping-->
     <servlet-mapping>
         <servlet-name>FirstServlet</servlet-name>
         <url-pattern>/f</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 </web-app>
