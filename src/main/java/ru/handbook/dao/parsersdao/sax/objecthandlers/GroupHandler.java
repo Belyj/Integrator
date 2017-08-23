@@ -5,7 +5,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
-import ru.handbook.model.storage.DataStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +38,10 @@ public class GroupHandler extends DefaultHandler {
             group = new Group();
             group.setName(attributes.getValue("name"));
             isGroup = true;
-        } else if("GroupContacts".equalsIgnoreCase(qName)){
+        } else if ("GroupContacts".equalsIgnoreCase(qName)) {
             contacts = new ArrayList();
             isGroupContact = true;
-        }
-        else if ("id".equalsIgnoreCase(qName) && isGroup) {
+        } else if ("id".equalsIgnoreCase(qName) && isGroup) {
             isIdGroup = true;
         } else if ("ContactID".equalsIgnoreCase(qName)) {
             contact = new Contact();

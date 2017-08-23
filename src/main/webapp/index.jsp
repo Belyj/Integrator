@@ -4,6 +4,6 @@
     <title>IIINDEX</title>
 </head>
 <body>
-Hello world
+<% response.sendRedirect("login"); %>
 </body>
 </html>

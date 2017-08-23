@@ -18,13 +18,22 @@ import java.util.Scanner;
 
 public class MySQLGroupDAOImpl implements GroupDAO {
 
+    private static volatile MySQLGroupDAOImpl instance;
     String query;
-    private Driver driver;
     ResultSet resultSet;
     DBProperties dbProperties = new DBProperties();
     GroupMapperImpl mapper = new GroupMapperImpl();
     CallGroupQuery call = new CallGroupQuery();
-    private static volatile MySQLGroupDAOImpl instance;
+    private Driver driver;
+
+    public MySQLGroupDAOImpl() {
+        try {
+            driver = new Driver();
+            DriverManager.registerDriver(driver);
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR");
+        }
+    }
 
     public static MySQLGroupDAOImpl getInstance() {
         if (instance == null) {
@@ -37,42 +46,33 @@ public class MySQLGroupDAOImpl implements GroupDAO {
         return instance;
     }
 
-    public MySQLGroupDAOImpl() {
-        try {
-            driver = new Driver();
-            DriverManager.registerDriver(driver);
+    public synchronized void deleteFromGroup(Contact contact, Group group) {
+        query = call.deleteFromGroup(contact, group);
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
+            statement.execute(query);
+            System.out.println("done");
         } catch (SQLException e) {
-            System.out.println("SQL ERROR");
+            e.printStackTrace();
         }
     }
 
-    public synchronized void deleteFromGroup(Contact contact, Group group) {
-                query = call.deleteFromGroup(contact, group);
-                try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-                     Statement statement = connection.createStatement()) {
-                    statement.execute(query);
-                    System.out.println("done");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-    }
-
     public synchronized void addInGroup(Contact contact, Group group) {
-                query = call.addInGroup(contact, group);
-                try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-                    Statement statement = connection.createStatement()) {
-                    statement.execute(query);
-                    getByName(group);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        query = call.addInGroup(contact, group);
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
+            statement.execute(query);
+            getByName(group);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public synchronized Group create(Group group) {
         query = call.createGroup(group);
         Group g = new Group();
         try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-            Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             g = (Group) mapper.mapEasy(resultSet);
             resultSet.close();
@@ -86,7 +86,7 @@ public class MySQLGroupDAOImpl implements GroupDAO {
         query = call.getByName(group);
         Group g = new Group();
         try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-            Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             g = (Group) mapper.map(resultSet);
             resultSet.close();
@@ -97,36 +97,36 @@ public class MySQLGroupDAOImpl implements GroupDAO {
     }
 
     public synchronized Group update(Group group) {
-            System.out.println("New Group Name");
-            String newName = new Scanner(System.in).nextLine();
-            query = call.update(group, newName);
-            try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-                Statement statement = connection.createStatement()) {
-                statement.execute(query);
-                return group;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return null;
+        System.out.println("New Group Name");
+        String newName = new Scanner(System.in).nextLine();
+        query = call.update(group, newName);
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
+            statement.execute(query);
+            return group;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public synchronized Group delete(Group group) {
-            query = call.delete(group);
-            try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-                Statement statement = connection.createStatement()) {
-                statement.execute(query);
-                return group;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return null;
+        query = call.delete(group);
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
+            statement.execute(query);
+            return group;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Group> getAll() {
         query = call.getAll();
         List<Group> groups = new ArrayList();
         try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-            Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
             groups = mapper.listMap(resultSet);
             resultSet.close();

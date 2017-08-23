@@ -6,6 +6,7 @@ import ru.handbook.dao.parsersdao.sax.objecthandlers.GroupHandler;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.utilites.validator.XMLValidator;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -19,6 +20,12 @@ public class SAXGroupDAOImpl implements GroupDAO {
     SAXParser saxParser = createSAXParser();
     GroupHandler groupHander = new GroupHandler();
 
+    public SAXGroupDAOImpl() {
+        if (new XMLValidator().validateXMLSchema("src/main/java/ru/handbook/model/utilites/validator/xsd/GroupSchema.xsd", "group.xml")) {
+            System.out.println("Validate is ok");
+        } else System.out.println("Validate error");
+    }
+
     private SAXParser createSAXParser() {
         try {
             return parserFactory.newSAXParser();
@@ -30,12 +37,6 @@ public class SAXGroupDAOImpl implements GroupDAO {
         return null;
     }
 
-    public SAXGroupDAOImpl() {
-        if (new XMLValidator().validateXMLSchema("src/main/java/ru/handbook/model/utilites/validator/xsd/GroupSchema.xsd", "group.xml")) {
-            System.out.println("Validate is ok");
-        } else System.out.println("Validate error");
-    }
-
     @Override
     public Group create(Group group) {
         return null;
@@ -44,7 +45,7 @@ public class SAXGroupDAOImpl implements GroupDAO {
     @Override
     public Group getByName(Group group) {
         List<Group> groups;
-        if (! new File("group.xml").exists()){
+        if (!new File("group.xml").exists()) {
             String path = new File("").getAbsolutePath();
             new File(path, "group.xml");
         }

@@ -1,28 +1,31 @@
 package ru.handbook.dao.dbdao.mysql;
 
+import com.mysql.jdbc.Driver;
 import ru.handbook.dao.dbdao.mysql.callquery.CallUserQuery;
 import ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl.UserMapperImpl;
 import ru.handbook.dao.objectsdao.UserDAO;
 import ru.handbook.model.objects.User;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import com.mysql.jdbc.Driver;
-
 import java.sql.*;
 
 public class MySQLUserDAOImpl implements UserDAO {
 
+    private static volatile MySQLUserDAOImpl instance;
     String query;
-    private Driver driver;
     ResultSet resultSet;
     DBProperties dbProperties = new DBProperties();
     UserMapperImpl mapper = new UserMapperImpl();
     CallUserQuery call = new CallUserQuery();
-    private static volatile MySQLUserDAOImpl instance;
+    private Driver driver;
+
+    public MySQLUserDAOImpl() {
+        try {
+            driver = new Driver();
+            DriverManager.registerDriver(driver);
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR");
+        }
+    }
 
     public static MySQLUserDAOImpl getInstance() {
         if (instance == null) {
@@ -33,15 +36,6 @@ public class MySQLUserDAOImpl implements UserDAO {
             }
         }
         return instance;
-    }
-
-    public MySQLUserDAOImpl() {
-        try {
-            driver = new Driver();
-            DriverManager.registerDriver(driver);
-        } catch (SQLException e) {
-            System.out.println("SQL ERROR");
-        }
     }
 
     @Override

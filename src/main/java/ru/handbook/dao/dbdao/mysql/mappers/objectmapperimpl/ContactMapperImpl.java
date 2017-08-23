@@ -1,7 +1,6 @@
 package ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl;
 
 import ru.handbook.dao.dbdao.mysql.mappers.ObjectMapper;
-import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 
 import java.sql.ResultSet;
@@ -26,8 +25,7 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 resultSet.close();
             } catch (SQLException e) {
@@ -49,7 +47,7 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
                 String phone = resultSet.getString("phone");
                 String skype = resultSet.getString("skype");
                 String mail = resultSet.getString("mail");
-                contact = new Contact( id, name, phone, skype, mail);
+                contact = new Contact(id, name, phone, skype, mail);
                 contacs.add(contact);
             }
             return contacs;

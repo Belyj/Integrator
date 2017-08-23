@@ -1,6 +1,5 @@
 package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.dbdao.mysql.MySQLContactDAOImpl;
 import ru.handbook.dao.dbdao.mysql.mysqlfactorydao.MySQLContactFactoryDAO;
 import ru.handbook.dao.objectsdao.ContactFactoryDAO;
 import ru.handbook.dao.objectsdao.ObjectDAO;

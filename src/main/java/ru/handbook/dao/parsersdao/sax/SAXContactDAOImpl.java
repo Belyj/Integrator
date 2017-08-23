@@ -10,7 +10,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SAXContactDAOImpl implements ObjectDAO<Contact> {
@@ -37,7 +36,7 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     private File createFile() {
-        if (! new File("contact.xml").exists()){
+        if (!new File("contact.xml").exists()) {
             String path = new File("").getAbsolutePath();
         }
         return new File("contact.xml");
@@ -52,7 +51,7 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
     @Override
     public Contact getByName(Contact contact) {
         List<Contact> contacts;
-        if (! new File("contact.xml").exists()){
+        if (!new File("contact.xml").exists()) {
             String path = new File("").getAbsolutePath();
             new File(path, "contact.xml");
         }

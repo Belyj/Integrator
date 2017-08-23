@@ -96,32 +96,32 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
             rootElement = document.createElement("JacksonContact");
             document.appendChild(rootElement);
         }
-            contact.setId(Integer.parseInt(new IdGenerator().generateContactId(getAll())));
+        contact.setId(Integer.parseInt(new IdGenerator().generateContactId(getAll())));
 
-            Element contactEl = document.createElement("Contact");
-            Attr contactAttribute = document.createAttribute("name");
-            contactAttribute.setValue(contact.getName());
+        Element contactEl = document.createElement("Contact");
+        Attr contactAttribute = document.createAttribute("name");
+        contactAttribute.setValue(contact.getName());
 
-            Element contacIdEl = document.createElement("id");
-            contactEl.appendChild(contacIdEl).setTextContent(String.valueOf(contact.getId()));
-            contactEl.setAttributeNode(contactAttribute);
+        Element contacIdEl = document.createElement("id");
+        contactEl.appendChild(contacIdEl).setTextContent(String.valueOf(contact.getId()));
+        contactEl.setAttributeNode(contactAttribute);
 
-            Element contacPhoneEl = document.createElement("phone");
-            contactEl.appendChild(contacPhoneEl).setTextContent(String.valueOf(contact.getPhone()));
-            contactEl.setAttributeNode(contactAttribute);
+        Element contacPhoneEl = document.createElement("phone");
+        contactEl.appendChild(contacPhoneEl).setTextContent(String.valueOf(contact.getPhone()));
+        contactEl.setAttributeNode(contactAttribute);
 
-            Element contactSkype = document.createElement("skype");
-            contactEl.appendChild(contactSkype).setTextContent(String.valueOf(contact.getSkype()));
-            contactEl.setAttributeNode(contactAttribute);
+        Element contactSkype = document.createElement("skype");
+        contactEl.appendChild(contactSkype).setTextContent(String.valueOf(contact.getSkype()));
+        contactEl.setAttributeNode(contactAttribute);
 
-            Element contactMail = document.createElement("mail");
-            contactEl.appendChild(contactMail).setTextContent(String.valueOf(contact.getMail()));
-            contactEl.setAttributeNode(contactAttribute);
-            rootElement.appendChild(contactEl);
-            transform();
+        Element contactMail = document.createElement("mail");
+        contactEl.appendChild(contactMail).setTextContent(String.valueOf(contact.getMail()));
+        contactEl.setAttributeNode(contactAttribute);
+        rootElement.appendChild(contactEl);
+        transform();
 
-            nodeList = document.getElementsByTagName("Contact");
-            createdContact.setName(contact.getName());
+        nodeList = document.getElementsByTagName("Contact");
+        createdContact.setName(contact.getName());
 
         return createdContact;
     }

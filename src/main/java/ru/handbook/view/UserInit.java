@@ -8,19 +8,15 @@ import java.util.Scanner;
 public class UserInit {
 
     Scanner scanner = new Scanner(System.in);
-    private Driver driver;
-    private Connection connection;
     ResultSet resultSet;
     Statement statement;
+    String query;
+    User user;
+    private Driver driver;
+    private Connection connection;
     private String USERNAME = "root";
     private String PASS = "";
     private String URL = "jdbc:mysql://localhost:3306/handbook_schema";
-    String query;
-    User user;
-
-    public User getUser() {
-        return user;
-    }
 
     public UserInit() {
         System.out.println("Введите логин");
@@ -29,6 +25,10 @@ public class UserInit {
         String pass = scanner.nextLine();
         connect();
         user = getByName(login, pass);
+    }
+
+    public User getUser() {
+        return user;
     }
 
     private void connect() {

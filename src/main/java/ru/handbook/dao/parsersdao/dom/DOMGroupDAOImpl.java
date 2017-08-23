@@ -3,18 +3,15 @@ package ru.handbook.dao.parsersdao.dom;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import ru.handbook.dao.objectsdao.GroupDAO;
-import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.utilites.idgenerator.IdGenerator;
 import ru.handbook.model.utilites.validator.XMLValidator;
 
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -320,7 +317,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
                 Element gc = null;
 
                 for (int j = 1; j <= contactsID.getLength(); j++) {
-                    gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts/ContactID[" + j +"]", document, XPathConstants.NODE);
+                    gc = (Element) xPath.evaluate("Groups/Group[" + i + "]/GroupContacts/ContactID[" + j + "]", document, XPathConstants.NODE);
                     if (gc != null) {
                     }
                 }

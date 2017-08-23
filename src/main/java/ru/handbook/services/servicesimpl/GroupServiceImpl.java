@@ -1,10 +1,8 @@
 package ru.handbook.services.servicesimpl;
 
 import ru.handbook.dao.dbdao.mysql.mysqlfactorydao.MySQLGroupFactoryDAO;
-import ru.handbook.dao.objectsdao.ContactFactoryDAO;
 import ru.handbook.dao.objectsdao.GroupDAO;
 import ru.handbook.dao.objectsdao.GroupFactoryDAO;
-import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.dao.parsersdao.dom.domfactorydao.DOMGroupFactoryDAOImpl;
 import ru.handbook.dao.parsersdao.jackson.jacksonfactorydao.JacksonGroupFactoryDAOImpl;
 import ru.handbook.dao.parsersdao.sax.saxfactorydao.SAXGroupFactoryDAOImpl;

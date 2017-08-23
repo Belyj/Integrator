@@ -11,12 +11,12 @@ public class CallContactQuery {
     }
 
     public String getContactByName(Contact contact) {
-        return  "{call getContactByName(\"" + contact.getName() + "\", " +
+        return "{call getContactByName(\"" + contact.getName() + "\", " +
                 "\"" + userInit.getUser().getName() + "\"" + ")}";
     }
 
     public String updateContact(Contact contact, String newName, String newPhone, String newSkype, String newMail) {
-        return  "{call updateContact(\"" + contact.getId() + "\", \"" +
+        return "{call updateContact(\"" + contact.getId() + "\", \"" +
                 newName + "\", \"" +
                 newPhone + "\", \"" +
                 newSkype + "\", \"" +
@@ -24,10 +24,10 @@ public class CallContactQuery {
     }
 
     public String deleteContact(Contact contact) {
-        return  "{call removeContactByID(\"" + contact.getId() + "\")}";
+        return "{call removeContactByID(\"" + contact.getId() + "\")}";
     }
 
     public String getAll() {
-        return  "{call getContactList(\"" + userInit.getUser().getName() + "\")}";
+        return "{call getContactList(\"" + userInit.getUser().getName() + "\")}";
     }
 }

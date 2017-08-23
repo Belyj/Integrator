@@ -3,7 +3,6 @@ package ru.handbook.model.utilites.idgenerator;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 import ru.handbook.model.storage.DataStorage;
-import ru.handbook.services.servicesimpl.ContactServiceImpl;
 
 import java.util.List;
 

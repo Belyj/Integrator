@@ -2,7 +2,6 @@ package ru.handbook.dao.parsersdao.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import ru.handbook.dao.objectsdao.ObjectDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.utilites.validator.XMLValidator;
@@ -26,7 +25,7 @@ public class JacksonContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     public static FileInputStream createFIS() {
-        if (! new File("contact.xml").exists()){
+        if (!new File("contact.xml").exists()) {
             String path = new File("").getAbsolutePath();
             new File(path, "contact.xml");
         }
@@ -70,6 +69,6 @@ public class JacksonContactDAOImpl implements ObjectDAO<Contact> {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-            return contacts;
+        return contacts;
     }
 }

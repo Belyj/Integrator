@@ -7,10 +7,10 @@ public class ContactActionServlet {
         switch (action) {
             case "CREATE":
                 create();
-                 break;
+                break;
             case "UPDATE":
                 update();
-                 break;
+                break;
             case "DELETE":
                 delete();
                 break;

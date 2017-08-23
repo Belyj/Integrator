@@ -11,22 +11,21 @@ import java.util.List;
 public class DataStorage {
 
     private static final long serialVersionUID = -8322155900638738350L;
+    static StandartDeserializer deserializer = new StandartDeserializer();
     private static volatile DataStorage instance;
     private List<Observer> observers = new ArrayList();
     private List<Contact> contacts = new ArrayList();
     private List<Group> groups = new ArrayList();
-    static StandartDeserializer deserializer = new StandartDeserializer();
 
     private DataStorage() {
     }
-
 
 
     public static DataStorage getInstance() {
         if (instance == null) {
             synchronized (DataStorage.class) {
                 if (instance == null) {
-                        instance = new DataStorage();
+                    instance = new DataStorage();
                 }
             }
         }
@@ -63,7 +62,7 @@ public class DataStorage {
 
     public Group getGroupByName(String name) {
         Group searcheble;
-        for (Group group: groups) {
+        for (Group group : groups) {
             if (group.getName().equals(name)) {
                 searcheble = group;
                 return searcheble;

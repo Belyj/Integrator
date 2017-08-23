@@ -7,7 +7,7 @@ public interface UserDAO {
     /**
      * <p>Поиск User</p>
      *
-     * @param login поиск по имени
+     * @param login    поиск по имени
      * @param password и паролю
      * @return User возвращает пользователя
      */

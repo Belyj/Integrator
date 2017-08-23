@@ -14,8 +14,8 @@
 
     <!--Servlets-->
     <servlet>
-        <servlet-name>FirstServlet</servlet-name>
-        <servlet-class>ru.handbook.servlets.FirstServlet</servlet-class>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>ru.handbook.servlets.MainServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -24,8 +24,8 @@
 
     <!--Servlet mapping-->
     <servlet-mapping>
-        <servlet-name>FirstServlet</servlet-name>
-        <url-pattern>/f</url-pattern>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/main</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

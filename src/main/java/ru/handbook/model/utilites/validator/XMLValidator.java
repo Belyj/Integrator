@@ -14,6 +14,7 @@ public class XMLValidator {
 
     SchemaFactory schemaFactory;
     File file;
+
     public boolean validateXMLSchema(String xsd, String xml) {
         file = new File(xsd);
         try {

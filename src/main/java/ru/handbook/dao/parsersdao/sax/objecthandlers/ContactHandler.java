@@ -4,7 +4,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import ru.handbook.model.objects.Contact;
-import ru.handbook.model.storage.DataStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +13,9 @@ public class ContactHandler extends DefaultHandler {
     //DataStorage dataStorage = DataStorage.getInstance();
     List<Contact> contacts = new ArrayList();
     Contact contact;
+    Boolean isContact;
     private String name;
     private String element;
-    Boolean isContact;
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {

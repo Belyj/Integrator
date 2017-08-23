@@ -1,7 +1,6 @@
 package ru.handbook.model.utilites.datechooser;
 
 import ru.handbook.services.servicesimpl.ContactServiceImpl;
-import ru.handbook.services.servicesimpl.GroupServiceImpl;
 
 import java.util.Scanner;
 
@@ -17,9 +16,9 @@ public class DataChooser {
 
     private void chooseMenu() {
         System.out.println("1: С помощью DOM\n" +
-                            "2: С помощью SAX\n" +
-                            "3: С помощью Jackson\n" +
-                            "4: Exit");
+                "2: С помощью SAX\n" +
+                "3: С помощью Jackson\n" +
+                "4: Exit");
     }
 
     private void choose() {

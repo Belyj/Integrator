@@ -1,6 +1,4 @@
 package ru.handbook.dao.objectsdao;
-import ru.handbook.model.objects.Contact;
-import ru.handbook.model.objects.Group;
 
 import java.util.List;
 

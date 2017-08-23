@@ -1,12 +1,11 @@
 package ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Driver;
 import ru.handbook.dao.dbdao.mysql.mappers.ObjectMapper;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +33,7 @@ public class GroupMapperImpl implements ObjectMapper<Group> {
         }
         return null;
     }
+
     @Override
     public Group map(ResultSet resultSet) {
         Group group;

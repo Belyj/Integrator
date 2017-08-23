@@ -7,19 +7,21 @@ import java.io.Serializable;
 public interface Observable extends Serializable {
 
     /**
-     *<p>Добавление нового подписчика</p>
-     *@param observer эземпляр наблюдателя
+     * <p>Добавление нового подписчика</p>
+     *
+     * @param observer эземпляр наблюдателя
      */
     void addObserver(Observer observer);
 
     /**
-     *<p>Удаление подписчика</p>
-     *@param observer эземпляр наблюдателя
+     * <p>Удаление подписчика</p>
+     *
+     * @param observer эземпляр наблюдателя
      */
     void removeObserver(Observer observer);
 
     /**
-     *<p>Рассылка подписчикам</p>
+     * <p>Рассылка подписчикам</p>
      */
     void notifyObservers();
 }

@@ -1,11 +1,8 @@
 package ru.handbook.view;
 
 import ru.handbook.controller.MenuController;
-import ru.handbook.dao.parsersdao.dom.DOMGroupDAOImpl;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
-import ru.handbook.model.storage.DataStorage;
-import ru.handbook.model.utilites.datechooser.DataChooser;
 import ru.handbook.view.contactview.ContactView;
 import ru.handbook.view.contactview.Observer;
 
@@ -29,18 +26,18 @@ public class Menu implements Observer {
     private void menuList() {
         System.out.println("Введите команду");
         System.out.println("0: Создать контакт\n" +
-                            "1: Создать группу\n" +
-                            "2: Найти контакт\n" +
-                            "3: Найти группу\n" +
-                            "4: Удалить контакт\n" +
-                            "5: Удалить группу\n" +
-                            "6: Обновить контакт\n" +
-                            "7: Обновить группу\n" +
-                            "8: Добавить в группу\n" +
-                            "9: Удалить из группы\n" +
-                            "10: просмотреть все контакты\n" +
-                            "11: просмотреть все группы\n" +
-                            "12: Выход");
+                "1: Создать группу\n" +
+                "2: Найти контакт\n" +
+                "3: Найти группу\n" +
+                "4: Удалить контакт\n" +
+                "5: Удалить группу\n" +
+                "6: Обновить контакт\n" +
+                "7: Обновить группу\n" +
+                "8: Добавить в группу\n" +
+                "9: Удалить из группы\n" +
+                "10: просмотреть все контакты\n" +
+                "11: просмотреть все группы\n" +
+                "12: Выход");
     }
 
     private int keepCommand() {
@@ -72,8 +69,8 @@ public class Menu implements Observer {
                     System.out.println("id: " + contact.getId() + ";" + "\t" +
                             "name: " + contact.getName() + ";" + "\t" +
                             "phone: " + contact.getPhone() + ";" + "\t" +
-                            "skype: "+ contact.getSkype() + ";" + "\t" +
-                            "mail: "+ contact.getMail() + ";");
+                            "skype: " + contact.getSkype() + ";" + "\t" +
+                            "mail: " + contact.getMail() + ";");
                 } else System.out.println("Контакт не существует");
                 break;
             case 3:
@@ -125,8 +122,8 @@ public class Menu implements Observer {
                     System.out.println("id: " + gettingContact.getId() + ";" + "\t" +
                             "name: " + gettingContact.getName() + ";" + "\t" +
                             "phone: " + gettingContact.getPhone() + ";" + "\t" +
-                            "skype: "+ gettingContact.getSkype() + ";" + "\t" +
-                            "mail: "+ gettingContact.getMail() + ";");
+                            "skype: " + gettingContact.getSkype() + ";" + "\t" +
+                            "mail: " + gettingContact.getMail() + ";");
                 }
                 break;
             case 11:

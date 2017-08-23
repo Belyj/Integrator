@@ -1,7 +1,5 @@
 package ru.handbook.dao.objectsdao;
 
-import ru.handbook.model.objects.Contact;
-
 public interface ContactFactoryDAO {
 
     /**
