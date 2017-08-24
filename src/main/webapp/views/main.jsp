@@ -1,9 +1,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>MMMMMAIN</title>
+    <title>MAIN PAGE</title>
 </head>
 <body>
-Main hello world
+    <a href="/Int/contacts">Контакты</a>
+    <a href="/Int/groups">Группы</a>
+    <a href="/Int/statistics">Статистика</a>
 </body>
 </html>

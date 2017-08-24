@@ -18,13 +18,21 @@ public class UserInit {
     private String PASS = "";
     private String URL = "jdbc:mysql://localhost:3306/handbook_schema";
 
+
     public UserInit() {
-        System.out.println("Введите логин");
-        String login = scanner.nextLine();
-        System.out.println("Введите пароль");
-        String pass = scanner.nextLine();
+//        System.out.println("Введите логин");
+//        String login = scanner.nextLine();
+//        System.out.println("Введите пароль");
+//        String pass = scanner.nextLine();
+//        connect();
+//        user = getByName(login, pass);
+    }
+
+    public UserInit(String login, String pass) {
+        String name = login;
+        String password = pass;
         connect();
-        user = getByName(login, pass);
+        user = getByName(name, password);
     }
 
     public User getUser() {

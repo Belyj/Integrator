@@ -4,10 +4,13 @@ import ru.handbook.dao.dbdao.mysql.mysqlfactorydao.MySQLUserFactoryDAOImpl;
 import ru.handbook.dao.objectsdao.UserDAO;
 import ru.handbook.dao.objectsdao.UserFactoryDAO;
 import ru.handbook.model.objects.User;
+import ru.handbook.view.UserInit;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+
+import static ru.handbook.Main.userInit;
 
 public class LoginServlet extends HttpServlet {
 
@@ -30,9 +33,8 @@ public class LoginServlet extends HttpServlet {
 
         login = req.getParameter("login");
         password = req.getParameter("password");
-        System.out.println("login: " + login + "\tpassword: " + password);
-        user = userDAO.getByParams(login, password);
-        System.out.println("ID: " + user.getId() + "\tName: " + user.getName());
+        userInit = new UserInit(login, password);
+        user = userInit.getUser();
 
         if (user.getName() != null && !user.getName().equals("")) {
             dispatcher = context.getRequestDispatcher("/views/main.jsp");
