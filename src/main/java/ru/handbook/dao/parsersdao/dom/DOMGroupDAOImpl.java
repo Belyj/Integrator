@@ -157,6 +157,11 @@ public class DOMGroupDAOImpl implements GroupDAO {
     }
 
     @Override
+    public Group getByID(Group group) {
+        return null;
+    }
+
+    @Override
     public Group update(Group group) {
         document = readingStream();
         String name = group.getName();

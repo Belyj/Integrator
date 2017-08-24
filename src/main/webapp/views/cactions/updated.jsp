@@ -9,13 +9,23 @@
     <a href="/Int/main">На главную</a>
     >>
     <a href="/Int/contacts">к Контактам</a>
-
+    >>
+    <a href="/Int/contacts/search">к поиску</a>
     <table width="400" height="400">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Skype</th>
+            <th>Mail</th>
+        </thead>
     <% Contact contact = (Contact) request.getAttribute("contact");%>
         <tr>
-            <td>Контакт</td>
+            <td><%=contact.getId()%></td>
             <td><%=contact.getName()%></td>
-            <td>создан</td>
+            <td><%=contact.getPhone()%></td>
+            <td><%=contact.getSkype()%></td>
+            <td><%=contact.getMail()%></td>
         </tr>
     </table>
 </body>

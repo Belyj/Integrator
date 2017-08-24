@@ -30,6 +30,11 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         return source.getContactByName(contact.getName());
     }
 
+    @Override
+    public Contact getByID(Contact contact) {
+        return null;
+    }
+
     public Contact update(Contact contact) {
         int id = source.getContactByName(contact.getName()).getId();
         String name = contact.getName();

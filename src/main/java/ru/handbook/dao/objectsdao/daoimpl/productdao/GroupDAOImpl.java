@@ -16,6 +16,11 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         return source.getGroupByName(group.getName());
     }
 
+    @Override
+    public Group getByID(Group group) {
+        return null;
+    }
+
     public Group update(Group group) {
         int id = source.getGroupByName(group.getName()).getId();
         source.getGroups().remove(source.getGroupByName(group.getName()));

@@ -77,6 +77,11 @@ public class SAXContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     @Override
+    public Contact getByID(Contact contact) {
+        return null;
+    }
+
+    @Override
     public Contact update(Contact contact) {
         System.out.println("Только для чтения");
         return null;

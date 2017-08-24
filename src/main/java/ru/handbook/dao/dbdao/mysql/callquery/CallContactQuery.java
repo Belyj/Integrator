@@ -15,6 +15,11 @@ public class CallContactQuery {
                 "\"" + userInit.getUser().getName() + "\"" + ")}";
     }
 
+    public String getContactByID(Contact contact) {
+        return "{call getContactByID(\"" + contact.getId() + "\", " +
+                "\"" + userInit.getUser().getName() + "\"" + ")}";
+    }
+
     public String updateContact(Contact contact, String newName, String newPhone, String newSkype, String newMail) {
         return "{call updateContact(\"" + contact.getId() + "\", \"" +
                 newName + "\", \"" +

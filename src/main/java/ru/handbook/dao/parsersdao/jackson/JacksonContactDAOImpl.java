@@ -53,6 +53,11 @@ public class JacksonContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     @Override
+    public Contact getByID(Contact contact) {
+        return null;
+    }
+
+    @Override
     public Contact update(Contact contact) {
         return null;
     }

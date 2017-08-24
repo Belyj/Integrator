@@ -32,6 +32,5 @@ for (Contact contact : contacts) {%>
     </tr>
 <%}%>
 </table>
-Hello contacts
 </body>
 </html>

@@ -20,6 +20,10 @@ public class MenuController implements ContactController, GroupController {
         return contactService.getContact(contact);
     }
 
+    public Contact searchContactByID(Contact contact) {
+        return contactService.getContactByID(contact);
+    }
+
     public Group searchGroup(Group group) {
         return groupService.getGroup(group);
     }

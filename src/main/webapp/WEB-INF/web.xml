@@ -51,6 +51,7 @@
         <servlet-name>CDeleteServlet</servlet-name>
         <servlet-class>ru.handbook.servlets.cactions.CDeleteServlet</servlet-class>
     </servlet>
+
     <!--Groups Servlets-->
     <servlet>
         <servlet-name>GCreateServlet</servlet-name>

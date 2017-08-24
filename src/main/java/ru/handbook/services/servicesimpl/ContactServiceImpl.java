@@ -24,6 +24,10 @@ public class ContactServiceImpl implements ContactService {
         return contactDAO.getByName(contact);
     }
 
+    public Contact getContactByID(Contact contact) {
+        return contactDAO.getByID(contact);
+    }
+
     public Contact deleteContact(Contact contact) {
         return contactDAO.delete(contact);
     }

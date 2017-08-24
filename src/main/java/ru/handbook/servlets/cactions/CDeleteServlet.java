@@ -9,7 +9,7 @@ public class CDeleteServlet extends HttpServlet {
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         ServletContext context = this.getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher("/views/gactions/delete.jsp");
+        RequestDispatcher dispatcher = context.getRequestDispatcher("/views/cactions/delete.jsp");
         dispatcher.include(req, res);
     }
 }

@@ -11,4 +11,5 @@ BEGIN
 			skype = newSkype,
 			mail = newMail
 		WHERE cid = contactID;
+        
 END// 

@@ -9,7 +9,6 @@
     <a href="/Int/main">На главную</a>
     >>
     <a href="/Int/contacts">к Контактам</a>
-    Hello searched
     <table width="400" height="400">
     <% Contact contact = (Contact) request.getAttribute("contact");%>
         <tr>

@@ -25,6 +25,11 @@ public class JacksonGroupDAOImpl implements ObjectDAO<Group> {
     }
 
     @Override
+    public Group getByID(Group group) {
+        return null;
+    }
+
+    @Override
     public Group update(Group group) {
         return null;
     }

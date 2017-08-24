@@ -1,3 +1,5 @@
+<%@ page import = "ru.handbook.model.objects.Contact" %>
+
 <html>
 <head>
     <meta charset="UTF-8">

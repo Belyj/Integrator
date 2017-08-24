@@ -159,6 +159,11 @@ public class DOMContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     @Override
+    public Contact getByID(Contact contact) {
+        return null;
+    }
+
+    @Override
     public Contact update(Contact contact) {
         document = readingStream();
         String name = contact.getName();

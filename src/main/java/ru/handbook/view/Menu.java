@@ -37,7 +37,8 @@ public class Menu implements Observer {
                 "9: Удалить из группы\n" +
                 "10: просмотреть все контакты\n" +
                 "11: просмотреть все группы\n" +
-                "12: Выход");
+                "12: Контак по ID \n" +
+                "13: Выход");
     }
 
     private int keepCommand() {
@@ -133,6 +134,16 @@ public class Menu implements Observer {
                 }
                 break;
             case 12:
+                contact = controller.searchContactByID(initializeConract());
+                if (contact != null) {
+                    System.out.println("id: " + contact.getId() + ";" + "\t" +
+                            "name: " + contact.getName() + ";" + "\t" +
+                            "phone: " + contact.getPhone() + ";" + "\t" +
+                            "skype: " + contact.getSkype() + ";" + "\t" +
+                            "mail: " + contact.getMail() + ";");
+                } else System.out.println("Контакт не существует");
+                break;
+            case 13:
                 System.out.println("Exit");
                 contactView.dispose();
                 flag = false;

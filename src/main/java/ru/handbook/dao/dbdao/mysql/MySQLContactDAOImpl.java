@@ -74,6 +74,20 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
         return c;
     }
 
+    public Contact getByID(Contact contact) {
+        query = call.getContactByID(contact);
+        Contact c = new Contact();
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
+            resultSet = statement.executeQuery(query);
+            c = (Contact) mapper.map(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return c;
+    }
+
     public synchronized Contact update(Contact contact) {
         System.out.println("New Contact Name");
         Scanner scanner = new Scanner(System.in);

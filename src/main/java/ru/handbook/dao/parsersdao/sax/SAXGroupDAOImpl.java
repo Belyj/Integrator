@@ -71,6 +71,11 @@ public class SAXGroupDAOImpl implements GroupDAO {
     }
 
     @Override
+    public Group getByID(Group group) {
+        return null;
+    }
+
+    @Override
     public Group update(Group group) {
         System.out.println("Только для чтения");
         return null;

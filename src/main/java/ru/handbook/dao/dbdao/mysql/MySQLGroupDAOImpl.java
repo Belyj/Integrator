@@ -96,6 +96,11 @@ public class MySQLGroupDAOImpl implements GroupDAO {
         return g;
     }
 
+    @Override
+    public Group getByID(Group group) {
+        return null;
+    }
+
     public synchronized Group update(Group group) {
         System.out.println("New Group Name");
         String newName = new Scanner(System.in).nextLine();
