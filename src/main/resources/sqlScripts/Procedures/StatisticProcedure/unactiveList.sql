@@ -1,5 +1,5 @@
 DELIMITER // 
-CREATE PROCEDURE `avgCountOfContacts`()
+CREATE PROCEDURE `unactiveList`()
 LANGUAGE SQL 
 DETERMINISTIC 
 COMMENT 'Serchin unactive users, unactive user have count contacts less than 10'

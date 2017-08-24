@@ -1,19 +1,16 @@
 package ru.handbook.servlets.gactions;
 
 import ru.handbook.controller.MenuController;
-import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
-import java.util.List;
 
 public class GSearchServlet extends HttpServlet {
 
     MenuController menu;
     Group group;
-    List<Contact> contacts;
 
     @Override
     public void init() throws ServletException {

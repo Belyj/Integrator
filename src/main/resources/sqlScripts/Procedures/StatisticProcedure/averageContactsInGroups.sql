@@ -8,4 +8,3 @@ BEGIN
 	SELECT AVG(count), group_id FROM t;
 	drop temporary table t;
 END// 
-

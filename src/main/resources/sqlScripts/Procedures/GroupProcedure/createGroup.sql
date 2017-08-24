@@ -8,4 +8,3 @@ BEGIN
 	INSERT INTO `handbook_schema`.`group_table` (`gname`) VALUES (groupName);
 	SELECT * FROM handbook_schema.group_table WHERE `gname` = groupName; 
 END// 
-drop PROCEDURE createGroup;

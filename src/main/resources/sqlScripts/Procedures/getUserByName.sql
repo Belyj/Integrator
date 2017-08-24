@@ -7,5 +7,3 @@ COMMENT 'searching user info
 BEGIN 
     SELECT uid, uname FROM handbook_schema.user_table WHERE uname = userName AND pass = userPass;
 END//
-
-call getUserByName("RU", "RU");
