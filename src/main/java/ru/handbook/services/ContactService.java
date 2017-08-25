@@ -28,6 +28,13 @@ public interface ContactService {
     Contact getContact(Contact contact);
 
     /**
+     * <p>Найти контакт</p>
+     *
+     * @return Contact возвращает контакт
+     */
+    Contact getContactByID(Contact contact);
+
+    /**
      * <p>Удалить контакт</p>
      *
      * @return Contact возвращает контакт

@@ -9,9 +9,13 @@
     <a href="/Int/main">На главную</a>
         >>
     <a href="/Int/contacts">Назад</a> <br>
-        <form>
+        <form method="POST">
             <input type="text" name="id" placeholder="ID">
-            <input type="submit" name="enter">
-        </form  action="login" method="POST">
+            <input type="text" name="name" placeholder="Новое Имя">
+            <input type="text" name="phone" placeholder="Новый Телефон">
+            <input type="text" name="skype" placeholder="Новый Скайп">
+            <input type="text" name="mail" placeholder="Новый Мэйл">
+            <input type="submit" name="search">
+        </form>
 </body>
 </html>

@@ -2,8 +2,6 @@ package ru.handbook.model.objects;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import ru.handbook.view.contactview.Observer;
 
 import java.io.Serializable;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JacksonXmlRootElement(localName = "Contact")
-public class Contact implements Serializable, Observable {
+public class Contact implements Serializable, ru.handbook.model.storage.Observable {
 
     List<Observer> observers = new ArrayList();
     @JacksonXmlProperty(localName = "name", isAttribute = true)
@@ -102,17 +100,17 @@ public class Contact implements Serializable, Observable {
                 "mail: " + mail;
     }
 
-
+    @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
-
+    @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
-
+    @Override
     public void notifyObservers() {
         for (Observer o : observers) {
             o.handleEvent();
@@ -123,13 +121,4 @@ public class Contact implements Serializable, Observable {
         return observers;
     }
 
-    @Override
-    public void addListener(InvalidationListener listener) {
-
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-
-    }
 }

@@ -28,6 +28,13 @@ public interface GroupService {
     Group getGroup(Group group);
 
     /**
+     * <p>Найти группу</p>
+     *
+     * @return Group возвращает группу
+     */
+    Group getGroupByID(Group group);
+
+    /**
      * <p>Удалить группу</p>
      *
      * @return Group возвращает группу

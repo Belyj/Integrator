@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
 
@@ -89,20 +88,14 @@ public class MySQLContactDAOImpl implements ObjectDAO<Contact> {
     }
 
     public synchronized Contact update(Contact contact) {
-        System.out.println("New Contact Name");
-        Scanner scanner = new Scanner(System.in);
-        String newName = scanner.nextLine();
-        System.out.println("New Pone Name");
-        String newPhone = scanner.nextLine();
-        System.out.println("New Skype Name");
-        String newSkype = scanner.nextLine();
-        System.out.println("New Mail Name");
-        String newMail = scanner.nextLine();
-        query = call.updateContact(contact, newName, newPhone, newSkype, newMail);
+        Contact c;
+        query = call.updateContact(contact, contact.getName(), contact.getPhone(), contact.getSkype(), contact.getMail());
         try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
              Statement statement = connection.createStatement()) {
-            statement.execute(query);
-            return contact;
+            resultSet = statement.executeQuery(query);
+            c = (Contact) mapper.map(resultSet);
+            resultSet.close();
+            return c;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -30,6 +30,10 @@ public class GroupServiceImpl implements GroupService {
         return groupDAO.getByName(group);
     }
 
+    public Group getGroupByID (Group group)  {
+        return groupDAO.getByID(group);
+    }
+
     public Group updateGroup(Group group) {
         return groupDAO.update(group);
     }

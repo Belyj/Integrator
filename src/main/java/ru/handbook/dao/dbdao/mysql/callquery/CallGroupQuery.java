@@ -28,6 +28,11 @@ public class CallGroupQuery {
                 "\"" + userInit.getUser().getName() + "\"" + ")}";
     }
 
+    public String getGroupByID(Group group) {
+        return "{call getGroupByID(\"" + group.getId() + "\", " +
+                "\"" + userInit.getUser().getName() + "\"" + ")}";
+    }
+
     public String update(Group group, String newName) {
         return "{call updateGroup(\"" + group.getId() + "\", \"" +
                 newName + "\")}";

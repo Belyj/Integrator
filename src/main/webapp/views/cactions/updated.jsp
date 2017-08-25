@@ -10,7 +10,6 @@
     >>
     <a href="/Int/contacts">к Контактам</a>
     >>
-    <a href="/Int/contacts/search">к поиску</a>
     <table width="400" height="400">
         <thead>
             <th>ID</th>

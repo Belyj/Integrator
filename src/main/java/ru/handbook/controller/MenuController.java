@@ -28,6 +28,10 @@ public class MenuController implements ContactController, GroupController {
         return groupService.getGroup(group);
     }
 
+    public Group searchGroupByID(Group group) {
+        return groupService.getGroupByID(group);
+    }
+
     public Group createGroup(Group group) {
         return groupService.createGroup(group);
     }
@@ -48,8 +52,7 @@ public class MenuController implements ContactController, GroupController {
     }
 
     public Group updateGroup(Group group) {
-        groupService.updateGroup(group);
-        return group;
+        return groupService.updateGroup(group);
     }
 
     public void addInGroup(Contact contact, Group group) {

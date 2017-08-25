@@ -11,5 +11,5 @@ BEGIN
 			skype = newSkype,
 			mail = newMail
 		WHERE cid = contactID;
-        
+	SELECT * FROM handbook_schema.contact_table WHERE cid = contactID;
 END// 

@@ -7,9 +7,9 @@
     <a href="/Int/main">На главную</a>
     >>
     <a href="/Int/contacts">Назад</a> <br>
-    <form>
+    <form method="POST">
         <input type="text" name="name" placeholder="Имя">
         <input type="submit" name="search">
-    </form action="login" method="POST">
+    </form>
 </body>
 </html>

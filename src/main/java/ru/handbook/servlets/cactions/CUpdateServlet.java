@@ -27,40 +27,31 @@ public class CUpdateServlet extends HttpServlet {
             if (req.getParameter("id").matches("[-+]?\\d+")) {
                 id = Integer.parseInt(req.getParameter("id"));
                 contact = new Contact(id, "");
-
                 contact = menu.searchContactByID(contact);
+                String name = req.getParameter("name");
+                String phone = req.getParameter("phone");
+                String skype = req.getParameter("skype");
+                String mail =req.getParameter("mail");
 
-                if (contact.getName() != null) {
+                if (name != null) {
+                    contact.setName(name);
+                }
+                if (phone != null) {
+                    contact.setPhone(phone);
+                }
+                if (skype != null) {
+                    contact.setSkype(skype);
+                }
+                if (mail != null) {
+                    contact.setMail(mail);
+                }
+                if (name != null || phone != null || skype != null || mail != null) {
+                    contact = menu.updateContact(contact);
                     req.setAttribute("contact", contact);
-                    dispatcher = context.getRequestDispatcher("/views/cactions/updating.jsp");
+                    dispatcher = context.getRequestDispatcher("/views/cactions/updated.jsp");
                     dispatcher.include(req, res);
-                    String name = null;
-                    String phone = null;
-                    String skype = null;
-                    String mail = null;
-                    name = req.getParameter("name");
-                    phone = req.getParameter("phone");
-                    skype = req.getParameter("skype");
-                    mail = req.getParameter("mail");
-                    if (name != null) {
-                        contact.setName(name);
-                    }
-                    if (phone != null) {
-                        contact.setPhone(phone);
-                    }
-                    if (skype != null) {
-                        contact.setSkype(skype);
-                    }
-                    if (mail != null) {
-                        contact.setMail(mail);
-                    }
-//                    contact = menu.updateContact(contact);
-//                    req.setAttribute("contact", contact);
-//                    dispatcher = context.getRequestDispatcher("/views/cactions/updating.jsp");
-//                    dispatcher.include(req, res);
                 }
             }
         }
-//        menu.updateContact(contact);
     }
 }

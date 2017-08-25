@@ -8,4 +8,5 @@ BEGIN
     UPDATE handbook_schema.group_table 
 		SET gname = newGroupName
 		WHERE gid = groupID;
+	SELECT * FROM handbook_schema.group_table WHERE gid = groupID;
 END// 

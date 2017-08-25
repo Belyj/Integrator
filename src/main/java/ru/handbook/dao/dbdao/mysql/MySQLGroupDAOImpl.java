@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MySQLGroupDAOImpl implements GroupDAO {
 
@@ -98,21 +97,31 @@ public class MySQLGroupDAOImpl implements GroupDAO {
 
     @Override
     public Group getByID(Group group) {
-        return null;
-    }
-
-    public synchronized Group update(Group group) {
-        System.out.println("New Group Name");
-        String newName = new Scanner(System.in).nextLine();
-        query = call.update(group, newName);
+        query = call.getGroupByID(group);
+        Group g = new Group();
         try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
              Statement statement = connection.createStatement()) {
-            statement.execute(query);
-            return group;
+            resultSet = statement.executeQuery(query);
+            g = (Group) mapper.mapEasy(resultSet);
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return g;
+    }
+
+    public synchronized Group update(Group group) {
+        Group g = new Group();
+        query = call.update(group, group.getName());
+        try (Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
+             Statement statement = connection.createStatement()) {
+            resultSet = statement.executeQuery(query);
+            g = mapper.mapEasy(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return g;
     }
 
     public synchronized Group delete(Group group) {
