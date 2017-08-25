@@ -11,4 +11,4 @@ BEGIN
 	JOIN handbook_schema.group_table g ON g.gid = l.group_id
 	JOIN handbook_schema.user_table u ON u.uid = l.user_id
 	WHERE g.gname LIKE groupName AND u.uname = userName;
-END// 
+END//

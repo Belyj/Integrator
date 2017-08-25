@@ -12,6 +12,7 @@
     <a href="/Int/contacts/create">Создать</a>
     <a href="/Int/contacts/delete">Удалить</a>
     <a href="/Int/contacts/update">Обновить</a>
+    <a href="/Int/contacts/add">Добавить в группу</a>
 <table width="400" height="400">
     <thead>
         <th>ID</th>

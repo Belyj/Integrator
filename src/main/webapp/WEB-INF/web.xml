@@ -51,7 +51,10 @@
         <servlet-name>CDeleteServlet</servlet-name>
         <servlet-class>ru.handbook.servlets.cactions.CDeleteServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>AddInGroupServlet</servlet-name>
+        <servlet-class>ru.handbook.servlets.cactions.AddInGroupServlet</servlet-class>
+    </servlet>
     <!--Groups Servlets-->
     <servlet>
         <servlet-name>GCreateServlet</servlet-name>
@@ -108,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>CDeleteServlet</servlet-name>
         <url-pattern>/contacts/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddInGroupServlet</servlet-name>
+        <url-pattern>/contacts/add</url-pattern>
     </servlet-mapping>
 
     <!--Group Servlet mapping-->

@@ -37,13 +37,12 @@ public class MenuController implements ContactController, GroupController {
     }
 
     public Contact deleteContact(Contact contact) {
-        contactService.deleteContact(contact);
-        return contact;
+        return contactService.deleteContact(contact);
     }
 
     public Group deleteGroup(Group group) {
-        groupService.deleteGroup(group);
-        return group;
+
+        return groupService.deleteGroup(group);
     }
 
     public Contact updateContact(Contact contact) {
