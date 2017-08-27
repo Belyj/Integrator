@@ -58,8 +58,8 @@ public class MenuController implements ContactController, GroupController {
         groupService.addInGroup(contact, group);
     }
 
-    public void deleteFromGroup(Contact contact, Group group) {
-        groupService.deleteFromGroup(contact, group);
+    public void removeFromGroup(Contact contact, Group group) {
+        groupService.removeFromGroup(contact, group);
     }
 
     public List<Contact> checkContacts() {

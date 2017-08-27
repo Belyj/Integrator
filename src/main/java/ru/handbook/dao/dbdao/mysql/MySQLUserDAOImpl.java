@@ -8,7 +8,7 @@ import ru.handbook.model.objects.User;
 
 import java.sql.*;
 
-public class MySQLUserDAOImpl implements UserDAO {
+public class MySQLUserDAOImpl extends DataSoureInit implements UserDAO {
 
     private static volatile MySQLUserDAOImpl instance;
     String query;
@@ -42,8 +42,7 @@ public class MySQLUserDAOImpl implements UserDAO {
     public User getByParams(String login, String password) {
         query = call.getUserByName(login, password);
         User u = new User();
-        try (Connection connection = DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-             Statement statement = connection.createStatement()) {
+        try (Statement statement = getConnection().createStatement()) {
             resultSet = statement.executeQuery(query);
             u = (User) mapper.map(resultSet);
             resultSet.close();

@@ -11,6 +11,12 @@
         <welcome-file>home</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <resource-ref>
+        <description>DB Connection</description>
+        <res-ref-name>jdbc/Int</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 
     <!--Servlets-->
     <servlet>
@@ -54,6 +60,10 @@
     <servlet>
         <servlet-name>AddInGroupServlet</servlet-name>
         <servlet-class>ru.handbook.servlets.cactions.AddInGroupServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveFromGroupServlet</servlet-name>
+        <servlet-class>ru.handbook.servlets.cactions.RemoveFromGroupServlet</servlet-class>
     </servlet>
     <!--Groups Servlets-->
     <servlet>
@@ -115,6 +125,10 @@
     <servlet-mapping>
         <servlet-name>AddInGroupServlet</servlet-name>
         <url-pattern>/contacts/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveFromGroupServlet</servlet-name>
+        <url-pattern>/contacts/remove</url-pattern>
     </servlet-mapping>
 
     <!--Group Servlet mapping-->

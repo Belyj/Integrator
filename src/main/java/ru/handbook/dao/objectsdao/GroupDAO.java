@@ -11,7 +11,7 @@ public interface GroupDAO extends ObjectDAO<Group> {
      * @param contact поиск контакта
      * @param group   поиск группы
      */
-    public void deleteFromGroup(Contact contact, Group group);
+    public void removeFromGroup(Contact contact, Group group);
 
     /**
      * <p>добавление контакта в группу</p>

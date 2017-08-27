@@ -235,7 +235,7 @@ public class DOMGroupDAOImpl implements GroupDAO {
         transform();
     }
 
-    public void deleteFromGroup(Contact contact, Group group) {
+    public void removeFromGroup(Contact contact, Group group) {
         Element g = null;
         Element gc = null;
         Integer id = null;

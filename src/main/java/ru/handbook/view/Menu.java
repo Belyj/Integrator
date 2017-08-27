@@ -111,7 +111,7 @@ public class Menu implements Observer {
             case 9:
                 contact = controller.searchContact(initializeConract());
                 group = controller.searchGroup(initializeGroup());
-                controller.deleteFromGroup(contact, group);
+                controller.removeFromGroup(contact, group);
                 contacts = group.getInner();
                 contacts.remove(contact);
                 group.setInner(contacts);

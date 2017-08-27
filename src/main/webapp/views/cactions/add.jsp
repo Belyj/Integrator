@@ -1,6 +1,3 @@
-<%@ page import = "ru.handbook.model.objects.Contact" %>
-<%@ page import = "ru.handbook.model.objects.Contact" %>
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -11,8 +8,8 @@
     >>
     <a href="/Int/contacts">Назад</a> <br>
     <form method="POST">
-        <input type="text" name="contactid" placeholder="Id">
-        <input type="text" name="groupid" placeholder="Id">
+        <input type="text" name="contactid" placeholder="ContactId">
+        <input type="text" name="groupid" placeholder="GroupId">
         <input type="submit" name="search">
     </form>
 </body>

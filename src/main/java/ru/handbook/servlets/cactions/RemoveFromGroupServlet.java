@@ -8,7 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 
-public class AddInGroupServlet extends HttpServlet {
+public class RemoveFromGroupServlet extends HttpServlet {
 
     MenuController menu;
     Contact contact;
@@ -24,7 +24,7 @@ public class AddInGroupServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Integer contactID;
         Integer groupID;
-        RequestDispatcher dispatcher = context.getRequestDispatcher("/views/cactions/add.jsp");
+        RequestDispatcher dispatcher = context.getRequestDispatcher("/views/cactions/remove.jsp");
         dispatcher.include(req, res);
         if (req.getParameter("contactid") != null && req.getParameter("groupid") != null) {
             if (req.getParameter("contactid").matches("[-+]?\\d+") && req.getParameter("groupid").matches("[-+]?\\d+")) {
@@ -34,7 +34,7 @@ public class AddInGroupServlet extends HttpServlet {
                 contact = menu.searchContactByID(contact);
                 group = new Group(groupID, "");
                 group = menu.searchGroupByID(group);
-                menu.addInGroup(contact, group);
+                menu.removeFromGroup(contact, group);
                 group = menu.searchGroup(group);
                 req.setAttribute("group", group);
                 dispatcher = context.getRequestDispatcher("/views/gactions/searched.jsp");

@@ -42,12 +42,12 @@ public class GroupServiceImpl implements GroupService {
         return groupDAO.delete(group);
     }
 
-    public void deleteFromGroup(Contact contact, Group group) {
-        System.out.println("Не поддерживается");
+    public void removeFromGroup(Contact contact, Group group) {
+        groupDAO.removeFromGroup(contact, group);
     }
 
     public void addInGroup(Contact contact, Group group) {
-        System.out.println("Не поддерживается");
+        groupDAO.addInGroup(contact, group);
     }
 
     public void setDOM() {

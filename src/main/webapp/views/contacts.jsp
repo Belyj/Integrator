@@ -13,6 +13,7 @@
     <a href="/Int/contacts/delete">Удалить</a>
     <a href="/Int/contacts/update">Обновить</a>
     <a href="/Int/contacts/add">Добавить в группу</a>
+    <a href="/Int/contacts/remove">Удалить из группы</a>
 <table width="400" height="400">
     <thead>
         <th>ID</th>

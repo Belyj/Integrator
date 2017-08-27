@@ -92,7 +92,7 @@ public class SAXGroupDAOImpl implements GroupDAO {
         return groupHander.getGroups();
     }
 
-    public void deleteFromGroup(Contact contact, Group group) {
+    public void removeFromGroup(Contact contact, Group group) {
         System.out.println("Только для чтения");
     }
 
