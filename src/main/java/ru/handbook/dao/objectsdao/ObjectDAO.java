@@ -1,7 +1,5 @@
 package ru.handbook.dao.objectsdao;
 
-import ru.handbook.model.objects.Contact;
-
 import java.util.List;
 
 public interface ObjectDAO<T> {
@@ -20,7 +18,7 @@ public interface ObjectDAO<T> {
      * @param t поиск по объекту
      * @return T возвращает объект
      */
-    List<Contact> getByName(T t);
+    List<T> getByName(T t);
 
     /**
      * <p>Поиск сущности</p>

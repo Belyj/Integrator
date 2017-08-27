@@ -35,7 +35,7 @@ public class AddInGroupServlet extends HttpServlet {
                 group = new Group(groupID, "");
                 group = menu.searchGroupByID(group);
                 menu.addInGroup(contact, group);
-                group = menu.searchGroup(group);
+                group = menu.searchGroupByID(group);
                 req.setAttribute("group", group);
                 dispatcher = context.getRequestDispatcher("/views/gactions/searched.jsp");
                 dispatcher.include(req, res);

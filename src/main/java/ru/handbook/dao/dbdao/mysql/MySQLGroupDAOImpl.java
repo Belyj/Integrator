@@ -77,12 +77,12 @@ public class MySQLGroupDAOImpl extends DataSoureInit implements GroupDAO {
         return g;
     }
 
-    public Group getByName(Group group) {
+    public List<Group> getByName(Group group) {
         query = call.getByName(group);
-        Group g = new Group();
+        List<Group> g = new ArrayList();
         try (Statement statement = getConnection().createStatement()) {
             resultSet = statement.executeQuery(query);
-            g = (Group) mapper.map(resultSet);
+            g = (List<Group>) mapper.groupsWithContactsMap(resultSet);
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();

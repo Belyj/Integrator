@@ -89,4 +89,30 @@ public class GroupMapperImpl implements ObjectMapper<Group> {
         }
         return null;
     }
+
+    public List<Group> groupsWithContactsMap(ResultSet resultSet) {
+        List<Group> groups;
+        Group group;
+        List<Contact> contacts;
+        Contact contact;
+        try {
+            groups = new ArrayList();
+            contacts = new ArrayList();
+            while (resultSet.next()) {
+                int groupID = resultSet.getInt("group_id");
+                String groupName = resultSet.getString("gname");
+                group = new Group(groupID, groupName);
+                int contactID = resultSet.getInt("cid");
+                String contactName = resultSet.getString("cname");
+                contact = new Contact(contactID, contactName);
+                contacts.add(contact);
+                group.setInner(contacts);
+                groups.add(group);
+            }
+            return groups;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

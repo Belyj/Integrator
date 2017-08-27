@@ -16,16 +16,16 @@ public class MenuController implements ContactController, GroupController {
         return contactService.createContact(contact);
     }
 
-    public Contact searchContact(Contact contact) {
-        return contactService.getContact(contact);
+    public List<Contact> searchContact(Contact contact) {
+        return contactService.getContactByName(contact);
     }
 
     public Contact searchContactByID(Contact contact) {
         return contactService.getContactByID(contact);
     }
 
-    public Group searchGroup(Group group) {
-        return groupService.getGroup(group);
+    public List<Group> searchGroup(Group group) {
+        return groupService.getGroupByName(group);
     }
 
     public Group searchGroupByID(Group group) {

@@ -65,21 +65,26 @@ public class Menu implements Observer {
                 System.out.println(group.getName() + " создана");
                 break;
             case 2:
-                contact = controller.searchContact(initializeConract());
-                if (contact != null) {
-                    System.out.println("id: " + contact.getId() + ";" + "\t" +
-                            "name: " + contact.getName() + ";" + "\t" +
-                            "phone: " + contact.getPhone() + ";" + "\t" +
-                            "skype: " + contact.getSkype() + ";" + "\t" +
-                            "mail: " + contact.getMail() + ";");
+                contacts = controller.searchContact(initializeConract());
+                if (contacts != null) {
+                    for (Contact c : contacts) {
+                        System.out.println("id: " + c.getId() + ";" + "\t" +
+                                "name: " + c.getName() + ";" + "\t" +
+                                "phone: " + c.getPhone() + ";" + "\t" +
+                                "skype: " + c.getSkype() + ";" + "\t" +
+                                "mail: " + c.getMail() + ";");
+                    }
                 } else System.out.println("Контакт не существует");
                 break;
             case 3:
-                group = controller.searchGroup(initializeGroup());
-                if (group != null) {
-                    System.out.println(group.getName() + " " + group.getId());
-                    for (Contact innerContact : group.getInner()) {
-                        System.out.println(innerContact);
+                List<Group> groups;
+                groups = controller.searchGroup(initializeGroup());
+                if (groups != null) {
+                    for (Group g : groups) {
+                        System.out.println(g.getName() + " " + g.getId());
+                        for (Contact innerContact : g.getInner()) {
+                            System.out.println(innerContact);
+                        }
                     }
                 } else System.out.println("Группа не существует");
                 break;
@@ -100,8 +105,8 @@ public class Menu implements Observer {
                 System.out.println(group.getName() + " обновлена");
                 break;
             case 8:
-                contact = controller.searchContact(initializeConract());
-                group = controller.searchGroup(initializeGroup());
+                contact = controller.searchContactByID(initializeConract());
+                group = controller.searchGroupByID(initializeGroup());
                 contacts = group.getInner();
                 contacts.add(contact);
                 group.setInner(contacts);
@@ -109,8 +114,8 @@ public class Menu implements Observer {
                 System.out.println(contact.getName() + " добавлен в группу " + group.getName());
                 break;
             case 9:
-                contact = controller.searchContact(initializeConract());
-                group = controller.searchGroup(initializeGroup());
+                contact = controller.searchContactByID(initializeConract());
+                group = controller.searchGroupByID(initializeGroup());
                 controller.removeFromGroup(contact, group);
                 contacts = group.getInner();
                 contacts.remove(contact);
@@ -128,7 +133,7 @@ public class Menu implements Observer {
                 }
                 break;
             case 11:
-                List<Group> groups = controller.checkGroups();
+                groups = controller.checkGroups();
                 for (Group gettingGroup : groups) {
                     System.out.println("Group id: " + gettingGroup.getId() + " " + "group name: " + gettingGroup.getName());
                 }

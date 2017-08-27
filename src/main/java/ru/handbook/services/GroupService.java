@@ -25,7 +25,7 @@ public interface GroupService {
      *
      * @return Group возвращает группу
      */
-    Group getGroup(Group group);
+    List<Group> getGroupByName(Group group);
 
     /**
      * <p>Найти группу</p>

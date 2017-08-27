@@ -1,1 +1,45 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Contacts><Contact name="A"><id>16</id><phone>0</phone><skype/><mail/></Contact><Contact name="B"><id>17</id><phone>0</phone><skype/><mail/></Contact><Contact name="C"><id>18</id><phone>0</phone><skype/><mail/></Contact><Contact name="D"><id>19</id><phone>0</phone><skype/><mail/></Contact><Contact name="EE"><id>110</id><phone>0</phone><skype/><mail>mail</mail></Contact><Contact name="E"><id>110</id><phone>0</phone><skype/><mail/></Contact><Contact name="R"><id>110</id><phone>0</phone><skype/><mail/></Contact></Contacts>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Contacts>
+    <Contact name="A">
+        <id>16</id>
+        <phone>0</phone>
+        <skype/>
+        <mail/>
+    </Contact>
+    <Contact name="B">
+        <id>17</id>
+        <phone>0</phone>
+        <skype/>
+        <mail/>
+    </Contact>
+    <Contact name="C">
+        <id>18</id>
+        <phone>0</phone>
+        <skype/>
+        <mail/>
+    </Contact>
+    <Contact name="D">
+        <id>19</id>
+        <phone>0</phone>
+        <skype/>
+        <mail/>
+    </Contact>
+    <Contact name="EE">
+        <id>110</id>
+        <phone>0</phone>
+        <skype/>
+        <mail>mail</mail>
+    </Contact>
+    <Contact name="E">
+        <id>110</id>
+        <phone>0</phone>
+        <skype/>
+        <mail/>
+    </Contact>
+    <Contact name="R">
+        <id>110</id>
+        <phone>0</phone>
+        <skype/>
+        <mail/>
+    </Contact>
+</Contacts>

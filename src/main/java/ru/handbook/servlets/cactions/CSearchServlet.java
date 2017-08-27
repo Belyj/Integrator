@@ -6,10 +6,12 @@ import ru.handbook.model.objects.Contact;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.util.List;
 
 public class CSearchServlet extends HttpServlet {
 
     MenuController menu;
+    List<Contact> contacts;
     Contact contact;
 
     @Override
@@ -20,22 +22,15 @@ public class CSearchServlet extends HttpServlet {
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         ServletContext context = this.getServletContext();
-        Integer id;
         String name;
         RequestDispatcher dispatcher;
-        if (req.getParameter("id") != null) {
-            if (req.getParameter("id").matches("[-+]?\\d+")) {
-                id = Integer.parseInt(req.getParameter("id"));
-                name = req.getParameter("name");
-                contact = new Contact(id, name);
-                contact = menu.searchContact(contact);
-            } else id = null;
-        } else id = null;
 
+        name = req.getParameter("name");
 
-
-        if (id != null) {
-            req.setAttribute("contact", contact);
+        if (name != null) {
+            contact = new Contact(name);
+            contacts = menu.searchContact(contact);
+            req.setAttribute("contacts", contacts);
             dispatcher = context.getRequestDispatcher("/views/cactions/searched.jsp");
             dispatcher.include(req, res);
         } else {

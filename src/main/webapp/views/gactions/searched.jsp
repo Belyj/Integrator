@@ -2,7 +2,6 @@
 <%@ page import = "java.util.List" %>
 <%@ page import = "ru.handbook.model.objects.Contact" %>
 
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -16,19 +15,21 @@
     <a href="/Int/groups/search">к поиску</a>
 
 
-    <% Group group = (Group) request.getAttribute("group");%>
-    <h1><%=group.getName()%></h1>
     <table width="400" height="400">
         <thead>
             <th>ID</th>
             <th>Name</th>
         </thead>
-    <% for (Contact contact : group.getInner()) {%>
+
+    <% List<Group> groups = (List<Group>) request.getAttribute("groups");
+        for (Group group : groups) {
+            for (Contact contact : group.getInner()) {%>
         <tr>
             <td><%=contact.getId()%></td>
             <td><%=contact.getName()%></td>
             </tr>
         <%}%>
+    <%}%>
     </table>
 </body>
 </html>

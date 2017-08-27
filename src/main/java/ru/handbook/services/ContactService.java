@@ -25,7 +25,7 @@ public interface ContactService {
      *
      * @return Contact возвращает контакт
      */
-    Contact getContact(Contact contact);
+    List<Contact> getContactByName(Contact contact);
 
     /**
      * <p>Найти контакт</p>

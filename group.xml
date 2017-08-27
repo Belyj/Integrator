@@ -1,1 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Groups><Group name="G"><id>21</id><GroupContacts><ContactID>16</ContactID><ContactID>17</ContactID></GroupContacts></Group><Group name="H"><GroupContacts/><id>21</id></Group></Groups>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Groups>
+    <Group name="G">
+        <id>21</id>
+        <GroupContacts>
+            <ContactID>16</ContactID>
+            <ContactID>17</ContactID>
+        </GroupContacts>
+    </Group>
+    <Group name="H">
+        <GroupContacts/>
+        <id>21</id>
+    </Group>
+</Groups>

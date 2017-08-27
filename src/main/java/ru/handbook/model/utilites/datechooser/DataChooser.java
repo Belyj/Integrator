@@ -1,7 +1,5 @@
 package ru.handbook.model.utilites.datechooser;
 
-import ru.handbook.services.servicesimpl.ContactServiceImpl;
-
 import java.util.Scanner;
 
 public class DataChooser {
@@ -27,10 +25,10 @@ public class DataChooser {
             command = scanner.nextInt();
             switch (command) {
                 case 1:
-                    new ContactServiceImpl().setDOM();
+                    //new ContactServiceImpl().setDOM();
                     break;
                 case 2:
-                    new ContactServiceImpl().setSAX();
+                    //new ContactServiceImpl().setSAX();
                     break;
                 case 3:
                     System.out.println("Пока не поддерживается");

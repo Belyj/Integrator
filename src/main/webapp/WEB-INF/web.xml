@@ -65,6 +65,7 @@
         <servlet-name>RemoveFromGroupServlet</servlet-name>
         <servlet-class>ru.handbook.servlets.cactions.RemoveFromGroupServlet</servlet-class>
     </servlet>
+
     <!--Groups Servlets-->
     <servlet>
         <servlet-name>GCreateServlet</servlet-name>
@@ -81,6 +82,32 @@
     <servlet>
         <servlet-name>GDeleteServlet</servlet-name>
         <servlet-class>ru.handbook.servlets.gactions.GDeleteServlet</servlet-class>
+    </servlet>
+
+    <!--Statistics Servlets-->
+    <servlet>
+        <servlet-name>AvgContactsInGroup</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.AvgContactsInGroup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AvgCountOfContacts</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.AvgCountOfContacts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnactiveList</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.UnactiveList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserContactsCount</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.UserContactsCount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserCount</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.UserCount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserGroupCount</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.UserGroupCount</servlet-class>
     </servlet>
 
     <!--Servlet mapping-->
@@ -148,5 +175,32 @@
         <servlet-name>GDeleteServlet</servlet-name>
         <url-pattern>/groups/delete</url-pattern>
     </servlet-mapping>
+
+    <!--Statisctics Servlet mapping-->
+    <servlet-mapping>
+        <servlet-name>AvgContactsInGroup</servlet-name>
+        <url-pattern>/statistics/avg-contacts-in-group</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvgCountOfContacts</servlet-name>
+        <url-pattern>/statistics/avg-count-of-contacts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnactiveList</servlet-name>
+        <url-pattern>/statistics/unactive-list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserContactsCount</servlet-name>
+        <url-pattern>/statistics/user-contacts-count</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserCount</servlet-name>
+        <url-pattern>/statistics/user-count</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserGroupCount</servlet-name>
+        <url-pattern>/statistics/user-group-count</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -40,6 +40,19 @@
             <artifactId>servlet-api</artifactId>
             <version>3.0-alpha-1</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
 
         <dependency>
@@ -90,7 +103,8 @@
                     <webResources>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
-                            <directory>${project.basedir}/src/main/resources
+                            <directory>
+                                ${project.basedir}/src/main/resources
                             </directory>
                         </resource>
                     </webResources>
@@ -116,46 +130,47 @@
                     <password></password>
                 </configuration>
                 <executions>
-                    <!--<execution>-->
-                        <!--<id>drop-schema</id>-->
-                        <!--<phase>process-test-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>execute</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<autocommit>true</autocommit>-->
-                            <!--<srcFiles>-->
+                    <execution>
+                        <id>drop-schema</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/00 DropSchema.sql</srcFile>-->
-                            <!--</srcFiles>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>create-schema</id>-->
-                        <!--<phase>process-test-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>execute</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<autocommit>true</autocommit>-->
-                            <!--<srcFiles>-->
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                    <id>create-schema</id>
+                    <phase>process-test-resources</phase>
+                    <goals>
+                    <goal>execute</goal>
+                    </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/01 CreateSchema.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/02 CreateContactTable.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/03 CreateGroupTable.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/04 CreateUserTable.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/05 CreateLinkTable.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/DataInit/06 CreateTestData.sql</srcFile>-->
-                            <!--</srcFiles>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>create-procedure</id>-->
-                        <!--<phase>process-test-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>execute</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<delimiter>|</delimiter>-->
-                            <!--<autocommit>true</autocommit>-->
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                    <id>create-procedure</id>
+                    <phase>process-test-resources</phase>
+                    <goals>
+                        <goal>execute</goal>
+                    </goals>
+                        <configuration>
+                        <delimiter>//</delimiter>
+                        <delimiterType>row</delimiterType>
+                            <autocommit>true</autocommit>
                             <!--<srcFiles>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/createContact.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/Procedures/ContactProcedure/getContactByName.sql</srcFile>-->
@@ -176,8 +191,8 @@
                                 <!--<srcFile>src/main/resources/sqlScripts/Procedures/addInGroup.sql</srcFile>-->
                                 <!--<srcFile>src/main/resources/sqlScripts/Procedures/removeFromGroup.sql</srcFile>-->
                             <!--</srcFiles>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

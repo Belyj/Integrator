@@ -8,7 +8,6 @@
     >>
     <a href="/Int/groups">Назад</a> <br>
     <form method="POST">
-        <input type="text" name="id" placeholder="Id">
         <input type="text" name="name" placeholder="Имя">
         <input type="submit" name="search">
     </form>

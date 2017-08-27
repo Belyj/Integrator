@@ -58,12 +58,12 @@ public class MySQLContactDAOImpl extends DataSoureInit implements ObjectDAO<Cont
     }
 
 //    Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
-    public Contact getByName(Contact contact) {
+    public List<Contact> getByName(Contact contact) {
         query = call.getContactByName(contact);
-        Contact c = new Contact();
+        List<Contact> c = new ArrayList();
         try (Statement statement = getConnection().createStatement()) {
             resultSet = statement.executeQuery(query);
-            c = (Contact) mapper.map(resultSet);
+            c = (List<Contact>) mapper.listMap(resultSet);
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();

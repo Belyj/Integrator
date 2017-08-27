@@ -7,11 +7,13 @@ import ru.handbook.model.objects.Group;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.util.List;
 
 public class RemoveFromGroupServlet extends HttpServlet {
 
     MenuController menu;
     Contact contact;
+    List<Group> groups;
     Group group;
 
     @Override
@@ -35,8 +37,8 @@ public class RemoveFromGroupServlet extends HttpServlet {
                 group = new Group(groupID, "");
                 group = menu.searchGroupByID(group);
                 menu.removeFromGroup(contact, group);
-                group = menu.searchGroup(group);
-                req.setAttribute("group", group);
+                groups = menu.searchGroup(group);
+                req.setAttribute("groups", groups);
                 dispatcher = context.getRequestDispatcher("/views/gactions/searched.jsp");
                 dispatcher.include(req, res);
             }
