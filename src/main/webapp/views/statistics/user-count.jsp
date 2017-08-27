@@ -6,6 +6,7 @@
 <body>
     <a href="/Int">К авторизации</a> <br>
     <a href="/Int/statistics">К выбору статистики</a> <br>
-    //todo: Количество пользователей
+    <%Float count = (Float) request.getAttribute("count");%>
+        <h2><%=count%></h2>
 </body>
 </html>

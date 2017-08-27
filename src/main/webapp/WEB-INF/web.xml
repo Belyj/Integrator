@@ -106,8 +106,8 @@
         <servlet-class>ru.handbook.servlets.statistics.UserCount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserGroupCount</servlet-name>
-        <servlet-class>ru.handbook.servlets.statistics.UserGroupCount</servlet-class>
+        <servlet-name>UserGroupsCount</servlet-name>
+        <servlet-class>ru.handbook.servlets.statistics.UserGroupsCount</servlet-class>
     </servlet>
 
     <!--Servlet mapping-->
@@ -198,9 +198,7 @@
         <url-pattern>/statistics/user-count</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserGroupCount</servlet-name>
-        <url-pattern>/statistics/user-group-count</url-pattern>
+        <servlet-name>UserGroupsCount</servlet-name>
+        <url-pattern>/statistics/user-groups-count</url-pattern>
     </servlet-mapping>
-
-
 </web-app>

@@ -57,7 +57,6 @@ public class MySQLContactDAOImpl extends DataSoureInit implements ObjectDAO<Cont
         return c;
     }
 
-//    Connection connection = (Connection) DriverManager.getConnection(dbProperties.URL, dbProperties.USERNAME, dbProperties.PASS);
     public List<Contact> getByName(Contact contact) {
         query = call.getContactByName(contact);
         List<Contact> c = new ArrayList();
