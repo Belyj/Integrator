@@ -48,8 +48,7 @@ public class Contact implements Serializable, ru.handbook.model.storage.Observab
         this.id = id;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "cid", nullable = false, unique = true)
     public int getId() {
         return id;

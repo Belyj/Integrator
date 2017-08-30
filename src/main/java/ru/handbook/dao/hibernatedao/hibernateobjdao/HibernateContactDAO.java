@@ -1,4 +1,4 @@
-package ru.handbook.dao.hibernatedao;
+package ru.handbook.dao.hibernatedao.hibernateobjdao;
 
 import ru.handbook.model.objects.Contact;
 

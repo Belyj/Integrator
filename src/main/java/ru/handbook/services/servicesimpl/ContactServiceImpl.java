@@ -1,7 +1,7 @@
 package ru.handbook.services.servicesimpl;
 
-import ru.handbook.dao.hibernatedao.HibernateContactDAO;
-import ru.handbook.dao.hibernatedao.HibernateContactFactoryDAOImpl;
+import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateContactDAO;
+import ru.handbook.dao.hibernatedao.hibernatefactorydao.HibernateContactFactoryDAO;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.services.ContactService;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
 
     //ContactFactoryDAO contactFactoryDAO = new MySQLContactFactoryDAO();
-    HibernateContactFactoryDAOImpl contactFactoryDAO = new HibernateContactFactoryDAOImpl();
+    HibernateContactFactoryDAO contactFactoryDAO = new HibernateContactFactoryDAO();
     //ObjectDAO<Contact> contactDAO = contactFactoryDAO.factoryMethod();
     HibernateContactDAO contactDAO = contactFactoryDAO.factoryMethod();
 

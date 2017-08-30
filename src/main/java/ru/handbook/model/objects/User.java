@@ -1,19 +1,30 @@
 package ru.handbook.model.objects;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user_table")
 public class User {
 
-    private String name;
-    private int id;
-    private String pass;
+    @Id @GeneratedValue
+    @Column(name = "uid")
+    private int id = 0;
+    @Column(name = "uname")
+    private String name = "";
+    @Column(name = "pass")
+    private String pass = "";
+
     private int count;
+
+
+    public String getPass() {
+        return pass;
+    }
 
     public void setPass(String pass) {
         this.pass = pass;
     }
 
-    public String getPass() {
-        return pass;
-    }
 
     public User() {
     }

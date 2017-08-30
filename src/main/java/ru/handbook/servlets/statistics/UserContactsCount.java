@@ -1,6 +1,7 @@
 package ru.handbook.servlets.statistics;
 
-import ru.handbook.dao.dbdao.mysql.MySQLUserDAOImpl;
+import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateUserDAO;
+import ru.handbook.dao.hibernatedao.hibernateobjdao.impl.HibernateUserDAOImpl;
 import ru.handbook.model.objects.User;
 
 import javax.servlet.*;
@@ -10,7 +11,8 @@ import java.util.List;
 
 public class UserContactsCount extends HttpServlet {
 
-    MySQLUserDAOImpl userDAO = MySQLUserDAOImpl.getInstance();
+    // MySQLUserDAOImpl userDAO = MySQLUserDAOImpl.getInstance();
+    HibernateUserDAO userDAO = HibernateUserDAOImpl.getInstance();
     List<User> users;
 
     @Override

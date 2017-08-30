@@ -1,7 +1,8 @@
-package ru.handbook.dao.hibernatedao;
+package ru.handbook.dao.hibernatedao.hibernateobjdao.impl;
 
 import com.mysql.jdbc.Driver;
 import org.hibernate.Session;
+import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateContactDAO;
 import ru.handbook.hibernate.HibernateUtil;
 import ru.handbook.model.objects.Contact;
 

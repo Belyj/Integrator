@@ -1,8 +1,7 @@
 package ru.handbook.servlets;
 
-import ru.handbook.dao.dbdao.mysql.mysqlfactorydao.MySQLUserFactoryDAOImpl;
-import ru.handbook.dao.objectsdao.UserDAO;
-import ru.handbook.dao.objectsdao.UserFactoryDAO;
+import ru.handbook.dao.hibernatedao.hibernatefactorydao.HibernateUserFactoryDAO;
+import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateUserDAO;
 import ru.handbook.model.objects.User;
 import ru.handbook.view.UserInit;
 
@@ -14,15 +13,17 @@ import static ru.handbook.Main.userInit;
 
 public class LoginServlet extends HttpServlet {
 
-    UserFactoryDAO factoryDAO;
-    UserDAO userDAO;
+//    UserFactoryDAO factoryDAO;
+//    UserDAO userDAO;
+    HibernateUserFactoryDAO factoryDAO;
+    HibernateUserDAO userDAO;
     User user;
     private String login;
     private String password;
 
     @Override
     public void init() throws ServletException {
-        factoryDAO = new MySQLUserFactoryDAOImpl();
+        factoryDAO = new HibernateUserFactoryDAO();
         userDAO = factoryDAO.factoryMethod();
     }
 

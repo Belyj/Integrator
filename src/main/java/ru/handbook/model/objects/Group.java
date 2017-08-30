@@ -1,22 +1,27 @@
 package ru.handbook.model.objects;
 
 import ru.handbook.model.storage.Observable;
-import ru.handbook.view.contactview.Observer;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "group_table")
 public class Group implements Serializable, Observable {
 
+    @Id @GeneratedValue
     @Column(name = "gid")
-    private int id;
+    private int id = 0;
     @Column(name = "gname")
-    private String name;
+    private String name= "";
 
-    private List<Contact> groupContacts;
-    private List<Observer> observers = new ArrayList();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name = "link_table",
+            joinColumns={@JoinColumn(name = "group_id")},
+            inverseJoinColumns={@JoinColumn(name = "contact_id")})
+    private List<Contact> groupContacts = new ArrayList();
 
     public Group() {
         id = 0;
@@ -29,6 +34,12 @@ public class Group implements Serializable, Observable {
         this.name = name;
     }
 
+    public Group(int id) {
+        this.id = id;
+        groupContacts = new ArrayList();
+        name = "";
+    }
+
     public Group(int id, String name, List<Contact> groupContacts) {
         this.id = id;
         this.name = name;
@@ -38,6 +49,7 @@ public class Group implements Serializable, Observable {
     public Group(int id, String name) {
         this.id = id;
         this.name = name;
+        groupContacts = new ArrayList();
     }
 
     public int getId() {
@@ -66,35 +78,36 @@ public class Group implements Serializable, Observable {
 
     @Override
     public void addObserver(ru.handbook.view.contactview.Observer observer) {
-        observers.add(observer);
+        //observers.add(observer);
     }
 
     @Override
     public void removeObserver(ru.handbook.view.contactview.Observer observer) {
-        observers.remove(observer);
+        //observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (ru.handbook.view.contactview.Observer o : observers) {
-            o.handleEvent();
-        }
+//        for (ru.handbook.view.contactview.Observer o : observers) {
+//            o.handleEvent();
+//        }
     }
 
     public List<ru.handbook.view.contactview.Observer> getObservers() {
-        return observers;
+//        return observers;
+        return null;
     }
 
-    public void setObservers(List<Observer> observers) {
-        this.observers = observers;
-    }
+
+//    public void setObservers(List<Observer> observers) {
+//        this.observers = observers;
+//    }
 
     public void setGroupContacts(List<Contact> groupContacts) {
         this.groupContacts = groupContacts;
     }
 
     public List<Contact> getGroupContacts() {
-
         return groupContacts;
     }
 }
