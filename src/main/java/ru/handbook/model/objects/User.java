@@ -4,7 +4,16 @@ public class User {
 
     private String name;
     private int id;
+    private String pass;
     private int count;
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getPass() {
+        return pass;
+    }
 
     public User() {
     }
@@ -38,6 +47,10 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public int getCount() {

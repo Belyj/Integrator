@@ -1,0 +1,13 @@
+<hibernate-mapping>
+    <class name = "ru.handbook.model.objects.Group" table = "group_table">
+        <id column = "gid" name = "id" type = "java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+        <property column = "gname" name = "name" type = "java.lang.String"></property>
+        <list name = "groupContacts" table = "link_table" lazy="false">
+            <key column = "group_id"/>
+            <many-to-many column = "contact_id" class = "ru.handbook.model.objects.Contact"/>
+            <many-to-many column = "user_id" class = "ru.handbook.model.objects.User"/>
+        </list>
+    </class>
+</hibernate-mapping>

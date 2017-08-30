@@ -1,25 +1,22 @@
 package ru.handbook.model.objects;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import ru.handbook.model.storage.Observable;
+import ru.handbook.view.contactview.Observer;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "groups")
 public class Group implements Serializable, Observable {
 
-    List<ru.handbook.view.contactview.Observer> observers = new ArrayList();
-    @JacksonXmlProperty(isAttribute = true)
-    private String name;
+    @Column(name = "gid")
     private int id;
-    @JacksonXmlElementWrapper(localName = "GroupContacts")
-    @JacksonXmlProperty(localName = "GroupContact")
-    private List<Contact> groupContacts;
+    @Column(name = "gname")
+    private String name;
 
+    private List<Contact> groupContacts;
+    private List<Observer> observers = new ArrayList();
 
     public Group() {
         id = 0;
@@ -86,5 +83,18 @@ public class Group implements Serializable, Observable {
 
     public List<ru.handbook.view.contactview.Observer> getObservers() {
         return observers;
+    }
+
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
+    }
+
+    public void setGroupContacts(List<Contact> groupContacts) {
+        this.groupContacts = groupContacts;
+    }
+
+    public List<Contact> getGroupContacts() {
+
+        return groupContacts;
     }
 }

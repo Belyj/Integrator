@@ -1,0 +1,11 @@
+<hibernate-mapping>
+<class name = "ru.handbook.model.objects.Contact" table = "contact_table">
+    <id column = "cid" name = "id" type = "java.lang.Integer">
+        <generator class="increment"/>
+    </id>
+    <property column = "cname" name = "name" type = "java.lang.String"></property>
+    <property column = "phone" name = "phone" type = "java.lang.String"></property>
+    <property column = "skype" name = "skype" type = "java.lang.String"></property>
+    <property column = "mail" name = "mail" type = "java.lang.String"></property>
+</class>
+</hibernate-mapping>

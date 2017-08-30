@@ -1,0 +1,9 @@
+<hibernate-mapping>
+    <class name = "ru.handbook.model.objects.User" table = "user_table">
+        <id column = "uid" name = "id" type = "java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+        <property column = "uname" name = "name" type = "java.lang.String"></property>
+        <property column = "pass" name = "pass" type = "java.lang.String"></property>
+    </class>
+</hibernate-mapping>

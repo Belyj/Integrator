@@ -1,33 +1,31 @@
 package ru.handbook.model.objects;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import ru.handbook.view.contactview.Observer;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@JacksonXmlRootElement(localName = "Contact")
+@Entity
+@Table(name = "contact_table")
 public class Contact implements Serializable, ru.handbook.model.storage.Observable {
 
-    List<Observer> observers = new ArrayList();
-    @JacksonXmlProperty(localName = "name", isAttribute = true)
-    private String name;
-    @JacksonXmlProperty(localName = "id")
-    private int id;
-    @JacksonXmlProperty(localName = "phone")
-    private String phone;
-    @JacksonXmlProperty(localName = "skype")
-    private String skype;
-    @JacksonXmlProperty(localName = "mail")
-    private String mail;
+    @Column(name = "cid")
+    private int id = 0;
+    @Column(name = "cname")
+    private String name = "";
+    @Column(name = "phone")
+    private String phone = "";
+    @Column(name = "skype")
+    private String skype = "";
+    @Column(name = "mail")
+    private String mail = "";
 
     public Contact() {
-        id = 0;
-        skype = "";
-        mail = "";
     }
+
+    private List<Observer> observers = new ArrayList();
 
     public Contact(int id) {
         this.id = id;
@@ -50,31 +48,9 @@ public class Contact implements Serializable, ru.handbook.model.storage.Observab
         this.id = id;
     }
 
-    public String getPhone() {
-
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getSkype() {
-        return skype;
-    }
-
-    public void setSkype(String skype) {
-        this.skype = skype;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cid", nullable = false, unique = true)
     public int getId() {
         return id;
     }
@@ -83,12 +59,40 @@ public class Contact implements Serializable, ru.handbook.model.storage.Observab
         this.id = id;
     }
 
+    @Column(name = "cname", nullable = false, length = 255)
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column(name = "phone", nullable = false, length = 256)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Column(name = "skype", nullable = false, length = 256)
+    public String getSkype() {
+        return skype;
+    }
+
+    public void setSkype(String skype) {
+        this.skype = skype;
+    }
+
+    @Column(name = "mail", nullable = false, length = 256)
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     @Override
@@ -116,9 +120,4 @@ public class Contact implements Serializable, ru.handbook.model.storage.Observab
             o.handleEvent();
         }
     }
-
-    public List<Observer> getObservers() {
-        return observers;
-    }
-
 }
