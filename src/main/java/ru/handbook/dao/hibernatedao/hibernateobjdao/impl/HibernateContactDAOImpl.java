@@ -1,6 +1,7 @@
 package ru.handbook.dao.hibernatedao.hibernateobjdao.impl;
 
 import com.mysql.jdbc.Driver;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateContactDAO;
 import ru.handbook.hibernate.HibernateUtil;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class HibernateContactDAOImpl implements HibernateContactDAO {
+
+    private static final Logger log = Logger.getLogger(HibernateContactDAOImpl.class);
 
     private static volatile HibernateContactDAOImpl instance;
     private Driver driver;
@@ -39,6 +42,7 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
 
     @Override
     public List<Contact> getByName(Contact contact) {
+        log.info("Взять список конатктов по имени " + contact.getName());
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             contacts = session.createCriteria(Contact.class, contact.getName()).list();
@@ -48,15 +52,19 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
 
     @Override
     public Contact getByID(Contact contact) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            c = session.load(Contact.class, contact.getId());
-            return c;
+        log.info("Взять конаткт по ID " + contact.getId());
+        contacts = getAll();
+        for (Contact c : contacts) {
+            if (c.getId() == contact.getId()) {
+                return c;
+            }
         }
+        return null;
     }
 
     @Override
     public List<Contact> getAll() {
+        log.info("Взять список контактов");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             contacts = session.createCriteria(Contact.class).list();
@@ -66,26 +74,30 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
 
     @Override
     public Contact create(Contact contact) {
+        log.info("внести в базу конаткт " + contact.getName());
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.save(contact);
             session.getTransaction().commit();
-            return contact;
+            contacts = getByName(contact);
+            return contacts.get(contacts.size() - 1);
         }
     }
 
     @Override
     public Contact update(Contact contact) {
+        log.info("Обновить конаткт " + contact.getId());
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.update(contact);
             session.getTransaction().commit();
-            return contact;
+            return getByID(contact);
         }
     }
 
     @Override
     public Contact delete(Contact contact) {
+        log.info("Удалить конаткт " + contact.getId());
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.delete(contact);

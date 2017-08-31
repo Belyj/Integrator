@@ -1,5 +1,6 @@
 package ru.handbook.servlets.cactions;
 
+import org.apache.log4j.Logger;
 import ru.handbook.controller.MenuController;
 import ru.handbook.model.objects.Contact;
 import ru.handbook.model.objects.Group;
@@ -11,6 +12,8 @@ import java.util.List;
 
 public class RemoveFromGroupServlet extends HttpServlet {
 
+    private static final Logger log = Logger.getLogger(RemoveFromGroupServlet.class);
+
     MenuController menu;
     Contact contact;
     List<Group> groups;
@@ -18,11 +21,13 @@ public class RemoveFromGroupServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        log.info("Инициализация");
         menu = new MenuController();
     }
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        log.info("Запрос: ");
         ServletContext context = this.getServletContext();
         Integer contactID;
         Integer groupID;

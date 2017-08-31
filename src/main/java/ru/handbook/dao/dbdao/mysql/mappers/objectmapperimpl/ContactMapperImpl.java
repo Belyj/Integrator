@@ -1,5 +1,6 @@
 package ru.handbook.dao.dbdao.mysql.mappers.objectmapperimpl;
 
+import org.apache.log4j.Logger;
 import ru.handbook.dao.dbdao.mysql.mappers.ObjectMapper;
 import ru.handbook.model.objects.Contact;
 
@@ -10,9 +11,12 @@ import java.util.List;
 
 public class ContactMapperImpl implements ObjectMapper<Contact> {
 
+    private static final Logger log = Logger.getLogger(ContactMapperImpl.class);
+
     @Override
     public Contact map(ResultSet resultSet) {
         Contact contact;
+        log.info("Запущен маппинг контакта");
         try {
             while (resultSet.next()) {
                 int id = resultSet.getInt("cid");
@@ -24,11 +28,14 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
                 return contact;
             }
         } catch (SQLException e) {
+            log.error("SQLException");
             e.printStackTrace();
         } finally {
             try {
+                log.info("Закрытие Resultseta");
                 resultSet.close();
             } catch (SQLException e) {
+                log.error("SQLException");
                 e.printStackTrace();
             }
         }
@@ -37,6 +44,7 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
 
     @Override
     public List<Contact> listMap(ResultSet resultSet) {
+        log.info("Запущен маппинг листа контактов");
         List<Contact> contacs;
         Contact contact;
         try {
@@ -52,11 +60,14 @@ public class ContactMapperImpl implements ObjectMapper<Contact> {
             }
             return contacs;
         } catch (SQLException e) {
+            log.error("SQLException");
             e.printStackTrace();
         } finally {
             try {
+                log.info("Закрытие Resultseta");
                 resultSet.close();
             } catch (SQLException e) {
+                log.error("SQLException");
                 e.printStackTrace();
             }
         }

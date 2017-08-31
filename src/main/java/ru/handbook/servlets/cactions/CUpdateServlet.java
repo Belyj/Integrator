@@ -1,5 +1,6 @@
 package ru.handbook.servlets.cactions;
 
+import org.apache.log4j.Logger;
 import ru.handbook.controller.MenuController;
 import ru.handbook.model.objects.Contact;
 
@@ -9,16 +10,20 @@ import java.io.IOException;
 
 public class CUpdateServlet extends HttpServlet {
 
+    private static final Logger log = Logger.getLogger(CUpdateServlet.class);
+
     MenuController menu;
     Contact contact;
 
     @Override
     public void init() throws ServletException {
+        log.info("Инициализация");
         menu = new MenuController();
     }
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        log.info("Запрос: ");
         ServletContext context = this.getServletContext();
         Integer id;
         RequestDispatcher dispatcher = context.getRequestDispatcher("/views/cactions/update.jsp");
@@ -28,6 +33,7 @@ public class CUpdateServlet extends HttpServlet {
                 id = Integer.parseInt(req.getParameter("id"));
                 contact = new Contact(id, "");
                 contact = menu.searchContactByID(contact);
+
                 String name = req.getParameter("name");
                 String phone = req.getParameter("phone");
                 String skype = req.getParameter("skype");

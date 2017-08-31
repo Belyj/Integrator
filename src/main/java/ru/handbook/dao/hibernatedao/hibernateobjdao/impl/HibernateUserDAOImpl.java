@@ -1,6 +1,7 @@
 package ru.handbook.dao.hibernatedao.hibernateobjdao.impl;
 
 import com.mysql.jdbc.Driver;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateUserDAO;
 import ru.handbook.hibernate.HibernateUtil;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class HibernateUserDAOImpl implements HibernateUserDAO {
+
+    private static final Logger log = Logger.getLogger(HibernateUserDAOImpl.class);
 
     private static volatile HibernateUserDAOImpl instance;
     private Driver driver;
@@ -39,6 +42,7 @@ public class HibernateUserDAOImpl implements HibernateUserDAO {
     }
 
     private List<User> getAll() {
+        log.info("Взять список Пользователей");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             users = session.createCriteria(User.class).list();
@@ -48,9 +52,12 @@ public class HibernateUserDAOImpl implements HibernateUserDAO {
 
     @Override
     public User getByParams(String login, String password) {
+        log.info("Взять пользователя по логину " + login + " и паролю " +password);
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            log.info("Взять список пользователей по логину " + login);
             session.beginTransaction();
             users = session.createCriteria(User.class, login).list();
+            log.info("Найти среди них по паролю " +password);
             for (User user : users) {
                 if (user.getPass().equals(password)) {
                     u = user;
@@ -62,31 +69,37 @@ public class HibernateUserDAOImpl implements HibernateUserDAO {
 
     @Override
     public Float avgContactsInGroups() {
+        log.info("Среднее количество контактов в группах");
         return null;
     }
 
     @Override
     public Float avgCountOfContacts() {
+        log.info("Среднее количество контактов у пользователя");
         return null;
     }
 
     @Override
     public List<User> unactiveList() {
+        log.info("Список неактивных пользователей");
         return null;
     }
 
     @Override
     public List<User> userContactsCount() {
+        log.info("Количество контактов у каждого пользователя");
         return null;
     }
 
     @Override
     public Float userCount() {
+        log.info("Количество пользователей");
         return null;
     }
 
     @Override
     public List<User> userGroupsCount() {
+        log.info("Количество групп у пользователей");
         return null;
     }
 }
