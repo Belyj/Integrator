@@ -1,15 +1,15 @@
 package ru.handbook.model.objects;
 
+import ru.handbook.model.storage.Observable;
 import ru.handbook.view.contactview.Observer;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "contact_table")
-public class Contact implements Serializable, ru.handbook.model.storage.Observable {
+public class Contact implements Observable {
 
     @Column(name = "cid")
     private int id = 0;
@@ -21,6 +21,12 @@ public class Contact implements Serializable, ru.handbook.model.storage.Observab
     private String skype = "";
     @Column(name = "mail")
     private String mail = "";
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "link_table",
+            joinColumns = {@JoinColumn(name = "contact_id", referencedColumnName = "cid")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "uid")})
+    private List<User> users = new ArrayList();
+//    private User user = new User();
 
     public Contact() {
     }
@@ -88,6 +94,18 @@ public class Contact implements Serializable, ru.handbook.model.storage.Observab
     @Column(name = "mail", nullable = false, length = 256)
     public String getMail() {
         return mail;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "link_table",
+            joinColumns = {@JoinColumn(name = "contact_id", referencedColumnName = "cid")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "uid")})
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public void setMail(String mail) {

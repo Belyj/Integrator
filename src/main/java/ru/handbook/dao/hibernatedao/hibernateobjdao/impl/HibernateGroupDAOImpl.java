@@ -18,6 +18,7 @@ public class HibernateGroupDAOImpl implements HibernateGroupDAO {
     private static volatile HibernateGroupDAOImpl instance;
     private Driver driver;
     List<Group> groups;
+    
     Group g;
 
     public HibernateGroupDAOImpl() {

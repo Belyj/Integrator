@@ -3,12 +3,14 @@ package ru.handbook.servlets;
 import org.apache.log4j.Logger;
 import ru.handbook.controller.MenuController;
 import ru.handbook.model.objects.Group;
+import ru.handbook.model.objects.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import static ru.handbook.Main.userInit;
 
 public class GroupsServlet extends HttpServlet {
 
@@ -27,10 +29,18 @@ public class GroupsServlet extends HttpServlet {
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         log.info("Запрос: ");
+        List<Group> filterByUser = new ArrayList();
         ServletContext context = this.getServletContext();
         RequestDispatcher dispatcher;
         groups = menu.checkGroups();
-        req.setAttribute("groups", groups);
+        for (Group group : groups) {
+            for (User user : group.getUsers()) {
+                if (user.getId() == userInit.getUser().getId()) {
+                    filterByUser.add(group);
+                }
+            }
+        }
+        req.setAttribute("groups", filterByUser);
         dispatcher = context.getRequestDispatcher("/views/groups.jsp");
         dispatcher.include(req, res);
     }

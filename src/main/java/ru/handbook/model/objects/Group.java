@@ -23,6 +23,12 @@ public class Group implements Serializable, Observable {
             inverseJoinColumns={@JoinColumn(name = "contact_id")})
     private List<Contact> groupContacts = new ArrayList();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "link_table",
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private List<User> users = new ArrayList();
+
     public Group() {
         id = 0;
         groupContacts = new ArrayList();
@@ -96,6 +102,18 @@ public class Group implements Serializable, Observable {
     public List<ru.handbook.view.contactview.Observer> getObservers() {
 //        return observers;
         return null;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "link_table",
+            joinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "gid")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "uid")})
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
 
