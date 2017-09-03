@@ -3,11 +3,15 @@ package ru.handbook.servlets.cactions;
 import org.apache.log4j.Logger;
 import ru.handbook.controller.MenuController;
 import ru.handbook.model.objects.Contact;
+import ru.handbook.model.objects.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static ru.handbook.Main.userInit;
 
 public class CSearchServlet extends HttpServlet {
 
@@ -30,10 +34,18 @@ public class CSearchServlet extends HttpServlet {
         String name;
         RequestDispatcher dispatcher;
         name = req.getParameter("name");
+        List<Contact> filterByUser = new ArrayList();
         if (name != null) {
             contact = new Contact(name);
             contacts = menu.searchContact(contact);
-            req.setAttribute("contacts", contacts);
+            for (Contact c : contacts) {
+                for (User user : c.getUsers()) {
+                    if (user.getId() == userInit.getUser().getId()) {
+                        filterByUser.add(c);
+                    }
+                }
+            }
+            req.setAttribute("contacts", filterByUser);
             dispatcher = context.getRequestDispatcher("/views/cactions/searched.jsp");
             dispatcher.include(req, res);
         } else {
