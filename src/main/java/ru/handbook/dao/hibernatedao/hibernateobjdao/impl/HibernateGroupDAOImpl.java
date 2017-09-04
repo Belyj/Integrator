@@ -2,7 +2,9 @@ package ru.handbook.dao.hibernatedao.hibernateobjdao.impl;
 
 import com.mysql.jdbc.Driver;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateGroupDAO;
 import ru.handbook.hibernate.HibernateUtil;
 import ru.handbook.model.objects.Group;
@@ -10,6 +12,8 @@ import ru.handbook.model.objects.Group;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+
+import static ru.handbook.Main.userInit;
 
 public class HibernateGroupDAOImpl implements HibernateGroupDAO {
 
@@ -52,12 +56,13 @@ public class HibernateGroupDAOImpl implements HibernateGroupDAO {
     }
 
     @Override
-    public Group getByID(Group group) {
-        log.info("Взять группу по ID " + group.getId());
-        groups = getAll();
-        for (Group g : groups) {
-            if (g.getId() == group.getId()) {
-                return g;
+    public Group getByID(Group contact) {
+        log.info("Взять конаткт по ID " + contact.getId());
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Group.class);
+            List<Criteria> criteriaList = criteria.list();
+            if (criteriaList.isEmpty()) {
+                return (Group) criteriaList.get(0);
             }
         }
         return null;

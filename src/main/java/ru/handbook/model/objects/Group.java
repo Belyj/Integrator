@@ -23,11 +23,11 @@ public class Group implements Serializable, Observable {
             inverseJoinColumns={@JoinColumn(name = "contact_id")})
     private List<Contact> groupContacts = new ArrayList();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "link_table",
             joinColumns = {@JoinColumn(name = "group_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private List<User> users = new ArrayList();
+    private User user = new User();
 
     public Group() {
         id = 0;
@@ -104,16 +104,16 @@ public class Group implements Serializable, Observable {
         return null;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "link_table",
             joinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "gid")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "uid")})
-    public List<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

@@ -2,7 +2,9 @@ package ru.handbook.dao.hibernatedao.hibernateobjdao.impl;
 
 import com.mysql.jdbc.Driver;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateContactDAO;
 import ru.handbook.hibernate.HibernateUtil;
 import ru.handbook.model.objects.Contact;
@@ -10,6 +12,8 @@ import ru.handbook.model.objects.Contact;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+
+import static ru.handbook.Main.userInit;
 
 public class HibernateContactDAOImpl implements HibernateContactDAO {
 
@@ -53,10 +57,11 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
     @Override
     public Contact getByID(Contact contact) {
         log.info("Взять конаткт по ID " + contact.getId());
-        contacts = getAll();
-        for (Contact c : contacts) {
-            if (c.getId() == contact.getId()) {
-                return c;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Contact.class);
+            List<Criteria> criteriaList = criteria.list();
+            if (criteriaList.isEmpty()) {
+                return (Contact) criteriaList.get(0);
             }
         }
         return null;
@@ -66,7 +71,6 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
     public List<Contact> getAll() {
         log.info("Взять список контактов");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
             contacts = session.createCriteria(Contact.class).list();
             return contacts;
         }

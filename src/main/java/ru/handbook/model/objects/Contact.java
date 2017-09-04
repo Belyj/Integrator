@@ -21,12 +21,11 @@ public class Contact implements Observable {
     private String skype = "";
     @Column(name = "mail")
     private String mail = "";
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "link_table",
             joinColumns = {@JoinColumn(name = "contact_id", referencedColumnName = "cid")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "uid")})
-    private List<User> users = new ArrayList();
-//    private User user = new User();
+    private User user = new User();
 
     public Contact() {
     }
@@ -96,16 +95,16 @@ public class Contact implements Observable {
         return mail;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "link_table",
             joinColumns = {@JoinColumn(name = "contact_id", referencedColumnName = "cid")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "uid")})
-    public List<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setMail(String mail) {
