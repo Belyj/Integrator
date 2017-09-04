@@ -4,13 +4,13 @@ import com.mysql.jdbc.Driver;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateContactDAO;
 import ru.handbook.hibernate.HibernateUtil;
 import ru.handbook.model.objects.Contact;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.handbook.Main.userInit;
@@ -22,7 +22,6 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
     private static volatile HibernateContactDAOImpl instance;
     private Driver driver;
     List<Contact> contacts;
-    Contact c;
 
     public HibernateContactDAOImpl() {
         try {
@@ -72,7 +71,15 @@ public class HibernateContactDAOImpl implements HibernateContactDAO {
         log.info("Взять список контактов");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             contacts = session.createCriteria(Contact.class).list();
-            return contacts;
+            List<Contact> filterById = new ArrayList();
+            for (Contact c : contacts) {
+                if (c.getUser() != null) {
+                    if (c.getUser().getId() == userInit.getUser().getId()) {
+                        filterById.add(c);
+                    }
+                }
+            }
+            return filterById;
         }
     }
 

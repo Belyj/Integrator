@@ -14,8 +14,6 @@ public class User {
     @Column(name = "pass")
     private String pass = "";
 
-    private int count;
-
     public String getPass() {
         return pass;
     }
@@ -46,7 +44,6 @@ public class User {
     public User(int id, String name, int count) {
         this.id = id;
         this.name = name;
-        this.count = count;
     }
 
     public String getName() {
@@ -63,13 +60,5 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getCount() {
-        return count;
     }
 }

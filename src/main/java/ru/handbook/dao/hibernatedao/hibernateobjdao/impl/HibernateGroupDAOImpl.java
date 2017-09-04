@@ -4,13 +4,13 @@ import com.mysql.jdbc.Driver;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import ru.handbook.dao.hibernatedao.hibernateobjdao.HibernateGroupDAO;
 import ru.handbook.hibernate.HibernateUtil;
 import ru.handbook.model.objects.Group;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.handbook.Main.userInit;
@@ -23,8 +23,6 @@ public class HibernateGroupDAOImpl implements HibernateGroupDAO {
     private Driver driver;
     List<Group> groups;
     
-    Group g;
-
     public HibernateGroupDAOImpl() {
         try {
             driver = new Driver();
@@ -74,7 +72,15 @@ public class HibernateGroupDAOImpl implements HibernateGroupDAO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             groups = session.createCriteria(Group.class).list();
-            return groups;
+            List<Group> filterById = new ArrayList();
+            for (Group g : groups) {
+                if (g.getUser() != null) {
+                    if (g.getUser().getId() == userInit.getUser().getId()) {
+                        filterById.add(g);
+                    }
+                }
+            }
+            return filterById;
         }
     }
 
